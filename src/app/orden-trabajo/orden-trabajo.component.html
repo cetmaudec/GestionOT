@@ -1,0 +1,167 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nueva Orden de Trabajo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- Bootstrap core JavaScript-->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../assets/js/sb-admin-2.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.min.js"></script>
+</head>
+
+<body>
+   <div id="content-wrapper" class="d-flex flex-column" style="padding-left: 10%; padding-right:10%">
+    <div id="content">
+      <div class="container-fluid">
+        <section class="section section-container" style="padding-bottom: 10px;">
+          <div class="box" style="align-content: center; color: #FF0022;">
+            <h1>Nueva Orden de Trabajo</h1>
+            <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+                <h5 *ngIf="success">Your form is valid!</h5>
+                <h3 class='subtitle'>{{ title }}</h3>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" color="primary" src="../assets/img/resume.svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                      <label>Nombre OT</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Orden de trabajo N" v-model="nombreOT">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/motocyclist.png"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                    <label>Nombre de Cliente</label>
+                      <div class="control">
+                        <input class="input" type="text" placeholder="Juan Pérez" v-model="nombreCliente">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/motorcycle.svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                    <label>Motocicleta</label>
+                      <select class="form-control" placeholder="Seleccione el modelo de motocicleta" id="exampleFormControlSelect1">
+                        <option>Marca 1 modelo 1A</option>
+                        <option>Marca 1 modelo 1B</option>
+                        <option>Marca 2 modelo 2A</option>
+                        <option>Marca 2 modelo 2B</option>
+                        <option>Marca 2 modelo 2C</option>
+                        <option>Marca 3 modelo 3A</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/settings(1).svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                       <label>Tipo de trabajo</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Defensas</option>
+                        <option>Parrillas</option>
+                        <option>Anclaje</option>
+                        <option>Manubrios</option>
+                        <option>Respaldos</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/traffic-light.svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                      <label>Prioridad</label>
+                      <select class="form-control" id="exampleFormControlSelect1">
+                        <option>Prioridad 1</option>
+                        <option>Prioridad 2</option>
+                        <option>Prioridad 3</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/calendar.svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                       <label>Fecha de Entrega</label>
+                      <div class="control">
+                        <input class="input" type="date" v-model="phone">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <div class="row">
+                    <div class="col-1-sm">
+                      <img style="padding:10px; padding-left: 20px" src="../assets/img/tools.svg"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                       <label>Actividades</label>
+                      <div class="control">
+                        <div class="field">
+                          <div style="margin-left:2%">
+                            <input type="checkbox" name="act" value="act01"> Desarmar partes de moto.<br>
+                            <input type="checkbox" name="act" value="act02"> Dimensionar tubos.<br>
+                            <input type="checkbox" name="act" value="act03"> Dimensionar pletinas.<br>
+                            <input type="checkbox" name="act" value="act04"> Perforar y redondear pletinas.<br>
+                            <input type="checkbox" name="act" value="act05"> Curvar tubos.<br>
+                            <input type="checkbox" name="act" value="act06"> Aplastar y perforar placa perilla.<br>
+                            <input type="checkbox" name="act" value="act07"> Soldar estructura.<br>
+                            <input type="checkbox" name="act" value="act08"> Pulir soldadura.<br>
+                            <input type="checkbox" name="act" value="act09"> Probar estructura en la moto.<br>
+                            <input type="checkbox" name="act" value="act10"> Enviar a electropontar.<br>
+                            <input type="checkbox" name="act" value="act11"> Instalar producto en la moto.<br>
+                            <input type="checkbox" name="act" value="act12"> Embalar producto para despacho.<br>
+                            <input type="checkbox" name="act" value="act13"> Limpiar moto y entregar.<br>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <div class="row">
+                      <div class="col-10">
+                      </div>
+                      <div class="col">
+                        <button type="button" style="align-content: right" class="btn btn-success">Guardar</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+           </div>
+         </section>
+       </div>
+     </div>
+   </div>
+ </body>
