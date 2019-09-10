@@ -9,9 +9,11 @@ import { FichaIndComponent } from './ficha-ind/ficha-ind.component';
 import { AddMotocicletaComponent } from './add-motocicleta/add-motocicleta.component';
 import { AddNewActivityComponent } from './add-new-activity/add-new-activity.component';
 import { AddNewProductComponent } from './add-new-product/add-new-product.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent},
+  { path: 'home', component: HomeComponent },
   { path: 'orden-trabajo', component: OrdenTrabajoComponent},
   { path: 'asignar', component: AsignarComponent},
   { path: 'ficha', component: FichaComponent },
