@@ -1,0 +1,52 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nueva Orden de Trabajo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- Bootstrap core JavaScript-->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../assets/js/sb-admin-2.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.min.js"></script>
+</head>
+
+<body>
+	<div class="box" style="color: #FF0022;">              
+		<h1>Datos de Clientes</h1>
+		<form [formGroup]="OTform" (ngSubmit)="onSubmit(OTform.value)">
+			<h5 *ngIf="success">Your form is valid!</h5>
+			<h3 class='subtitle'>{{ title }}</h3>
+			<div class="field">
+				<div class="row">
+					<div class="col-1-sm">
+						<img style="padding:10px; padding-left: 20px" src="../assets/icons/png/motocyclist.png"  width="72" class="d-inline-block align-center" alt="">
+					</div>
+					<div class="col-9">
+						<label>Nombre Completo</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Orden de trabajo N"  formControlName="nombreOT">
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-1-sm">
+					</div>
+					<div class="col-9">
+						<label>RUT</label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Orden de trabajo N"  formControlName="nombreOT">
+						</div>
+					</div>
+				</div>
+			</div>
+	    </form>
+	</div>
+</body>

@@ -25,7 +25,7 @@
 		<div class="container" style="height: 580px">
 			<div class="card card-container" >
 				<img class="profile-img-card" src="./assets/icons/png/user2.png" alt="" />
-				<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+				<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
 					<h5 *ngIf="success">Your form is valid!</h5>
 					<h3 class='subtitle'>{{ title }}</h3>
 					<span id="reauth-email" class="reauth-email"></span>
@@ -35,7 +35,7 @@
 					    	<img color="primary" src="./assets/icons/svg/user.svg"  width="15" class="d-inline-block align-center" alt="" />
 					    </span>
 					  </div>
-					  <input type="text" class="form-control"  formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required autofocus>
+					  <input type="text" class="form-control"  formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
 					</div>
 					<div class="input-group mb-3">
 					  <div class="input-group-prepend">
@@ -43,9 +43,10 @@
 					    	<img color="primary" src="./assets/icons/svg/key(1).svg"  width="15" class="d-inline-block align-center" alt="" />
 					    </span>
 					  </div>
-					  <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required>
+					  <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
 					</div>
-
+					<!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
 					<div id="remember" class="checkbox">
 						<label>
 							<input type="checkbox" value="remember-me"> Remember me
