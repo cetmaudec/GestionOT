@@ -109,7 +109,7 @@ export class OrdenTrabajoComponent implements OnInit {
 
     console.log(this.estadoCliente);
 
-    if (this.messageForm.invalid) {
+    if (this.OTform.invalid) {
         return;
     }
 
