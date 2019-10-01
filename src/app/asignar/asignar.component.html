@@ -19,22 +19,13 @@
 </head>
 <body>
   <app-nav></app-nav>
-<!--<h1>Users</h1>
-
-<ul *ngIf="users">
-  <li *ngFor="let user of users.data">
-    <img [src]="user.avatar">
-    <p>{{ user.first_name }} {{ user.last_name }}</p>
-  </li>
-</ul>-->
-  <div id="app" class="container">
-    <section class="section section-container" style="padding-bottom: 10px;">
-      <div class="box">
+  <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover; height: 100%;">
+    <div id="content">
+      <div class="container-fluid" style="width: 1000px; "> 
+        <section class="section section-container" style="padding-bottom: 10px;">
+          <div class="box" style="align-content: center;">              
           <h1>Asignar Orden de Trabajo</h1>
         <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-            <h5 *ngIf="success">Your form is valid!</h5>
-            <h3 class='subtitle'>{{ title }}</h3>
-
             <div class="field">
               <div class="row">
                 <div class="col-1-sm">
@@ -81,5 +72,5 @@
         </form>
       </div>
     </section>
-  </div>
+  </div></div></div>
 </body>

@@ -19,56 +19,60 @@
 </head>
 <body>
   <app-nav></app-nav>
-  <div class="container">
-    <section class="section section-container" style="padding-bottom: 10px;">
-      <div class="box">
-          <h1>Nueva Orden de Trabajo</h1>
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nombre OT</th>
-                <th scope="col">Nombre Cliente</th>
-                <th scope="col">Estado</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Orden de trabajo 1</td>
-                <td>Nombre1</td>
-                <td>En ejecución</td>
-                <td>
-                  <a href="/ficha-ind" class="btn btn-outline-primary active" role="button" aria-pressed="true">
-                  Ver Detalles
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Orden de trabajo 2</td>
-                <td>Nombre2</td>
-                <td>En ejecución</td>
-                <td>
-                  <a href="/ficha-ind" class="btn btn-outline-primary active" role="button" aria-pressed="true">
-                  Ver Detalles
-                  </a>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Orden de trabajo 3</td>
-                <td>Finalizado</td>
-                <td>
-                  <a href="/ficha-ind" class="btn btn-outline-primary active" role="button" aria-pressed="true">
-                  Ver Detalles
-                  </a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+  <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+    <div id="content">
+      <div class="container-fluid" style="width: 1000px; ">
+        <section class="section section-container" style="padding-bottom: 10px;">
+          <div class="box">ma
+            <h1>Ordenes de Trabajo</h1>
+            <table class="table table-hover">
+              <thead class="table-info">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre OT</th>
+                  <th scope="col">Nombre Cliente</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Orden de trabajo 1</td>
+                  <td>Nombre1</td>
+                  <td>En ejecución</td>
+                  <td>
+                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
+                    Ver Detalles
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Orden de trabajo 2</td>
+                  <td>Nombre2</td>
+                  <td>En ejecución</td>
+                  <td>
+                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
+                    Ver Detalles
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td colspan="2">Orden de trabajo 3</td>
+                  <td>Finalizado</td>
+                  <td>
+                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
+                    Ver Detalles
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
       </div>
-    </section>
+    </div>
   </div>
 </body>

@@ -11,6 +11,7 @@ import { AddNewActivityComponent } from './add-new-activity/add-new-activity.com
 import { AddNewProductComponent } from './add-new-product/add-new-product.component';
 import { LoginComponent } from './login/login.component';
 
+
 const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'home', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'nueva-moto', component: AddMotocicletaComponent},
   { path: 'nueva-actividad', component: AddNewActivityComponent},
   { path: 'nuevo-producto', component: AddNewProductComponent},
+
 ];
 
 @NgModule({

@@ -1,11 +1,9 @@
 import { NgModule, Component, OnInit } from '@angular/core';
-
-import { DataService } from '../data.service';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {Cliente, Marca, Modelo, Anio, Tipo, Prioridad, Actividad} from '../models/database.model';
-
+import { ApiService } from '../api.service';
 
 
 
@@ -74,7 +72,7 @@ export class OrdenTrabajoComponent implements OnInit {
    {id:'act12', nombre:'Embalar producto para despacho'},
    {id:'act13', nombre:'Limpiar moto y entregar'}]
 
-  constructor(private data: DataService, private formBuilder: FormBuilder) { 
+  constructor(private data: ApiService, private formBuilder: FormBuilder) { 
 
   }
 
@@ -98,16 +96,10 @@ export class OrdenTrabajoComponent implements OnInit {
     this.estadoCliente=true;
   }
 
-  addClient(){
-    this.estadoCliente = true;
-    console.log(this.estadoCliente);
-  return this.estadoCliente;
-  }
-
   onSubmit() {
     this.submitted = true;
 
-    console.log(this.estadoCliente);
+    console.log(this.success);
 
     if (this.OTform.invalid) {
         return;

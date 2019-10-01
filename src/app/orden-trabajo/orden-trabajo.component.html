@@ -24,144 +24,153 @@
     <div id="content">
       <div class="container-fluid" style="width: 1000px; "> 
         <section class="section section-container" style="padding-bottom: 10px;">
-          <div class="box" style="align-content: center; color: #FF0022;">              
-            <h1>Nueva Orden de Trabajo 
-                <button (click)="AddClient()" small>Nuevo Cliente</button>
-            </h1>
-            <form [formGroup]="OTform" (ngSubmit)="onSubmit(OTform.value)">
-                <h5 *ngIf="success">Your form is valid!</h5>
-                <h3 class='subtitle'>{{ title }}</h3>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" color="primary" src="../assets/icons/svg/profile_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-9">
-                      <label>Nombre OT</label>
-                      <div class="control">
-                        <input class="input" type="text" placeholder="Orden de trabajo N"  formControlName="nombreOT">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/png/motocyclist.png"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-10">
-                    <label>Nombre de Cliente</label>
-                      <div class="control">
-                        <div class="row">
-                          <div class="col-10">
-                             <select class="form-control" [disabled]="estadoCliente" formControlName="nombreCliente" >
-                                <option *ngFor="let cliente of cliente$" value="{{cliente.id}}">{{cliente.nombre}}</option>
-                              </select>
+          <div class="box" style="align-content: center;">              
+            <h1>Nueva Orden de Trabajo</h1>
+            <div class="row">
+              <div class="col">
+                <form [formGroup]="OTform" (ngSubmit)="onSubmit(OTform.value)">
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" color="primary" src="../assets/icons/svg/profile_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                          <label>Nombre OT</label>
+                          <div class="control">
+                            <input class="input" type="text" placeholder="Orden de trabajo N"  formControlName="nombreOT">
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorbike_c.png"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-9">
-                    <label>Motocicleta</label>
-                     <div class="row">
-                          <div class="col-3">
-                             <select class="form-control" placeholder="Seleccione el modelo de motocicleta" formControlName="Marca">
-                               <option *ngFor="let marca of marcas$" value="{{marca.id}}">{{marca.nombre}}</option>
-                              </select>
-                          </div>
-                          <div class="col-3">
-                             <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Modelo">
-                                <option *ngFor="let modelo of modelo$" value="{{modelo.id}}">{{modelo.nombre}}</option>
-                              </select>
-                          </div>
-                          <div class="col-3">
-                             <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Anio">
-                                <option *ngFor="let anio of anio$" value="{{anio.id}}">{{anio.nombre}}</option>
-                              </select>
-                          </div>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorcyclist_c.svg"  width="72" class="d-inline-block align-center" alt="">
                         </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/work_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-8">
-                       <label>Tipo de trabajo</label>
-                      <select class="form-control"  formControlName="Tipo">
-                        <option *ngFor="let tipo of tipo$" value="{{tipo.id}}">{{tipo.nombre}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/traffic-lights_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-8">
-                      <label>Prioridad</label>
-                      <select class="form-control"  formControlName="Prioridad">
-                        <option *ngFor="let prioridad of prioridad$" value="{{prioridad.id}}">{{prioridad.nombre}}</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/calendar_c.png"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-8">
-                       <label>Fecha de Entrega</label>
-                      <div class="control">
-                        <input class="input" type="date"  formControlName="FechaEntrega">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/tools_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-8">
-                       <label>Actividades</label>
-                      <div class="control">
-                        <div class="field">
-                          <div style="margin-left:2%">
-                            <div *ngFor="let act of actividade$">
-                            <input type="checkbox" formControlName="Actividad"  value="{{act.id}}"> {{act.nombre}}<br>
+                        <div class="col-10">
+                        <label>Nombre de Cliente</label>
+                          <div class="control">
+                            <div class="row">
+                              <div class="col-12" *ngIf="!estadoCliente">
+                                 <select class="form-control"  formControlName="nombreCliente" >
+                                    <option *ngFor="let cliente of cliente$" value="{{cliente.id}}">{{cliente.nombre}}</option>
+                                  </select>
+                              </div>
+                               <div class="col-12" *ngIf="estadoCliente">
+                                 <select class="form-control" disabled formControlName="nombreCliente" >
+                                    <option *ngFor="let cliente of cliente$" value="{{cliente.id}}">{{cliente.nombre}}</option>
+                                  </select>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                <div class="field">
-                  <div class="control">
-                    <div class="row">
-                      <div class="col-8">
-                      </div>
-                      <div class="col">
-                        <button type="button" style="align-content: right" class="btn btn-success">Guardar</button>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorbike_c.png"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                        <label>Motocicleta</label>
+                         <div class="row">
+                              <div class="col-3">
+                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta" formControlName="Marca">
+                                   <option *ngFor="let marca of marca$" value="{{marca.id}}">{{marca.nombre}}</option>
+                                  </select>
+                              </div>
+                              <div class="col-3">
+                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Modelo">
+                                    <option *ngFor="let modelo of modelo$" value="{{modelo.id}}">{{modelo.nombre}}</option>
+                                  </select>
+                              </div>
+                              <div class="col-3">
+                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Anio">
+                                    <option *ngFor="let anio of anio$" value="{{anio.id}}">{{anio.nombre}}</option>
+                                  </select>
+                              </div>
+                            </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/work_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                           <label>Tipo de trabajo</label>
+                          <select class="form-control"  formControlName="Tipo">
+                            <option *ngFor="let tipo of tipo$" value="{{tipo.id}}">{{tipo.nombre}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/traffic-lights_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                          <label>Prioridad</label>
+                          <select class="form-control"  formControlName="Prioridad">
+                            <option *ngFor="let prioridad of prioridad$" value="{{prioridad.id}}">{{prioridad.nombre}}</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/calendar_c.png"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                           <label>Fecha de Entrega</label>
+                          <div class="control">
+                            <input class="input" type="date"  formControlName="FechaEntrega">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/tools_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-10">
+                           <label>Actividades</label>
+                          <div class="control">
+                            <div class="field">
+                              <div style="margin-left:2%">
+                                <div *ngFor="let act of actividade$">
+                                <input type="checkbox" formControlName="Actividad"  value="{{act.id}}"> {{act.nombre}}<br>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <div class="control">
+                        <div class="row">
+                          <div class="col-10">
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
-                <app-add-cliente *ngIf = "estadoCliente"></app-add-cliente>
+                <div class="col-3" style="padding-top: 12%">
+                  <button class="btn btn-warning" (click)="AddClient()">Nuevo Cliente</button>
+                </div>
+              </div>
+              <app-add-cliente *ngIf = "estadoCliente"></app-add-cliente>
+              <div class="col-12" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" style="align-content: right" class="btn btn-success">Guardar</button>
+              </div>                 
            </div>
          </section>
        </div>

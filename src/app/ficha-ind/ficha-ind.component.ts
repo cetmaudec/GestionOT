@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PdfMakeWrapper, Table, Ul, Toc, Txt} from 'pdfmake-wrapper';
+import { PdfMakeWrapper, Table, Ul, Toc, Txt, Img} from 'pdfmake-wrapper';
 
 @Component({
   selector: 'app-ficha-ind',
@@ -22,7 +22,7 @@ export class FichaIndComponent implements OnInit {
 
     pdf.pageSize('letter');
     pdf.pageMargins([ 60, 60, 80, 80 ]);
-    pdf.header('This is a header');
+    //pdf.header(new Img(logo_rozto));
     pdf.info({
         title: 'A document',
         author: 'pdfmake-wrapper',
@@ -30,6 +30,8 @@ export class FichaIndComponent implements OnInit {
     });
     pdf.add(new Txt('CodCliente').opacity(.2).margin([0,0,0,0]).alignment('right').end);
     pdf.add(new Toc(new Txt('Ficha de trabajo').bold().end).alignment('center').bold().textStyle({fontSize: 20}).end);
+    pdf.add(new Img('../assets/img/rozto-logo.png').build());
+    pdf.add(new Img('rozto-logo.png').build());
     pdf.add(pdf.ln(2));
     pdf.add(new Table([
       [new Ul(['Orden de Trabajo: KTM 1290','Nombre de cliente: Hernán Rodriguez','Motocicleta: KTM 1290','Tipo de trabajo: Parrilla']).type('square').end,
