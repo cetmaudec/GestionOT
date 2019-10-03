@@ -53,12 +53,12 @@
                             <div class="row">
                               <div class="col-12" *ngIf="!estadoCliente">
                                  <select class="form-control"  formControlName="nombreCliente" >
-                                    <option *ngFor="let cliente of cliente$" value="{{cliente.id}}">{{cliente.nombre}}</option>
+                                    <option *ngFor="let cliente of cliente$.data" value="{{cliente.idCliente}}">{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</option>
                                   </select>
                               </div>
                                <div class="col-12" *ngIf="estadoCliente">
                                  <select class="form-control" disabled formControlName="nombreCliente" >
-                                    <option *ngFor="let cliente of cliente$" value="{{cliente.id}}">{{cliente.nombre}}</option>
+                                    <option *ngFor="let cliente of cliente$.data" value="{{cliente.idCliente}}">{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</option>
                                   </select>
                               </div>
                             </div>
@@ -75,18 +75,21 @@
                         <label>Motocicleta</label>
                          <div class="row">
                               <div class="col-3">
-                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta" formControlName="Marca">
-                                   <option *ngFor="let marca of marca$" value="{{marca.id}}">{{marca.nombre}}</option>
+                                <label style="font-size: 14px;">Marca</label>
+                                 <select class="form-control" placeholder="Marca" formControlName="Marca">
+                                   <option *ngFor="let marca of marca$.data" value="{{marca.idMarca}}">{{marca.nombre_marca}}</option>
                                   </select>
                               </div>
                               <div class="col-3">
+                                <label style="font-size: 14px;">Modelo</label>
                                  <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Modelo">
-                                    <option *ngFor="let modelo of modelo$" value="{{modelo.id}}">{{modelo.nombre}}</option>
+                                    <option *ngFor="let modelo of modelo$.data" value="{{modelo.idModelo}}">{{modelo.nombre_modelo}}</option>
                                   </select>
                               </div>
                               <div class="col-3">
+                                <label style="font-size: 14px;">Año</label>
                                  <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Anio">
-                                    <option *ngFor="let anio of anio$" value="{{anio.id}}">{{anio.nombre}}</option>
+                                    <option *ngFor="let anio of anio$.data" value="{{anio.idAnio}}">{{anio.nombre_anio}}</option>
                                   </select>
                               </div>
                             </div>
@@ -101,7 +104,7 @@
                         <div class="col-10">
                            <label>Tipo de trabajo</label>
                           <select class="form-control"  formControlName="Tipo">
-                            <option *ngFor="let tipo of tipo$" value="{{tipo.id}}">{{tipo.nombre}}</option>
+                            <option *ngFor="let tipo of tipo$.data" value="{{tipo.idTipo}}">{{tipo.nombre_tipo}}</option>
                           </select>
                         </div>
                       </div>
@@ -113,9 +116,24 @@
                         </div>
                         <div class="col-10">
                           <label>Prioridad</label>
-                          <select class="form-control"  formControlName="Prioridad">
-                            <option *ngFor="let prioridad of prioridad$" value="{{prioridad.id}}">{{prioridad.nombre}}</option>
-                          </select>
+                          <div class="row">
+                            <div class="col-5">
+                              <button class="btn btn-warning" style="width:140px;" (click)="EsPrioridad()">
+                                <label *ngIf=esPrioritario style="color:white">Es Prioridad</label>
+                                <label *ngIf=!esPrioritario style="color:white">No es Prioridad</label>
+                              </button>
+                            </div>
+                            <div class="col-5" *ngIf="esPrioritario">
+                              <select class="form-control"  formControlName="Prioridad">
+                                <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.idPrioridad}}">{{prioridad.motivo_prioridad}}</option>
+                              </select>
+                            </div>
+                            <div class="col-5" *ngIf="!esPrioritario">
+                              <select class="form-control"  formControlName="Prioridad" disabled>
+                                <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.idPrioridad}}">{{prioridad.motivo_prioridad}}</option>
+                              </select>
+                            </div>
+                          </div>                
                         </div>
                       </div>
                     </div>
@@ -125,9 +143,19 @@
                           <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/calendar_c.png"  width="72" class="d-inline-block align-center" alt="">
                         </div>
                         <div class="col-10">
-                           <label>Fecha de Entrega</label>
-                          <div class="control">
-                            <input class="input" type="date"  formControlName="FechaEntrega">
+                          <div class="row">
+                            <div class="col-5">
+                              <label>Fecha de Llegada</label>
+                              <div class="control">
+                                <input class="input" type="date"  formControlName="FechaLlegada">
+                              </div>
+                            </div>
+                            <div class="col-5">
+                              <label>Fecha de Entrega</label>
+                              <div class="control">
+                                <input class="input" type="date"  formControlName="FechaEntrega">
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -143,8 +171,8 @@
                           <div class="control">
                             <div class="field">
                               <div style="margin-left:2%">
-                                <div *ngFor="let act of actividade$">
-                                <input type="checkbox" formControlName="Actividad"  value="{{act.id}}"> {{act.nombre}}<br>
+                                <div *ngFor="let act of actividade$.data">
+                                <input type="checkbox" formControlName="Actividad"  value="{{act.idActividad}}"> {{act.nombre_actividad}}<br>
                                 </div>
                               </div>
                             </div>
@@ -164,7 +192,9 @@
                   </form>
                 </div>
                 <div class="col-3" style="padding-top: 12%">
-                  <button class="btn btn-warning" (click)="AddClient()">Nuevo Cliente</button>
+                  <div class="row">
+                    <button class="btn btn-warning" style="width:140px;" (click)="AddClient()">Nuevo Cliente</button>
+                  </div>
                 </div>
               </div>
               <app-add-cliente *ngIf = "estadoCliente"></app-add-cliente>

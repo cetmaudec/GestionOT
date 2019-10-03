@@ -2,10 +2,7 @@ import { NgModule, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Cliente, Marca, Modelo, Anio, Tipo, Prioridad, Actividad} from '../models/database.model';
-import { ApiService } from '../api.service';
-
-
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -16,67 +13,18 @@ import { ApiService } from '../api.service';
 export class OrdenTrabajoComponent implements OnInit {
 
   OTform: FormGroup;
-  submitted = false;
-  success = false;
   private estadoCliente = false
-  public show:boolean = false;
-  public buttonName:any = 'Show';
+  private esPrioritario = false
 
+  cliente$: any = [];
+  tipo$: any = [];
+  marca$: any = [];
+  modelo$: any = [];
+  anio$: any = [];
+  prioridade$: any = [];
+  actividade$: any = [];
 
-  cliente$: Cliente[] = [ 
-    {id:'01', nombre:'Juan Perez'}, 
-    {id:'02', nombre:'Fulano Perez'}]
-
-  marca$: Marca[] = [ 
-    {id:'M1', nombre:'Marca 1'}, 
-    {id:'M2', nombre:'Marca 2'}]
-  
-  modelo$: Modelo[] = [ 
-    {id:'1A', nombre:'Modelo 1A'}, 
-    {id:'1B', nombre:'Modelo 1B'},
-    {id:'2A', nombre:'Modelo 2A'}, 
-    {id:'2B', nombre:'Modelo 2B'}, 
-    {id:'2C', nombre:'Modelo 2C'}]
-    
-  anio$: Anio[] = [ 
-    {id:'2016', nombre:'Año 2016'}, 
-    {id:'2017', nombre:'Año 2017'},
-    {id:'2018', nombre:'Año 2018'},
-    {id:'2019', nombre:'Año 2019'},
-    {id:'2020', nombre:'Año 2020'}]
-
-  tipo$: Tipo[] = [ 
-    {id:'01', nombre:'Defensa'},
-    {id:'02', nombre:'Parrillas'},
-    {id:'03', nombre:'Anclaje'},
-    {id:'04', nombre:'Manubrios'}, 
-    {id:'05', nombre:'Respaldo'}]
-
-  prioridad$: Prioridad[] = [ 
-    {id:'01', nombre:'Prioridad 1'}, 
-    {id:'02', nombre:'Prioridad 2'}, 
-    {id:'03', nombre:'Prioridad 3'}]
-
-  actividade$: Actividad[] = [ 
-   {id:'act1', nombre:'Desarmar partes de moto'},
-   {id:'act2', nombre:'Dimensionar tubos'},
-   {id:'act3', nombre:'Dimensionar pletinas'},
-   {id:'act4', nombre:'Perforar y redondear pletinas'},
-   {id:'act5', nombre:'Curvar tubos'},
-   {id:'act6', nombre:'Aplastar y perforar placa perilla'},
-   {id:'act7', nombre:'Soldar estructura'},
-   {id:'act8', nombre:'Pulir soldadura'},
-   {id:'act9', nombre:'Probar estructura en la moto'},
-   {id:'act10', nombre:'Enviar a electropontar'},
-   {id:'act11', nombre:'Instalar producto en la moto'},
-   {id:'act12', nombre:'Embalar producto para despacho'},
-   {id:'act13', nombre:'Limpiar moto y entregar'}]
-
-  constructor(private data: ApiService, private formBuilder: FormBuilder) { 
-
-  }
-
-  ngOnInit() {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { 
       this.OTform = this.formBuilder.group({
       nombreOT:[''],
       nombreCliente:[''],
@@ -85,20 +33,79 @@ export class OrdenTrabajoComponent implements OnInit {
       Anio:[''],
       Tipo:[''],
       Prioridad:[''],
+      FechaLlegada:[''],
       FechaEntrega:[''],
       Actividad:['']
     });
 
-    console.log(this.estadoCliente);
+       console.log(this.estadoCliente);
+  }
+
+  ngOnInit() {
+    this.getClientes();
+    this.getTipos();
+    this.getMarcas();
+    this.getModelos();
+    this.getAnios();
+    this.getPrioridades();
+    this.getActividades();
+
   }
 
   AddClient(){
     this.estadoCliente=true;
   }
+  EsPrioridad(){
+    if( this.esPrioritario==false){
+      this.esPrioritario=true;
+    }else{
+      this.esPrioritario=false;
+    }
+  }
 
-  onSubmit() {
+  getClientes(){
+    this.http.get('http://localhost:4000/cliente').subscribe(resp => 
+      this.cliente$ = resp as []
+      );
+  }
+
+  getTipos(){
+    this.http.get('http://localhost:4000/tipo').subscribe(resp => 
+      this.tipo$ = resp as []
+      );
+  }
+
+  getMarcas(){
+    this.http.get('http://localhost:4000/marca').subscribe(resp => 
+      this.marca$ = resp as []
+      );
+  }
+
+  getModelos(){
+    this.http.get('http://localhost:4000/modelo').subscribe(resp => 
+      this.modelo$ = resp as []
+      );
+  }
+
+  getAnios(){
+    this.http.get('http://localhost:4000/anio').subscribe(resp => 
+      this.anio$ = resp as []
+      );
+  }
+
+  getPrioridades(){
+    this.http.get('http://localhost:4000/prioridad').subscribe(resp => 
+      this.prioridade$ = resp as []
+      );
+  }
+  getActividades(){
+    this.http.get('http://localhost:4000/actividad').subscribe(resp => 
+      this.actividade$ = resp as []
+      );
+  }
+
+ /* onSubmit() {
     this.submitted = true;
-
     console.log(this.success);
 
     if (this.OTform.invalid) {
@@ -106,7 +113,7 @@ export class OrdenTrabajoComponent implements OnInit {
     }
 
     this.success = true;
-  }
+  }*/
 
 
 

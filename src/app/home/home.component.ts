@@ -1,5 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
+import { Component, OnInit, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from "rxjs/Observable";
+import { Cliente } from '../models/database.model';
+import { ApiService } from '../api.service'; 
+
 
 @Component({
   selector: 'app-home',
@@ -7,13 +11,18 @@ import { ApiService } from '../api.service';
   styleUrls: ['./home.component.scss']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit {	
 
-  users: Object;
+	cliente$: any = [];
 
-  constructor(private data: ApiService) { }
+	constructor(private apiService: ApiService, private http: HttpClient) {
 
-  ngOnInit() {
+	}
 
-  }
+    ngOnInit(): void {
+	    this.http.get('http://localhost:4000/user').subscribe(resp => 
+	      this.cliente$ = resp as []
+	      );
+    }
+
 }
