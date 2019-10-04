@@ -127,6 +127,19 @@ app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     })
 })
 
+app.post('/add-cliente', bodyParser.json(), (req, res, next) => {
+    const INSERT_CLIENTE = `INSERT INTO tipo(nombre, apellido_m, apellido_p, rut, email, dir_calle, dir_num, dir_comuna, dir_pais, telefono, celular) 
+    VALUES('${req.body.nombre}','${req.body.apellido_m}','${req.body.apellido_p}','${req.body.rut}','${req.body.email}','${req.body.dir_calle}', ${req.body.dir_num},'${req.comuna}', '${req.body.dir_pais}','${req.body.telefono}','${req.body.celular}' );`
+    con.query(INSERT_CLIENTE, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('cliente adicionado con éxito')
+        }
+    })
+})
+
+
 
 app.listen(4000, () => {
     console.log('el servidor está usando el puerto 4000')
