@@ -7,8 +7,18 @@ h1{
 	font-weight: bold;
 }
 
+
+h2{
+	color: #4C4C4E;
+	bold: true;
+	font-family: Monaco;
+	text-align: center;
+	font-weight: bold;
+}
+
 label{
 	color: #d96421;
+	font-family: Monaco;
 }
 
 .box{
@@ -16,3 +26,11 @@ label{
 	background-color: #f8f9f9;	
 }
 
+.th{
+	font-family: Monaco;
+	text-align: center;
+}
+
+.td{
+	font-family: Monaco;
+}
