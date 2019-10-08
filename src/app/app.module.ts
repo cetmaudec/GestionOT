@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +25,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { LoginComponent } from './login/login.component';
 import { AddClienteComponent } from './add-cliente/add-cliente.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 
 
 
@@ -42,6 +44,8 @@ import { AddClienteComponent } from './add-cliente/add-cliente.component';
     AddMotocicletaComponent,
     LoginComponent,
     AddClienteComponent,
+    ClientesComponent,
+    ClienteDetalleComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +60,7 @@ import { AddClienteComponent } from './add-cliente/add-cliente.component';
     MatIconModule,
     MatCheckboxModule,
     AngularSvgIconModule,
-    
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

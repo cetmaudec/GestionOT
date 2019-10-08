@@ -10,6 +10,10 @@ import { AddMotocicletaComponent } from './add-motocicleta/add-motocicleta.compo
 import { AddNewActivityComponent } from './add-new-activity/add-new-activity.component';
 import { AddNewProductComponent } from './add-new-product/add-new-product.component';
 import { LoginComponent } from './login/login.component';
+import { ClientesComponent } from './clientes/clientes.component';
+import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
+
+
 
 
 const routes: Routes = [
@@ -22,6 +26,8 @@ const routes: Routes = [
   { path: 'nueva-moto', component: AddMotocicletaComponent},
   { path: 'nueva-actividad', component: AddNewActivityComponent},
   { path: 'nuevo-producto', component: AddNewProductComponent},
+  { path: 'clientes', component: ClientesComponent},
+  { path: 'cliente/:id', component: ClienteDetalleComponent},
 
 ];
 

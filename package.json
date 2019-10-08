@@ -33,6 +33,7 @@
     "hammerjs": "^2.0.8",
     "mongoose": "^5.7.1",
     "mysql": "^2.17.1",
+    "ngx-pagination": "^4.1.0",
     "pdfmake-wrapper": "^1.0.7",
     "rxjs": "^6.5.3",
     "rxjs-compat": "^6.5.3",

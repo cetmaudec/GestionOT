@@ -80,8 +80,8 @@ app.get('/modelo', (req, res) => {
     })
 })
 
-app.get('/anio', (req, res) => {
-  con.query('SELECT * FROM anio;', (err, resultados) => {
+app.get('/marca-modelo', (req, res) => {
+  con.query('SELECT * FROM modelo, marca WHERE modelo.marca=marca.idMarca;', (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -91,6 +91,7 @@ app.get('/anio', (req, res) => {
         }
     })
 })
+
 
 app.get('/motocicleta', (req, res) => {
   con.query('SELECT * FROM motocicleta;', (err, resultados) => {
@@ -116,6 +117,49 @@ app.get('/prioridad', (req, res) => {
     })
 })
 
+//COUNT
+
+app.get('/count-marca', (req, res) => {
+  con.query('SELECT COUNT(*) as count FROM marca;', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+//
+app.get('/select-cliente/?:id', (req, res) => {
+  con.query('SELECT * FROM cliente WHERE cliente.idCliente = ${id};', (err, resultados) => {
+        console.log(resultados);
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.get('/select-cliente', bodyParser.json(), (req, res, next) => {
+    const SELECT_CLIENTE = `SELECT * FROM cliente WHERE cliente.idCliente = ${req.body.id};`
+    con.query(INSERT_TIPO_QUERY, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+
+///INSERT
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     const INSERT_TIPO_QUERY = `INSERT INTO tipo(nombre_tipo) VALUES('${req.body.nombre_tipo}');`
     con.query(INSERT_TIPO_QUERY, (err, resultados) => {
@@ -127,19 +171,53 @@ app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     })
 })
 
-app.post('/add-cliente', bodyParser.json(), (req, res, next) => {
-    const INSERT_CLIENTE = `INSERT INTO tipo(nombre, apellido_m, apellido_p, rut, email, dir_calle, dir_num, dir_comuna, dir_pais, telefono, celular) 
-    VALUES('${req.body.nombre}','${req.body.apellido_m}','${req.body.apellido_p}','${req.body.rut}','${req.body.email}','${req.body.dir_calle}', ${req.body.dir_num},'${req.comuna}', '${req.body.dir_pais}','${req.body.telefono}','${req.body.celular}' );`
-    con.query(INSERT_CLIENTE, (err, resultados) => {
+app.post('/add-actividad', bodyParser.json(), (req, res, next) => {
+    const INSERT_ACTIVIDAD = `INSERT INTO actividad(nombre_actividad) VALUES('${req.body.nombre_actividad}');`
+    con.query(INSERT_ACTIVIDAD, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.send('cliente adicionado con éxito')
+            return res.send('actividad adicionado con éxito')
         }
     })
 })
 
+app.post('/add-marca', bodyParser.json(), (req, res, next) => {
+    const INSERT_MARCA = `INSERT INTO marca(nombre_marca) VALUES('${req.body.nombre_marca}');`
+    con.query(INSERT_MARCA, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('actividad adicionado con éxito')
+        }
+        console.log(req.body.nombre_marca)
+    })
+})
 
+app.post('/add-marca-modelo', bodyParser.json(), (req, res, next) => {
+    con.query('SELECT COUNT(*) as conteo FROM marca;', (err, resultados) => {
+        let n = resultados[0].conteo;
+        const INSERT_MODELO = `INSERT INTO modelo(nombre_modelo,marca) VALUES('${req.body.nombre_modelo}', ${n});`
+        con.query(INSERT_MODELO, (err, resultados) => {
+            if(err) {
+                return res.send(err)
+            } else {
+                return res.send('actividad adicionado con éxito')
+            }
+        })
+    })
+})
+
+app.post('/add-modeloMarca', bodyParser.json(), (req, res, next) => {
+    const INSERT_MODELO = `INSERT INTO modelo(nombre_modelo,marca) VALUES('${req.body.nombre_modelo}', ${req.body.marca});`
+    con.query(INSERT_MODELO, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('actividad adicionado con éxito')
+        }
+    })
+})
 
 app.listen(4000, () => {
     console.log('el servidor está usando el puerto 4000')

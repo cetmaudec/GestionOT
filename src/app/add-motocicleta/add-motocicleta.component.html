@@ -17,63 +17,96 @@
   <script src="../assets/js/sb-admin-2.min.js"></script>
   <script src="../assets/vendor/chart.js/Chart.min.js"></script>
 </head>
-<body>
-	<app-nav></app-nav>
-	<div class="row">
-		<div class="col-7">
-			<section class="section section-container" style="padding-bottom: 10px;">
-		      <div class="box">
-		          <h1 style="margin-left: 12%">Agregar nuevo modelo</h1>
-		        <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" style="margin-left: 12%">
-		            <h5 *ngIf="success">Your form is valid!</h5>
-		            <h3 class='subtitle'>{{ title }}</h3>
-		          	<div class="field">
-		          		<label>Marca <br><input class="input" style="width: 300px;" type="text" v-model="nombreOT"></label>
-		          	</div>
-		          <div class="field">
-		              <label>Modelo<br>
-		               <input class="input" style="width: 300px;" type="text" v-model="nombreOT"></label>
-		          </div>
-		          <div class="field">
-		          	<div class="control">
-		            	<button class="button is-success">Save</button>
-              		</div>
-              	</div>
-              </form>
-          </div>
-      </section>
-  	</div>
-  	<div class="col-4">
-  		<section class="section section-container" style="padding-bottom: 10px;">
-  			<div class="box">
-  				<table class="table table-hover">
-		            <thead>
-		              <tr>
-		                <th scope="col">#</th>
-		                <th scope="col">Marca</th>
-		                <th scope="col">Modelo</th>
-		              </tr>
-		            </thead>
-		            <tbody>
-		              <tr>
-		                <th scope="row">1</th>
-		                <td>Marca 1</td>
-		                <td>Modelo A</td>
-		              </tr>
-		              <tr>
-		                <th scope="row">2</th>
-		                <td>Marca 1</td>
-		                <td>Modelo B</td>
-		              </tr>
-		              <tr>
-		                <th scope="row">3</th>
-		                <td>Marca 2 </td>
-		                <td>Modelo C</td>
-		              </tr>
-		          	</tbody>
-		      	</table>
-		      </div>
-		  </section>
+<body style="background-color: #C4C4C4;">
+  <app-nav></app-nav>
+  <div id="content-wrapper" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+    <div id="content">
+      <div class="row">
+        <div class="col-6" center>
+          <section class="section section-container" style="padding-bottom: 10px;">
+            <div class="box">
+              <h2>Agregar nueva actividad</h2>
+              <form [formGroup]="Motocicletaform">
+                <div class="field">
+                  <div class="row" style="margin-left: 10%;">
+                    <div class="col-2">
+                      <img  src="../assets/icons/svg/motorbike_c.png"  width="72" class="d-inline-block align-center" alt="">
+                    </div>
+                    <div class="col-8">
+                      <div class="field">
+                        <label>Marca</label>
+                        <div class="row">
+                          <div class="col-6">
+                            <button class="btn btn-warning" style="width:140px;" (click)="NuevaMarca()">
+                              <label *ngIf=nuevaMarca style="color:white">Nueva Marca</label>
+                              <label *ngIf=!nuevaMarca style="color:white">Nueva Marca</label>
+                            </button>
+                          </div>
+                          <div class="col-6" *ngIf="nuevaMarca">
+                            <select class="form-control"  formControlName="Marca" disabled>
+                              <option *ngFor="let mo of marca$.data" value="{{mo.nombre_marca}}">{{mo.nombre_marca}}</option>
+                            </select>
+                          </div>
+                          <div class="col-6" *ngIf="!nuevaMarca">
+                            <select class="form-control"  formControlName="Marca">
+                              <option *ngFor="let mo of marca$.data" value="{{mo.nombre_marca}}">{{mo.nombre_marca}}</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="field" *ngIf="nuevaMarca">
+                        <label>Nueva Marca</label>
+                        <input class="input" style="width: 300px;" type="text" formControlName="Nueva_Marca">
+                      </div>
+                      <div class="field">
+                        <label>Modelo<br></label>
+                        <input class="input" style="width: 300px;" type="text" formControlName="Modelo">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="field">
+                  <div class="control">
+                    <button class="button is-success"  style="  margin-left: 70%;" (click)="onSubmit(Motocicletaform.value)">Guardar</button>
+                  </div>
+                </div>
+  						</form>
+  					</div>
+  				</section>
+  			</div>
+  			<div class="col-6">
+  				<section class="section section-container" style="padding-bottom: 20%;">
+  					<div class="box">
+  						<div class="row">
+  							<div class="col-2" style="margin-left: 5%;">
+  								<img  src="../assets/icons/svg/motocross_c.svg"  width="72" class="d-inline-block align-center" alt="">
+  							</div>
+  							<div class="col-8">
+  								<h3>Listado de Motocicletas</h3>
+  							</div>
+  						</div>
+  						<div class="table-responsive" style="align-content: center;">
+  							<table class="table table-bordered" style="width:60%; margin-top: 2%;margin-left: 20%;">
+	  							<thead class="thead-danger">
+                <tr class="table-danger">
+					                <th scope="col">#</th>
+					                <th scope="col">Marca</th>
+					                <th scope="col">Modelo</th>
+					              </tr>
+			            		</thead>
+					            <tbody>
+					               <tr *ngFor="let mo of moto$.data">
+                  <th class="table-danger" style="text-align: center;" scope="row">{{mo.idModelo}}</th>
+                  <td>{{mo.nombre_marca}}</td>
+					                <td>{{mo.nombre_modelo}}</td>
+					              </tr>
+					          	</tbody>
+					        </table>
+					    </div>
+					</div>
+				</section>
+			</div>
 		</div>
 	</div>
+</div>
 </body>

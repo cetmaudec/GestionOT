@@ -17,56 +17,67 @@
   <script src="../assets/js/sb-admin-2.min.js"></script>
   <script src="../assets/vendor/chart.js/Chart.min.js"></script>
 </head>
-<body>
-	<app-nav></app-nav>
+<body style="background-color: #C4C4C4;">
+  <app-nav></app-nav>
+    <div id="content-wrapper" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+      <div id="content">
 	<div class="row">
-		<div class="col-7">
-			<section class="section section-container" style="padding-bottom: 10px;">
-		      <div class="box">
-		          <h1 style="margin-left: 12%">Agregar nueva actividad</h1>
-		        <form [formGroup]="messageForm" (ngSubmit)="onSubmit()" style="margin-left: 12%">
-		            <h5 *ngIf="success">Your form is valid!</h5>
-		            <h3 class='subtitle'>{{ title }}</h3>
-		          	<div class="field">
-		          		<label>Nombre de la nueva actividad:<input class="input" type="text" v-model="nombreOT"></label>
+		<div class="col-6" center>
+			<section class="section section-container">
+        <div class="box" style="align-content: center;">
+          <h2>Agregar nueva actividad</h2>
+          <form [formGroup]="Activityform" (ngSubmit)="onSubmit(Activityform.value)">
+            <div class="field">
+              <div class="row" style="margin-left: 10%;">
+                <div class="col-2">
+                  <img  src="../assets/icons/svg/tools_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                </div>
+                <div class="col-8">
+                  <label>Nombre de la nueva actividad:
+                    <input class="input" clearInput  type="text" formControlName="nombre_actividad">
+                  </label>
 		          	</div>
-		          <div class="field">
-		          	<div class="control">
-		            	<button class="button is-success">Save</button>
-              		</div>
-              	</div>
-              </form>
-          </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button is-success"  style="margin-left: 70%;">Guardar</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
       </section>
   	</div>
-  	<div class="col-4">
-  		<section class="section section-container" style="padding-bottom: 10px;">
+  	<div class="col-6">
+  		<section class="section section-container" style="padding-bottom: 20%;">
   			<div class="box">
-  				<h2>Actividades</h2>
-  				<table class="table table-hover">
-		            <thead>
-		              <tr>
-		                <th scope="col">#</th>
-		                <th scope="col">Actividad</th>
-		              </tr>
-		            </thead>
-		            <tbody>
-		              <tr>
-		                <th scope="row">1</th>
-		                <td>Marca 1</td>
-		              </tr>
-		              <tr>
-		                <th scope="row">2</th>
-		                <td>Marca 1</td>
-		              </tr>
-		              <tr>
-		                <th scope="row">3</th>
-		                <td>Marca 2 </td>
-		              </tr>
-		          	</tbody>
-		      	</table>
-		      </div>
+           <div class="row">
+            <div class="col-2" style="margin-left: 5%;">
+              <img  src="../assets/icons/svg/workflow2_c.svg"  width="72" class="d-inline-block align-center" alt="">
+            </div>
+            <div class="col-8">
+              <h3>Listado de Actividades</h3>
+            </div>
+          </div>
+          <div class="table-responsive" style="align-content: center;">
+            <table class="table" style="width:60%; margin-top: 2%;margin-left: 20%;">
+              <thead class="thead-danger">
+                <tr class="table-danger">
+                  <th style="text-align: center;" scope="col">#</th>
+                  <th scope="col">Actividad</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let act of actividade$.data">
+                  <th class="table-danger" style="text-align: center;" scope="row">{{act.idActividad}}</th>
+                  <td>{{act.nombre_actividad}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 		  </section>
 		</div>
 	</div>
+</div></div>
 </body>

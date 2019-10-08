@@ -1,0 +1,63 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nueva Orden de Trabajo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- Bootstrap core JavaScript-->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../assets/js/sb-admin-2.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.min.js"></script>
+</head>
+<body>
+  <app-nav></app-nav>
+  <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+    <div id="content">
+      <div class="container-fluid">
+        <section class="section section-container" style="padding-bottom: 10px;">
+        	<div class="box" >
+        		<div class="row" style="margin-bottom: 2%;">
+        			<div class="col-2-sm" style="margin-left: 5%;">
+        				<img  src="../assets/icons/svg/motorcyclist2_c.svg"  width="72" class="d-inline-block align-center" alt="">
+        			</div>
+        			<div class="col-8">
+        				<h2>Listado de Clientes</h2><br>
+        			</div>
+        		</div>
+	            <table class="table table-bordered">
+	              <thead class="table-info">
+	                <tr class="table-info">
+	                  <th class="table-info" scope="col">#</th>
+	                  <th scope="col">Nombre Cliente</th>
+	                  <th scope="col">Email</th>
+	                  <th scope="col">Móvil</th>
+	                  <th scope="col"></th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+	                  <th class="table-info" style="text-align: center;" scope="row">{{cliente.idCliente}}</th>
+	                  <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
+	                  <td>{{cliente.email}}</td>
+	                  <td>{{cliente.celular}}</td>
+	                  <td>
+	                    <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
+	                  </td>
+	                </tr>
+	              </tbody>
+	            </table>
+	            <pagination-controls (pageChange)="p=$event"></pagination-controls>
+	        </div>       
+	    </section>
+      </div>
+    </div>
+  </div>
+</body>
