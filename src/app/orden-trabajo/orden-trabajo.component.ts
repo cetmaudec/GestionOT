@@ -25,7 +25,7 @@ export class OrdenTrabajoComponent implements OnInit {
   actividade$: any = [];
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) { 
-      this.OTform = this.formBuilder.group({
+    this.OTform = this.formBuilder.group({
       nombreOT:[''],
       nombreCliente:[''],
       Marca:[''],

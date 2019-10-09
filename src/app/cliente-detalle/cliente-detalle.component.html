@@ -35,31 +35,86 @@
             </div>
             <div class="row">
               <div class="col-10" style="color:#4C4C4E; padding-left: 10%;">
-                <ul class="list-group" *ngFor="let cliente of cliente$.data">
-                  <li class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
-                    <ul class="list-group list-group-horizontal">
-                      <li class="list-group-item" style="width: 350px;">Nombre:<br>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</li>
-                      <li class="list-group-item"style="width: 350px;">RUT:<br> {{cliente.rut}}</li>
+                <div class="list-group" *ngFor="let cliente of cliente$.data" style="border: transparent;">
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Nombre:<br>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">RUT:<br> {{cliente.rut}}</li>
                     </ul>
-                  </li>
-                  <li class="list-group-item">
-                    <ul class="list-group list-group-horizontal">
-                      <li class="list-group-item" style="width: 350px;">Email:<br> {{cliente.email}}</li>
+                  </div>
+                  <div class="list-group-item" *ngIf="!updateEmail" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Email:<br> {{cliente.email}}</li>
+                      <button type="button" class="btn btn-sm" (click)="UpdateData('email')">
+                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
                     </ul>
-                  </li>
-                  <li class="list-group-item">
-                    <ul class="list-group list-group-horizontal">
-                      <li class="list-group-item" style="width: 350px;">Teléfono:<br> {{cliente.telefono}}</li>
-                      <li class="list-group-item" style="width: 350px;">Celular:<br> {{cliente.celular}}</li>
+                  </div>
+                   <div class="list-group-item" *ngIf="updateEmail" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Email:<br>
+                        <div class="row">
+                          <div class="col-6">
+                            <form [formGroup]="EmailEditform">
+                              <input class="input" clearInput  type="email" formControlName="nuevoEmail" value={{cliente.email}}>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmit(EmailEditform.value)" style="margin-left: 70%;">Guardar</button>
+                          </div>
+                        </div>
+                      </li>
                     </ul>
-                  </li>
-                  <li class="list-group-item">
-                    <ul class="list-group list-group-horizontal">
-                      <li class="list-group-item"style="width: 350px;">Dirección:<br> {{cliente.dir_calle}} {{cliente.dir_num}} {{cliente.dir_depto}} </li>
-                      <li class="list-group-item"style="width: 350px;"><br> {{cliente.dir_comuna}}, {{cliente.dir_pais}}</li>
+                  </div>
+                  <div  class="list-group-item" *ngIf="!updateTelefono" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Teléfono:<br> {{cliente.telefono}}</li>
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br> {{cliente.celular}}</li>
+                      <button type="button" class="btn btn-sm" (click)="UpdateData('telefono')">
+                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
                     </ul>
-                  </li>
-                </ul>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="updateTelefono" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Telefono:<br>
+                        <div class="row">
+                          <div class="col-6">
+                            <form [formGroup]="TelefonoEditform">
+                              <input class="input" clearInput  type="email" formControlName="nuevoTelefono" value={{cliente.telefono}}>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmit(TelefonoEditform.value)" style="margin-left: 70%;">Guardar</button>
+                          </div>
+                        </div>
+                      </li>
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br> 
+                        <div class="row">
+                          <div class="col-6">
+                            <form [formGroup]="CelularEditform">
+                              <input class="input" clearInput  type="email" formControlName="nuevoCelular" value={{cliente.celular}}>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmit(CelularEditform.value)" style="margin-left: 70%;">Guardar</button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Dirección:<br> {{cliente.dir_calle}} {{cliente.dir_num}} {{cliente.dir_depto}} </li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;"><br> {{cliente.dir_comuna}}, {{cliente.dir_pais}}</li>
+                      <button type="button" class="btn btn-sm" (click)="UpdateData('direccion')">
+                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
