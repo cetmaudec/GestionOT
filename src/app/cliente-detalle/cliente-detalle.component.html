@@ -23,137 +23,50 @@
     <div id="content">
       <div class="container-fluid" style="width: 1000px; ">
         <section class="section section-container" style="padding-bottom: 10px;">
-          <div class="box">
-            <div class="row">
+          <div class="box" style="color: #FF0022;">
+            <div class="row" style="margin-bottom: 2%;">
+              <div class="col-2-sm" style="margin-left: 5%;">
+                <img  src="../assets/icons/svg/motorcyclist_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              </div>
               <div class="col-8">
-                <h1>The Details of Article with an ID: {{id}}</h1>
-                <h1>Ficha de orden de trabajo</h1>
+                <br>
+                <h2>Datos de Cliente</h2>
               </div>
             </div>
             <div class="row">
-              <div class="col-8">
-                <div class="field">
-                  <label>Nombre OT: KTM 1290</label>
-                </div>
-                <div class="field">
-                  <label>Nombre de Cliente: Hernán Rodriguez</label>
-                </div>
-                <div class="field">
-                  <label>Motocicleta: KTM 1290</label>
-                </div>
-                <div class="field">
-                  <label>Tipo de trabajo: Parrilla</label>
-                </div>
-                <div class="field">
-                  <label>Prioridad: 3ra</label>
-                </div>
-                <div class="field">
-                  <label>Fecha de Inicio: 12-07-2019</label>
-                </div>
-                <div class="field">
-                  <label>Fecha de Entrega: 30-08-2019</label>
-                </div>
-              </div>
-              <div class="col-3">
-                <div class="field">
-                  <button type="button" class="btn btn-info" (click)="generateReport()" style="width: 140px;">Descargar <br> Ficha</button>
-                </div>
-                <div class="field">
-                  <button type="button" class="btn btn-info" (click)="generateReport()" style="width: 140px;">Descargar <br> Hoja para Envío</button>
-                </div>
+              <div class="col-10" style="color:#4C4C4E; padding-left: 10%;">
+                <ul class="list-group" *ngFor="let cliente of cliente$.data">
+                  <li class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal">
+                      <li class="list-group-item" style="width: 350px;">Nombre:<br>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</li>
+                      <li class="list-group-item"style="width: 350px;">RUT:<br> {{cliente.rut}}</li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item">
+                    <ul class="list-group list-group-horizontal">
+                      <li class="list-group-item" style="width: 350px;">Email:<br> {{cliente.email}}</li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item">
+                    <ul class="list-group list-group-horizontal">
+                      <li class="list-group-item" style="width: 350px;">Teléfono:<br> {{cliente.telefono}}</li>
+                      <li class="list-group-item" style="width: 350px;">Celular:<br> {{cliente.celular}}</li>
+                    </ul>
+                  </li>
+                  <li class="list-group-item">
+                    <ul class="list-group list-group-horizontal">
+                      <li class="list-group-item"style="width: 350px;">Dirección:<br> {{cliente.dir_calle}} {{cliente.dir_num}} {{cliente.dir_depto}} </li>
+                      <li class="list-group-item"style="width: 350px;"><br> {{cliente.dir_comuna}}, {{cliente.dir_pais}}</li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
             </div>
-            <div class="box">
-              <div class="field">
-                <table class="table table-hover">
-                  <thead class="table-info">
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Actividad</th>
-                      <th scope="col">Fecha de completado</th>
-                      <th scope="col">Estado</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <th scope="row">1</th>
-                      <td>Desarmar partes de moto.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">2</th>
-                      <td>Dimensionar tubos.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">3</th>
-                      <td>Dimensionar pletinas.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">4</th>
-                      <td>Perforar y redondear pletinas.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">5</th>
-                      <td>Curvar tubos.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">6</th>
-                      <td>Aplastar y perforar placa perilla.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">7</th>
-                      <td>Soldar estructura.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">8</th>
-                      <td>Pulir soldadura.</td>
-                      <td>20-07-2019</td>
-                      <td>Listo</td>
-                    </tr>
-                    <tr>
-                      <th scope="row">9</th>
-                        <td>Probar estructura en la moto.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">10</th>
-                        <td>Enviar a electropontar.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">11</th>
-                        <td>Instalar producto en la moto.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                      <tr>
-                        <th scope="row">12</th>
-                        <td>Limpiar moto y entregar.</td>
-                        <td></td>
-                        <td></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
+    

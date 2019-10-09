@@ -20,13 +20,14 @@ export class ClienteDetalleComponent implements OnInit {
 	}
 
 	ngOnInit() {
-   		this.datos = {
-   			'id': this.id
-   		};
-   		this.http.get('http://localhost:4000/select-cliente', this.datos
-   			).subscribe(resp => this.cliente$ = resp as []);
-   		this.ngOnInit();
-	  	
+   		this.getData();  
+   		console.log(this.cliente$)	
+	}
+
+	getData(){
+		this.http.get('http://localhost:4000/select-cliente/'+this.id).subscribe(
+   			resp => this.cliente$ = resp as []
+   			);	
 	}
 
 }

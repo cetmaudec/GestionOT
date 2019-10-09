@@ -131,10 +131,9 @@ app.get('/count-marca', (req, res) => {
     })
 })
 
-//
-app.get('/select-cliente/?:id', (req, res) => {
-  con.query('SELECT * FROM cliente WHERE cliente.idCliente = ${id};', (err, resultados) => {
-        console.log(resultados);
+//SELECT ELEMENT
+app.get('/select-cliente/:id' , (req, res, next) => {
+  con.query(`SELECT * FROM cliente WHERE cliente.idCliente = ${req.params.id};`, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -144,20 +143,6 @@ app.get('/select-cliente/?:id', (req, res) => {
         }
     })
 })
-
-app.get('/select-cliente', bodyParser.json(), (req, res, next) => {
-    const SELECT_CLIENTE = `SELECT * FROM cliente WHERE cliente.idCliente = ${req.body.id};`
-    con.query(INSERT_TIPO_QUERY, (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.json({
-                data: resultados
-            })
-        }
-    })
-})
-
 
 ///INSERT
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
@@ -218,6 +203,20 @@ app.post('/add-modeloMarca', bodyParser.json(), (req, res, next) => {
         }
     })
 })
+
+app.get('/select-cliente/id=', bodyParser.json(), (req, res, next) => {
+    const SELECT_CLIENTE = `SELECT * FROM cliente WHERE cliente.idCliente = ${req.body.id};`
+    con.query(SELECT_CLIENTE, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 
 app.listen(4000, () => {
     console.log('el servidor está usando el puerto 4000')
