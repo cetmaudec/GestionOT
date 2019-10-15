@@ -31,6 +31,7 @@
               <div class="col-8">
                 <br>
                 <h2>Datos de Cliente</h2>
+                
               </div>
             </div>
             <div class="row">
@@ -187,8 +188,20 @@
                         <th scope="col"></th>
                       </tr>
                     </thead>
+                     <tbody>
+                      <tr *ngFor="let ot of otRelacionada$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+                        <th class="table-info" style="text-align: center;" scope="row">{{ot.idCliente}}</th>
+                        <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
+                        <td>{{cliente.email}}</td>
+                        <td>{{cliente.celular}}</td>
+                        <td>
+                          <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
+                        </td>
+                      </tr>
+                    </tbody>
+
                     <tbody>
-                      <tr>
+                      <tr *ngFor="ot of otRelacionada$">
                         <th scope="row">1</th>
                         <td>MM1</td>
                         <td>En ejecución</td>

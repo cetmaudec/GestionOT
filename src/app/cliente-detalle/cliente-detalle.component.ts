@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ClienteDetalleComponent implements OnInit {
 	id: any;
 	cliente$: any = [];
-	otRelacionadas$: any = [];
+	otRelacionada$: any = [];
 
 
 	datos = {
@@ -79,7 +79,7 @@ export class ClienteDetalleComponent implements OnInit {
    			resp => this.cliente$ = resp as []
    			);
    		this.http.get('http://localhost:4000/select-ot/'+this.id).subscribe(
-   			resp => this.otRelacionadas$ = resp as []
+   			resp => this.otRelacionada$ = resp as []
    			);	
 	}
 
