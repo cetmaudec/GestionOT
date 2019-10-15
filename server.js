@@ -117,10 +117,8 @@ app.get('/prioridad', (req, res) => {
     })
 })
 
-//COUNT
-
-app.get('/count-marca', (req, res) => {
-  con.query('SELECT COUNT(*) as count FROM marca;', (err, resultados) => {
+app.get('/orden-trabajo', (req, res) => {
+  con.query('SELECT * FROM orden_trabajo;', (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -143,6 +141,22 @@ app.get('/select-cliente/:id' , (req, res, next) => {
         }
     })
 })
+
+
+//SELECT ELEMENTS
+
+app.get('/select-ot/:id' , (req, res, next) => {
+  con.query(`SELECT * FROM orden_trabajo WHERE orden_trabajo.cliente = ${req.params.id};`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 
 ///INSERT
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
@@ -173,7 +187,7 @@ app.post('/add-marca', bodyParser.json(), (req, res, next) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.send('actividad adicionado con éxito')
+            return res.send('marca adicionado con éxito')
         }
         console.log(req.body.nombre_marca)
     })
@@ -187,7 +201,7 @@ app.post('/add-marca-modelo', bodyParser.json(), (req, res, next) => {
             if(err) {
                 return res.send(err)
             } else {
-                return res.send('actividad adicionado con éxito')
+                return res.send('marca y modelo adicionado con éxito')
             }
         })
     })
@@ -199,25 +213,61 @@ app.post('/add-modeloMarca', bodyParser.json(), (req, res, next) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.send('actividad adicionado con éxito')
+            return res.send('modelo adicionado con éxito')
         }
     })
 })
 
-app.get('/select-cliente/id=', bodyParser.json(), (req, res, next) => {
-    const SELECT_CLIENTE = `SELECT * FROM cliente WHERE cliente.idCliente = ${req.body.id};`
-    con.query(SELECT_CLIENTE, (err, resultados) => {
+
+//UPDATE
+app.put('/update-email/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_EMAIL = `UPDATE cliente SET  cliente.email = '${req.body.email}'   WHERE cliente.idCliente=${req.params.id} `
+    con.query(UPDATE_EMAIL, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.json({
-                data: resultados
-            })
+            return res.send('email actualizado con éxito')
         }
     })
-})
+});
 
+app.put('/update-telefono/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_TELEFONO = `UPDATE cliente SET  cliente.telefono = '${req.body.telefono}'   WHERE cliente.idCliente=${req.params.id} `
+    con.query(UPDATE_TELEFONO, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('telefono actualizado con éxito')
+        }
+    })
+});
+
+app.put('/update-celular/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_CELULAR = `UPDATE cliente SET  cliente.celular = '${req.body.celular}'   WHERE cliente.idCliente=${req.params.id} `
+    con.query(UPDATE_CELULAR, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('celular actualizado con éxito')
+        }
+    })
+});
+
+app.put('/update-direccion/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_DIRECCION = `UPDATE cliente SET  cliente.dir_calle = '${req.body.calle}', cliente.dir_numero = '${req.body.numero}', cliente.dir_depto = '${req.body.depto}', cliente.dir_comuna = '${req.body.comuna}', cliente.dir_pais = '${req.body.pais}'  WHERE cliente.idCliente=${req.params.id} `
+    con.query(UPDATE_DIRECCION, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('direccion actualizado con éxito')
+        }
+    })
+});
 
 app.listen(4000, () => {
-    console.log('el servidor está usando el puerto 4000')
+    console.log('el servidor está usando el puerto 4000 -')
 })

@@ -17,120 +17,131 @@
   <script src="../assets/js/sb-admin-2.min.js"></script>
   <script src="../assets/vendor/chart.js/Chart.min.js"></script>
 </head>
-
 <body>
-  <div class="box" style="color: #FF0022;">              
-    <h1>Datos de Clientes</h1>
-    <form [formGroup]="OTform" (ngSubmit)="onSubmit(OTform.value)">
-      <h5 *ngIf="success">Your form is valid!</h5>
-      <h3 class='subtitle'>{{ title }}</h3>
-      <div class="field">
+
+  <div class="container">
+    <section class="section section-container" style="padding-bottom: 10px;">
+      <div class="box">
         <div class="row">
-          <div class="col-1-sm">
-            <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorcyclist_c.svg"  width="72" class="d-inline-block align-center" alt="">
+          <div class="col-8">
+            <h1>Ficha de orden de trabajo</h1>
           </div>
-          <div class="col-9">
-            <div class="row">
-              <div class="col-12">
-                <label>Nombre Completo</label>
-                <div class="control">
-                  <div class="row">
-                    <div class="col-6">
-                      <input class="input" type="text" placeholder="Nombre"  formControlName="Nombre">
-                    </div>
-                    <div class="col-3">
-                      <input class="input" type="text" placeholder="Apellido Paterno Apallido Materno"  formControlName="ApellidoPat">
-                    </div>
-                    <div class ="col-3">
-                      <input class="input" type="text" placeholder="Apallido Materno"  formControlName="ApellidoMat">
-                    </div>
-                  </div>
-                  
-                          </div>
-                        </div>
-                        <div class="col-9">
-                          <label>RUT</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="XX.XXX.XXX-X"  formControlName="Rut">
-                          </div>
-                        </div>
-                      </div>
-                  </div>
+          <div class="col-3">
+            <br>
+            <button type="button" class="btn btn-info" (click)="generateReport()">Generar Reporte</button>
+          </div>
         </div>
-      </div>
-      <div class="field">
-        <div class="row">
-          <div class="col-1-sm">
-            <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/email_c.svg"  width="72" class="d-inline-block align-center" alt="">
+          <div class="field">
+              <label>Nombre OT: KTM 1290</label>
           </div>
-          <div class="col-9">
-            <label>Correo electrónico</label>
-            <div class="control">
-              <input class="input" type="text" placeholder="ejemplo@ejemplo.com"  formControlName="correo">
+          <div class="field">
+              <label>Nombre de Cliente: Hernán Rodriguez</label>
+          </div>
+          <div class="field">
+              <label>Motocicleta: KTM 1290</label>
+          </div>
+          <div class="field">
+              <label>Tipo de trabajo: Parrilla</label>
+          </div>
+          <div class="field">
+              <label>Prioridad: 3ra</label>
+          </div>
+          <div class="field">
+              <label>Fecha de Inicio: 12-07-2019</label>
+          </div>
+          <div class="field">
+              <label>Fecha de Entrega: 30-08-2019</label>
+          </div>
+          <div class="box">
+            <div class="field">
+              <table class="table table-hover">
+                <thead class="table-info">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Actividad</th>
+                    <th scope="col">Fecha de completado</th>
+                    <th scope="col">Estado</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Desarmar partes de moto.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Dimensionar tubos.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">3</th>
+                    <td>Dimensionar pletinas.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">4</th>
+                    <td>Perforar y redondear pletinas.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">5</th>
+                    <td>Curvar tubos.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">6</th>
+                    <td>Aplastar y perforar placa perilla.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">7</th>
+                    <td>Soldar estructura.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">8</th>
+                    <td>Pulir soldadura.</td>
+                    <td>20-07-2019</td>
+                    <td>Listo</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">9</th>
+                    <td>Probar estructura en la moto.</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">10</th>
+                    <td>Enviar a electropontar.</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">11</th>
+                    <td>Instalar producto en la moto.</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <th scope="row">12</th>
+                    <td>Limpiar moto y entregar.</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
-      </div>
-      <div class="field">
-        <div class="row">
-          <div class="col-1-sm">
-            <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/house_c.svg"  width="72" class="d-inline-block align-center" alt="">
-          </div>
-          <div class="col-9">
-            <label>Dirección</label>
-             <div class="row">
-                        <div class="col-3">
-                          <label style="font-size: 14px;">Calle</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="Calle/Población/Villa"  formControlName="Dir_calle">
-                          </div>
-                        </div>
-                        <div class="col-3">
-                          <label style="font-size: 14px;">Número/Depto</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="#"  formControlName="Dir_numero">
-                          </div>
-                        </div>
-                        <div class="col-3">
-                          <label style="font-size: 14px;">Comuna</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="Comuna"  formControlName="Dir_comuna">
-                          </div>
-                        </div>
-                        <div class="col-3">
-                          <label style="font-size: 14px;">País</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="Pais"  formControlName="Dir_comuna">
-                          </div>
-                        </div>
-                      </div>
-          </div>
-        </div>
-      </div>
-        <div class="field">
-                  <div class="row">
-                    <div class="col-1-sm">
-                      <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/phone_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                    </div>
-                    <div class="col-9">
-                      <label>Teléfono</label>
-                       <div class="row">
-                        <div class="col-6">
-                          <label style="font-size: 14px;">Teléfono fijo</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="(xx) xxx xxx xxx"  formControlName="Telefono">
-                          </div>
-                        </div>
-                        <div class="col-6">
-                          <label style="font-size: 14px;">Celular</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="(+569) xxx xxx xxx"  formControlName="Celular">
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                </div>
-      </div>
-      </form>
-  </div>
-</body>
+      </section>
+    </div>
+  </body>

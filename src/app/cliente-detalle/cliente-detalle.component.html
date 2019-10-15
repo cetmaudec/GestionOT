@@ -22,7 +22,7 @@
   <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
     <div id="content">
       <div class="container-fluid" style="width: 1000px; ">
-        <section class="section section-container" style="padding-bottom: 10px;">
+        <section class="section section-container" style="padding-bottom: 10px; width:100%;">
           <div class="box" style="color: #FF0022;">
             <div class="row" style="margin-bottom: 2%;">
               <div class="col-2-sm" style="margin-left: 5%;">
@@ -50,6 +50,7 @@
                       </button>
                     </ul>
                   </div>
+
                    <div class="list-group-item" *ngIf="updateEmail" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
                       <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Email:<br>
@@ -60,45 +61,7 @@
                             </form>
                           </div>
                           <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmit(EmailEditform.value)" style="margin-left: 70%;">Guardar</button>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div  class="list-group-item" *ngIf="!updateTelefono" style="border: transparent; background-color:#f8f9f9;">
-                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Teléfono:<br> {{cliente.telefono}}</li>
-                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br> {{cliente.celular}}</li>
-                      <button type="button" class="btn btn-sm" (click)="UpdateData('telefono')">
-                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
-                      </button>
-                    </ul>
-                  </div>
-
-                  <div class="list-group-item" *ngIf="updateTelefono" style="border: transparent; background-color:#f8f9f9;">
-                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Telefono:<br>
-                        <div class="row">
-                          <div class="col-6">
-                            <form [formGroup]="TelefonoEditform">
-                              <input class="input" clearInput  type="email" formControlName="nuevoTelefono" value={{cliente.telefono}}>
-                            </form>
-                          </div>
-                          <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmit(TelefonoEditform.value)" style="margin-left: 70%;">Guardar</button>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br> 
-                        <div class="row">
-                          <div class="col-6">
-                            <form [formGroup]="CelularEditform">
-                              <input class="input" clearInput  type="email" formControlName="nuevoCelular" value={{cliente.celular}}>
-                            </form>
-                          </div>
-                          <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmit(CelularEditform.value)" style="margin-left: 70%;">Guardar</button>
+                            <button class="button is-success"  (click)="onSubmitEmail(EmailEditform.value)" style="margin-left: 70%;">Actualizar</button>
                           </div>
                         </div>
                       </li>
@@ -106,6 +69,59 @@
                   </div>
 
                   <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <div class= "row">
+                      <div class="col-6" *ngIf="!updateTelefono" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Teléfono:<br> {{cliente.telefono}}</li>
+                          <button type="button" class="btn btn-sm" (click)="UpdateData('telefono')">
+                            <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                          </button>
+                        </ul>
+                      </div>
+                      <div class="col-6" *ngIf="updateTelefono" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Teléfono:<br>
+                            <div class="row">
+                              <div class="col-6">
+                                <form [formGroup]="TelefonoEditform">
+                                  <input class="input" clearInput  type="text" formControlName="nuevoTelefono" value={{cliente.telefono}}>
+                                </form>
+                              </div>
+                              <div class="col-2">
+                                <button class="button is-success"  (click)="onSubmitTelefono(TelefonoEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div class="col-6" *ngIf="!updateCelular" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br> {{cliente.celular}}</li>
+                          <button type="button" class="btn btn-sm" (click)="UpdateData('celular')">
+                            <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                          </button>
+                        </ul>
+                      </div>
+                      <div class="col-6" *ngIf="updateCelular" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Celular:<br>
+                            <div class="row">
+                              <div class="col-6">
+                                <form [formGroup]="CelularEditform">
+                                  <input class="input" clearInput  type="text" formControlName="nuevoCelular" value={{cliente.celular}}>
+                                </form>
+                              </div>
+                              <div class="col-2">
+                                <button class="button is-success"  (click)="onSubmitCelular(CelularEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="!updateDireccion" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
                       <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Dirección:<br> {{cliente.dir_calle}} {{cliente.dir_num}} {{cliente.dir_depto}} </li>
                       <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;"><br> {{cliente.dir_comuna}}, {{cliente.dir_pais}}</li>
@@ -114,8 +130,79 @@
                       </button>
                     </ul>
                   </div>
+
+                   <div class="list-group-item" *ngIf="updateDireccion" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Dirección:<br>
+                        <form [formGroup]="DireccionEditform">
+                          <div class="row">
+                            <div class="col-8">
+                              <h5 style="font-size:small;">Calle</h5>
+                              <input class="input" type="text" placeholder="Calle/Población/Villa"  formControlName="Dir_calle" value="{{cliente.dir_calle}}">
+                            </div>
+                            <div class="col-2">
+                              <h5 style="font-size:small;">Número</h5>
+                              <input class="input" type="text" placeholder="#"  formControlName="Dir_numero" value="{{cliente.dir_num}}">
+                            </div>
+                            <div class="col-2">
+                              <h5 style="font-size:small;">Depto</h5>
+                              <input class="input" type="text" placeholder="#"  formControlName="Dir_depto" value="{{cliente.dir_depto}}">
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-6">
+                              <h5 style="font-size:small;">Comuna</h5>
+                              <input class="input" type="text" placeholder="Comuna"  formControlName="Dir_comuna" value="{{cliente.dir_comuna}}">
+                            </div>
+                            <div class="col-6">
+                              <h5 style="font-size:small;">País</h5>
+                              <input class="input" type="text" placeholder="País"  formControlName="Dir_pais" value="{{cliente.dir_pais}}">
+                            </div>
+                          </div>
+                        </form>
+                        <br>
+                        <div class="row">
+                          <button class="button is-success"  (click)="onSubmitDireccion(DireccionEditform.value)" style="margin-left: 70%;">Actualizar
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
+            </div>
+
+
+            <div class="row">
+              <div class="col-2"></div>
+              <div class="col-8">
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="table-info">
+                      <tr class="table-info">
+                        <th class="table-info" >#</th>
+                        <th scope="col">Marca <br>motocicleta</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col"></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>MM1</td>
+                        <td>En ejecución</td>
+                        <td>
+                          <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
+                          Ver Detalles
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="col-2"></div>
             </div>
           </div>
         </section>
@@ -123,5 +210,3 @@
     </div>
   </div>
 </body>
-
-    
