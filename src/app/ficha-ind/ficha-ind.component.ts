@@ -31,7 +31,6 @@ export class FichaIndComponent implements OnInit {
     );
   }
 
-
   public generateReport(): void{
     const pdf: PdfMakeWrapper = new PdfMakeWrapper();
     pdf.defaultStyle({

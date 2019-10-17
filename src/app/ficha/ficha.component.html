@@ -23,56 +23,43 @@
     <div id="content">
       <div class="container-fluid" style="width: 1000px; ">
         <section class="section section-container" style="padding-bottom: 10px;">
-          <div class="box">ma
-            <h1>Ordenes de Trabajo</h1>
-            <table class="table table-hover">
-              <thead class="table-info">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Nombre OT</th>
-                  <th scope="col">Nombre Cliente</th>
-                  <th scope="col">Estado</th>
-                  <th scope="col"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Orden de trabajo 1</td>
-                  <td>Nombre1</td>
-                  <td>En ejecución</td>
-                  <td>
-                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
-                    Ver Detalles
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Orden de trabajo 2</td>
-                  <td>Nombre2</td>
-                  <td>En ejecución</td>
-                  <td>
-                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
-                    Ver Detalles
-                    </a>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td colspan="2">Orden de trabajo 3</td>
-                  <td>Finalizado</td>
-                  <td>
-                    <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
-                    Ver Detalles
-                    </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="box" >
+            <div class="row" style="margin-bottom: 2%;">
+              <div class="col-2-sm" style="margin-left: 5%;">
+                <img  src="../assets/icons/svg/settings3_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              </div>
+              <div class="col-8">
+                <br>
+                <h2>Órdenes de Trabajo</h2>
+                <br>
+              </div>
+            </div>
+              <table class="table table-bordered">
+                <thead class="table-info">
+                  <tr class="table-info">
+                    <th class="col-1 table-info" style="text-align: center;">#</th>
+                    <th class="col-4" style="text-align: center;">Nombre Cliente</th>
+                    <th class="col-4" style="text-align: center;">Motocicleta</th>
+                    <th class="col-4" style="text-align: center;">Estado</th>
+                    <th class="col-1" style="text-align: center;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ot of ordenTrabajo$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+                    <th class="table-info" style="text-align: center;" scope="row">OT{{ot.idOT}}</th>
+                    <td style="text-align: center;">{{ot.nombre}} {{ot.apellido_p}} {{ot.apellido_m}}</td>
+                    <td style="text-align: center;">{{ot.motocicleta}}</td>
+                    <td style="text-align: center;">{{ot.estado}}</td>
+                    <td>
+                      <a (click)="gotoDetails(ot.idOT)" class="btn btn-info" style="color:white;">Detalles</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p=$event"></pagination-controls>
           </div>
-        </section>
+      </section>
       </div>
     </div>
   </div>
-</body>
+  </body>

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "karley.7331",
+  password: "cetma2019",
   database: "rozto_gestion"
 });
 
@@ -16,7 +16,7 @@ const app = express()
 con.connect(function(err) {
   if (err) throw err;
   console.log("Connected!");
-}); 
+});
 
 app.use(cors())
 
@@ -91,7 +91,6 @@ app.get('/marca-modelo', (req, res) => {
         }
     })
 })
-
 
 app.get('/motocicleta', (req, res) => {
   con.query('SELECT * FROM motocicleta;', (err, resultados) => {
@@ -196,6 +195,18 @@ app.get('/select-cliente-ot/:id' , (req, res, next) => {
     })
 })
 
+app.get('/select-ot-cliente/' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT idOT, cliente, motocicleta, tipo, DATE_FORMAT(orden_trabajo.fecha_llegada, "%e/%m/%Y") as fecha_llegada, DATE_FORMAT(orden_trabajo.fecha_entrega, "%e/%m/%Y") as fecha_entrega, esPrioridad, motivo_prioridad, dejaMoto, estado, idCliente, nombre, apellido_p, apellido_m, rut, email, dir_calle, dir_num, dir_depto, dir_comuna, dir_pais, telefono, celular FROM orden_trabajo, cliente WHERE orden_trabajo.cliente=cliente.idCliente;`
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
 
 
 ///INSERT
@@ -255,6 +266,71 @@ app.post('/add-modeloMarca', bodyParser.json(), (req, res, next) => {
         } else {
             return res.send('modelo adicionado con éxito')
         }
+    })
+})
+
+app.post('/add-OT', bodyParser.json(), (req, res, next) => {
+    con.query('SELECT marca, modelo FROM motocicleta;', (err, resultados) => {
+      let motocicleta = resultados[0].marca +' '+resultados[0].modelo;
+      var INSERT_OT;
+      console.log(req.body.FechaEntrega);
+
+      if(req.body.esPrioridad==0 && req.body.FechaEntrega!=null){
+        console.log("sinprioridad");
+        INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,fecha_entrega,esPrioridad,dejaMoto,estado)
+        VALUES (${req.body.nombreCliente}, ${req.body.idMotocicleta}, '${motocicleta}', '${req.body.Tipo}', '${req.body.FechaLlegada}', '${req.body.FechaEntrega}', ${req.body.esPrioridad}, ${req.body.dejaMoto}, '${req.body.estado}');`;
+        con.query(INSERT_OT, (err, resultados) => {
+          if(err) {
+              return res.send(err)
+          } else {
+              return res.send('OT adicionado con éxito')
+          }
+      })
+    }else if(req.body.FechaEntrega==null && req.body.esPrioridad==0){
+      INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,esPrioridad,dejaMoto,estado)
+      VALUES (${req.body.nombreCliente}, ${req.body.idMotocicleta}, '${motocicleta}', '${req.body.Tipo}', '${req.body.FechaLlegada}', ${req.body.esPrioridad}, ${req.body.dejaMoto}, '${req.body.estado}');`
+      con.query(INSERT_OT, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('OT adicionado con éxito')
+        }
+      })
+    }else if(req.body.FechaEntrega==null && req.body.esPrioridad!=0){
+      console.log("conprioridad");
+      INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,esPrioridad,motivo_prioridad,dejaMoto,estado)
+      VALUES (${req.body.nombreCliente}, ${req.body.idMotocicleta}, '${motocicleta}', '${req.body.Tipo}', '${req.body.FechaLlegada}', ${req.body.esPrioridad}, '${req.body.Prioridad}', ${req.body.dejaMoto},'${req.body.estado}');`
+      con.query(INSERT_OT, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('OT adicionado con éxito')
+        }
+      })
+    }else{
+      console.log("conprioridad");
+      INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,fecha_entrega,esPrioridad,motivo_prioridad,dejaMoto,estado)
+        VALUES (${req.body.nombreCliente}, ${req.body.idMotocicleta}, '${motocicleta}','${req.body.Tipo}', '${req.body.FechaLlegada}', '${req.body.FechaEntrega}', ${req.body.esPrioridad}, '${req.body.Prioridad}', ${req.body.dejaMoto},'${req.body.estado}');`
+        con.query(INSERT_OT, (err, resultados) => {
+          if(err) {
+            return res.send(err)
+          } else {
+            return res.send('OT adicionado con éxito');
+          }
+        })
+      }
+    })
+  })
+
+app.post('/add-marca', bodyParser.json(), (req, res, next) => {
+    const INSERT_MARCA = `INSERT INTO marca(nombre_marca) VALUES('${req.body.nombre_marca}');`
+    con.query(INSERT_MARCA, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('marca adicionado con éxito')
+        }
+        console.log(req.body.nombre_marca)
     })
 })
 

@@ -22,26 +22,13 @@
   <app-nav></app-nav>
    <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
     <div id="content">
-      <div class="container-fluid" style="width: 1000px; "> 
+      <div class="container-fluid" style="width: 1000px; ">
         <section class="section section-container" style="padding-bottom: 10px;">
-          <div class="box" style="align-content: center;">              
+          <div class="box" style="align-content: center;">
             <h1>Nueva Orden de Trabajo</h1>
             <div class="row">
               <div class="col">
-                <form [formGroup]="OTform" (ngSubmit)="onSubmit(OTform.value)">
-                    <div class="field">
-                      <div class="row">
-                        <div class="col-1-sm">
-                          <img style="padding:10px; padding-left: 20px" color="primary" src="../assets/icons/svg/profile_c.svg"  width="72" class="d-inline-block align-center" alt="">
-                        </div>
-                        <div class="col-10">
-                          <label>Nombre OT</label>
-                          <div class="control">
-                            <input class="input" type="text" placeholder="Orden de trabajo N"  formControlName="nombreOT">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                <form [formGroup]="OTform" >
                     <div class="field">
                       <div class="row">
                         <div class="col-1-sm">
@@ -72,27 +59,32 @@
                           <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorbike_c.png"  width="72" class="d-inline-block align-center" alt="">
                         </div>
                         <div class="col-10">
-                        <label>Motocicleta</label>
-                         <div class="row">
-                              <div class="col-3">
-                                <label style="font-size: 14px;">Marca</label>
-                                 <select class="form-control" placeholder="Marca" formControlName="Marca">
-                                   <option *ngFor="let marca of marca$.data" value="{{marca.idMarca}}">{{marca.nombre_marca}}</option>
-                                  </select>
-                              </div>
-                              <div class="col-3">
-                                <label style="font-size: 14px;">Modelo</label>
-                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Modelo">
-                                    <option *ngFor="let modelo of modelo$.data" value="{{modelo.idModelo}}">{{modelo.nombre_modelo}}</option>
-                                  </select>
-                              </div>
-                              <div class="col-3">
-                                <label style="font-size: 14px;">Año</label>
-                                 <select class="form-control" placeholder="Seleccione el modelo de motocicleta"  formControlName="Anio">
-                                    <option *ngFor="let anio of anio$.data" value="{{anio.idAnio}}">{{anio.nombre_anio}}</option>
-                                  </select>
+                          <div class="row">
+                            <div class="col-6">
+                              <label>Motocicleta (*)</label>
+                              <select class="form-control" required placeholder="Motocicleta" formControlName="Motocicleta">
+                                <option *ngFor="let moto of motocicleta$.data" value="{{moto.idMoto}}">{{moto.marca}} {{moto.modelo}}</option>
+                              </select>
+                            </div>
+                            <div class="col-3">
+                              <label style="font-size: 14px;">Año(*)</label>
+                              <div class="control">
+                                <input class="input" type="number" min="2000" formControlName="Anio">
                               </div>
                             </div>
+                            <div class="col-3">
+                              <label style="font-size: 14px;">Deja Motocicleta?</label>
+                              <div class="col-5">
+                                <button class="btn btn-warning" style="width:140px;" (click)="DejaMoto()">
+                                  <label *ngIf=!dejaMoto style="color:white">Si</label>
+                                  <label *ngIf=dejaMoto style="color:black">Si</label>
+                                  <label  style="color:gray">/</label>
+                                  <label *ngIf=!dejaMoto style="color:black">No</label>
+                                  <label *ngIf=dejaMoto style="color:white">No</label>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -102,9 +94,9 @@
                           <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/work_c.svg"  width="72" class="d-inline-block align-center" alt="">
                         </div>
                         <div class="col-10">
-                           <label>Tipo de trabajo</label>
-                          <select class="form-control"  formControlName="Tipo">
-                            <option *ngFor="let tipo of tipo$.data" value="{{tipo.idTipo}}">{{tipo.nombre_tipo}}</option>
+                           <label>Tipo de trabajo(*)</label>
+                          <select class="form-control" required formControlName="Tipo">
+                            <option *ngFor="let tipo of tipo$.data" value="{{tipo.nombre_tipo}}">{{tipo.nombre_tipo}}</option>
                           </select>
                         </div>
                       </div>
@@ -117,15 +109,20 @@
                         <div class="col-10">
                           <label>Prioridad</label>
                           <div class="row">
-                            <div class="col-5">
+                            <div class="col-5" *ngIf=!esPrioritario>
                               <button class="btn btn-warning" style="width:140px;" (click)="EsPrioridad()">
-                                <label *ngIf=esPrioritario style="color:white">Es Prioridad</label>
-                                <label *ngIf=!esPrioritario style="color:white">No es Prioridad</label>
+                                <label  style="color:white">Es Prioridad</label>
                               </button>
                             </div>
+                            <div class="col-5" *ngIf=esPrioritario>
+                              <button class="btn btn-warning" style="width:140px;" (click)="EsPrioridad()" disabled>
+                                <label style="color:white">Es Prioridad</label>
+                              </button>
+                            </div>
+                            <label>Motivo: </label>
                             <div class="col-5" *ngIf="esPrioritario">
                               <select class="form-control"  formControlName="Prioridad">
-                                <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.idPrioridad}}">{{prioridad.motivo_prioridad}}</option>
+                                <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.motivo_prioridad}}">{{prioridad.motivo_prioridad}}</option>
                               </select>
                             </div>
                             <div class="col-5" *ngIf="!esPrioritario">
@@ -133,7 +130,7 @@
                                 <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.idPrioridad}}">{{prioridad.motivo_prioridad}}</option>
                               </select>
                             </div>
-                          </div>                
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -145,9 +142,9 @@
                         <div class="col-10">
                           <div class="row">
                             <div class="col-5">
-                              <label>Fecha de Llegada</label>
+                              <label>Fecha de Llegada (*)</label>
                               <div class="control">
-                                <input class="input" type="date"  formControlName="FechaLlegada">
+                                <input class="input" type="date"  formControlName="FechaLlegada" required>
                               </div>
                             </div>
                             <div class="col-5">
@@ -160,47 +157,153 @@
                         </div>
                       </div>
                     </div>
-
+                    <div class="field">
+                      <div class="control">
+                        <div class="row">
+                          <div class="col-10">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-3" style="padding-top: 4%">
+                  <div class="row">
+                    <button class="btn btn-warning" style="width:140px;" (click)="AddClient()">Nuevo Cliente</button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf = "estadoCliente">
+                <div class="box" style="color: #FF0022; 	border: 0px solid #FF0022 !important;">
+                  <h1>Datos de Clientes</h1>
+                  <form [formGroup]="Clienteform">
                     <div class="field">
                       <div class="row">
                         <div class="col-1-sm">
-                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/tools_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/motorcyclist_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              					</div>
+              					<div class="col-9">
+                          <div class="row">
+                            <div class="col-12">
+                              <label>Nombre Completo (*)</label>
+                              <div class="control">
+                                <div class="row">
+                                  <div class="col-6">
+                                    <input class="input" type="text" placeholder="Nombre"  formControlName="nombre">
+              					 					</div>
+              					 					<div class="col-3">
+              					 						<input class="input" type="text" placeholder="Apellido Paterno Apallido Materno"  formControlName="apellidoPat">
+              					 					</div>
+              					 					<div class ="col-3">
+              					 						<input class="input" type="text" placeholder="Apallido Materno"  formControlName="apellidoMat">
+              					 					</div>
+              					 				</div>
+                              </div>
+                            </div>
+                            <div class="col-9">
+                              <label>RUT (*)</label>
+                              <div class="control">
+                                <input class="input" type="text" placeholder="XX.XXX.XXX-X"  formControlName="rut">
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                        <div class="col-10">
-                           <label>Actividades</label>
-                          <div class="control">
-                            <div class="field">
-                              <div style="margin-left:2%">
-                                <div *ngFor="let act of actividade$.data">
-                                <input type="checkbox" formControlName="Actividad"  value="{{act.idActividad}}"> {{act.nombre_actividad}}<br>
-                                </div>
+              				</div>
+              			</div>
+              			<div class="field">
+              				<div class="row">
+              					<div class="col-1-sm">
+              						<img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/email_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              					</div>
+              					<div class="col-9">
+              						<label>Correo electrónico (*)</label>
+              						<div class="control">
+              							<input class="input" type="email" placeholder="ejemplo@ejemplo.com"  formControlName="correo">
+              						</div>
+              					</div>
+              				</div>
+              			</div>
+              			<div class="field">
+              				<div class="row">
+              					<div class="col-1-sm">
+              						<img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/house_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              					</div>
+              					<div class="col-9">
+              						<label>Dirección</label>
+              						 <div class="row">
+                             <div class="col-3">
+                               <label style="font-size: 14px;">Calle</label>
+                               <div class="control">
+                                 <input class="input" type="text" placeholder="Calle/Población/Villa"  formControlName="Dir_calle">
+                               </div>
+                             </div>
+                             <div class="col-3">
+                               <label style="font-size: 14px;">Número</label>
+                               <div class="control">
+                                 <input class="input" type="text" placeholder="#"  formControlName="Dir_numero">
+                               </div>
+                             </div>
+                             <div class="col-3">
+                               <label style="font-size: 14px;">Depto</label>
+                               <div class="control">
+                                 <input class="input" type="text" placeholder="#"  formControlName="Dir_depto">
+                               </div>
+                             </div>
+                             <div class="col-3">
+                               <label style="font-size: 14px;">Comuna (*)</label>
+                               <div class="control">
+                                 <input class="input" type="text" placeholder="Comuna"  formControlName="Dir_comuna">
+                               </div>
+                             </div>
+                             <div class="col-3">
+                               <label style="font-size: 14px;">País (*)</label>
+                               <div class="control">
+                                 <input class="input" type="text" placeholder="Pais"  formControlName="Dir_pais">
+              	          		</div>
+              	          	</div>
+                          </div>
+                        </div>
+                      </div>
+              			</div>
+                    <div class="field">
+                      <div class="row">
+                        <div class="col-1-sm">
+                          <img style="padding:10px; padding-left: 20px" src="../assets/icons/svg/phone_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                        </div>
+                        <div class="col-9">
+                          <label>Teléfono</label>
+                          <div class="row">
+                            <div class="col-6">
+                              <label style="font-size: 14px;">Teléfono fijo</label>
+                              <div class="control">
+                                <input class="input" type="text" placeholder="(xx) xxx xxx xxx"  formControlName="Telefono">
+                              </div>
+                            </div>
+                            <div class="col-6">
+                              <label style="font-size: 14px;">Celular (*)</label>
+                              <div class="control">
+                                <input class="input" type="text" placeholder="(+569) xxx xxx xxx"  formControlName="Celular">
                               </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="field">
-                      <div class="control">
-                        <div class="row">
-                          <div class="col-10">
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
                   </form>
-                </div>
-                <div class="col-3" style="padding-top: 12%">
-                  <div class="row">
-                    <button class="btn btn-warning" style="width:140px;" (click)="AddClient()">Nuevo Cliente</button>
-                  </div>
-                </div>
+              	</div>
               </div>
-              <app-add-cliente *ngIf = "estadoCliente"></app-add-cliente>
-              <div class="col-12" style="padding-top: 5%; padding-left: 60%;">
-                <button type="button" style="align-content: right" class="btn btn-success">Guardar</button>
-              </div>                 
+              <div class="col-12" *ngIf="!estadoCliente && !OTform.valid" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" disabled (click)="SubmitOTCliente(OTform.value)" style="align-content: right" class="btn btn-success">Guardar</button>
+              </div>
+              <div class="col-12" *ngIf="!estadoCliente && OTform.valid" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" (click)="SubmitOTCliente(OTform.value)" style="align-content: right" class="btn btn-success">Guardar</button>
+              </div>
+              <div class="col-12" *ngIf="estadoCliente && OTform.valid && Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" (click)="SubmitCliente(OTform.value, Clienteform.value)"  style="align-content: right" class="btn btn-success">Guardar</button>
+              </div>
+              <div class="col-12" *ngIf="estadoCliente && !OTform.valid || !Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" (click)="SubmitCliente(OTform.value, Clienteform.value)" disabled  style="align-content: right" class="btn btn-success">Guardar</button>
+              </div>
            </div>
          </section>
        </div>

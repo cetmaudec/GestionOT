@@ -29,17 +29,21 @@
         				<img  src="../assets/icons/svg/motorcyclist2_c.svg"  width="72" class="d-inline-block align-center" alt="">
         			</div>
         			<div class="col-8">
+                <br>
         				<h2>Listado de Clientes</h2><br>
         			</div>
         		</div>
+            <div class="row">
+              <div class="col-12" style="color:#4C4C4E;">
+            <div class="table-responsive">
 	            <table class="table table-bordered">
 	              <thead class="table-info">
 	                <tr class="table-info">
-	                  <th class="table-info" scope="col">#</th>
-	                  <th scope="col">Nombre Cliente</th>
-	                  <th scope="col">Email</th>
-	                  <th scope="col">Móvil</th>
-	                  <th scope="col"></th>
+	                  <th class="col-1 table-info" style="text-align: center;">#</th>
+	                  <th class="col-2" style="text-align: center;">Nombre Cliente</th>
+	                  <th class="col-4" style="text-align: center;">Email</th>
+	                  <th class="col-2" style="text-align: center;">Móvil</th>
+	                  <th class="col-1" style="text-align: center;"></th>
 	                </tr>
 	              </thead>
 	              <tbody>
@@ -55,8 +59,11 @@
 	              </tbody>
 	            </table>
 	            <pagination-controls (pageChange)="p=$event"></pagination-controls>
-	        </div>       
-	    </section>
+	           </div>
+             </div>
+             </div>
+           </div>
+         </section>
       </div>
     </div>
   </div>
