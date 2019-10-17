@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PdfMakeWrapper, Table, Ul, Toc, Txt, Img} from 'pdfmake-wrapper';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-ficha-ind',
@@ -7,11 +10,27 @@ import { PdfMakeWrapper, Table, Ul, Toc, Txt, Img} from 'pdfmake-wrapper';
   styleUrls: ['./ficha-ind.component.scss']
 })
 export class FichaIndComponent implements OnInit {
+  idOT: any;
+  dataOT$: any = [];
+  Actividade$: any = [];
 
-  constructor() { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private http:HttpClient) {
+    this.idOT = this.activatedRoute.snapshot.paramMap.get('id');
+   }
 
   ngOnInit() {
+    this.getData();
   }
+
+  getData(){
+    this.http.get('http://localhost:4000/select-cliente-ot/'+this.idOT).subscribe(
+      resp => this.dataOT$ = resp as []
+    );
+    this.http.get('http://localhost:4000/select-act/'+this.idOT).subscribe(
+      resp => this.Actividade$ = resp as []
+    );
+  }
+
 
   public generateReport(): void{
     const pdf: PdfMakeWrapper = new PdfMakeWrapper();
@@ -59,5 +78,10 @@ export class FichaIndComponent implements OnInit {
 
     pdf.footer('This is a footer');
     pdf.create().open();
+  }
+
+  gotoDetailsAct(idRelacion: any) {
+    console.log(idRelacion);
+    this.router.navigate(['/actividad-detalle/', idRelacion]);
   }
 }

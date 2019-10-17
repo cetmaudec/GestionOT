@@ -12,6 +12,7 @@ import { AddNewProductComponent } from './add-new-product/add-new-product.compon
 import { LoginComponent } from './login/login.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
+import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
 
 
 
@@ -22,12 +23,13 @@ const routes: Routes = [
   { path: 'orden-trabajo', component: OrdenTrabajoComponent},
   { path: 'asignar', component: AsignarComponent},
   { path: 'ficha', component: FichaComponent },
-  { path: 'ficha-ind', component: FichaIndComponent },
+  { path: 'ficha-ind/:id', component: FichaIndComponent },
   { path: 'nueva-moto', component: AddMotocicletaComponent},
   { path: 'nueva-actividad', component: AddNewActivityComponent},
   { path: 'nuevo-producto', component: AddNewProductComponent},
   { path: 'clientes', component: ClientesComponent},
   { path: 'cliente/:id', component: ClienteDetalleComponent},
+  { path: 'actividad-detalle/:id', component: ActividadDetalleComponent},
 
 ];
 

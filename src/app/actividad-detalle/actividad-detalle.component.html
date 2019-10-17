@@ -1,0 +1,218 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Nueva Orden de Trabajo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.17-beta.0/vue.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <!-- Custom styles for this template-->
+  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+  <!-- Bootstrap core JavaScript-->
+  <script src="../assets/vendor/jquery/jquery.min.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
+  <script src="../assets/js/sb-admin-2.min.js"></script>
+  <script src="../assets/vendor/chart.js/Chart.min.js"></script>
+</head>
+<body>
+  <app-nav></app-nav>
+  <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+    <div id="content">
+      <div class="container-fluid" style="width: 1000px; ">
+        <section class="section section-container" style="padding-bottom: 10px; width:100%;">
+          <div class="box" style="color: #FF0022;" *ngFor="let act of actividad$.data">
+            <div class="row" style="margin-bottom: 2%;">
+              <div class="col-2" style="margin-left: 5%;">
+                <button type="button" (click)="BackOT(act.ordenTrabajo)">
+                  <img  src="../assets/icons/svg/workflow3_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                 Volver a OT
+                </button>
+              </div>
+              <div class="col-6">
+                <br>
+                <h2>Detalles de Actividad</h2>
+              </div>
+              <div class="col-2" *ngIf="!act.fecha_inicio" style="align-items: center;">
+                <button type="button" class="button5 btn-success" (click)="ActionDate('inicio')">
+                 Iniciar
+                </button>
+              </div>
+              <div class="col-2" *ngIf="!act.fecha_finalizado && act.fecha_inicio"  style="align-items: center;">
+                <button type="button" class="button5 btn-danger" (click)="ActionDate('final')">
+                 Finalizar
+                </button>
+              </div>
+              <div class="col-2" *ngIf="act.fecha_finalizado"  style="align-items: center;">
+                <button type="button" class="button5 btn-danger" style="background-color: #ff8a80;" (click)="ActionDate('final')" disabled>
+                 Finalizar
+                </button>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-10" style="color:#4C4C4E; padding-left: 10%;">
+                <div class="list-group" style="border: transparent;">
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Actividad: <br>{{act.actividad}}
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <div class= "row">
+
+                      <div class="col-6" *ngIf="!fechaInicio" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Inicio:<br> {{act.fecha_inicio}}
+                          </li>
+                          <button type="button" class="btn btn-sm" (click)="Edit('fechaInicio')">
+                            <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                          </button>
+                        </ul>
+                      </div>
+
+                      <div class="col-6" *ngIf="fechaInicio" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Inicio:<br>
+                            <div class="row">
+                              <div class="col-6">
+                                <form [formGroup]="FechaInicioEditform">
+                                  <input class="input" clearInput  type="date" formControlName="nuevoInicio" value={{act.fecha_inicio}}>
+                                </form>
+                              </div>
+                              <div class="col-2">
+                                <button class="button is-success"  (click)="onSubmitInicio(FechaInicioEditform.value)" style="margin-left: 70%;">Actualizar
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-6" *ngIf="!fechaFin" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Finalización:<br> {{act.fecha_finalizado}}</li>
+                          <button type="button" class="btn btn-sm" (click)="Edit('fechaFin')">
+                            <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                          </button>
+                        </ul>
+                      </div>
+
+                      <div class="col-6" *ngIf="fechaFin" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Finalización:<br>
+                            <div class="row">
+                              <div class="col-6">
+                                <form [formGroup]="FechaFinEditform">
+                                  <input class="input" clearInput  type="date" formControlName="nuevoFin" value={{act.fecha_finalizado}}>
+                                </form>
+                              </div>
+                              <div class="col-2">
+                                <button class="button is-success"  (click)="onSubmitFin(FechaFinEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="!editMaterial" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Materiales:<br> {{act.materiales}}
+                      </li>
+                      <button type="button" class="btn btn-sm" (click)="Edit('materiales')">
+                        <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </ul>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="editMaterial" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Materiales:<br>
+                        <div class="row">
+                          <div class="col-8">
+                            <form [formGroup]="MaterialEditform">
+                              <textarea class="input" clearInput  type="textarea" maxlength="240" rows="100" cols="20" formControlName="nuevoMaterial" value={{act.materiales}}>
+                              </textarea>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmitMaterial(MaterialEditform.value)" style="margin-left: 70%;">Actualizar
+                            </button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                
+                  <div class="list-group-item" *ngIf="!editTiempoEstimado" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}}
+                      </li>
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}}
+                      </li>
+                      <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
+                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </ul>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="editTiempoEstimado" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo estimado:<br>
+                        <div class="row">
+                          <div class="col-6">
+                            <form [formGroup]="TiempoEditform">
+                              <input class="input" clearInput  type="time" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmitTiempo(TiempoEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+
+                  <div class="list-group-item" *ngIf="!editCosto" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Costo ($):<br> {{act.costo}} 
+                      </li>
+                      <button type="button" class="btn btn-sm" (click)="Edit('costo')">
+                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </ul>
+                  </div>
+
+                  <div class="list-group-item" *ngIf="editCosto" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Costo ($):<br>
+                        <div class="row">
+                          <div class="col-6">
+                            <form [formGroup]="CostoEditform">
+                              <input class="input" clearInput  type="number" formControlName="nuevoCosto" value={{act.costo}}>
+                            </form>
+                          </div>
+                          <div class="col-2">
+                            <button class="button is-success"  (click)="onSubmitCosto(CostoEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</body>

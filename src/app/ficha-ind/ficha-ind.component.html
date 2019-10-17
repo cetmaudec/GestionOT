@@ -18,130 +18,114 @@
   <script src="../assets/vendor/chart.js/Chart.min.js"></script>
 </head>
 <body>
+  <app-nav></app-nav>
+  <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
+    <div id="content">
+      <div class="container-fluid" style="width: 1000px;">
+        <section class="section section-container" style="padding-bottom: 10px; width:100%;">
+          <div class="box" style="color: #FF0022;">
+            <div class="row" style="margin-bottom: 2%;">
+              <div class="col-2-sm" style="margin-left: 5%;">
+                <img  src="../assets/icons/svg/motorcyclist_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              </div>
+              <div class="col-8">
+                <br>
+                <h2>Ficha de orden de trabajo</h2>
+              </div>
+            </div>
+            <div class="row" *ngFor = "let ot of dataOT$.data">
+              <div class="col-8" style="color:#4C4C4E; padding-left: 5%;">
+                <div class="list-group" style="border: transparent;">
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <ul class="list-group" style="background-color:#f4f4f4;">
+                      <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">
+                        Nombre Cliente:<br> {{ot.nombre}} {{ot.apellido_p}} {{ot.apellido_m}}
+                      </li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Motocicleta: {{ot.motocicleta}}</li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Tipo de trabajo: {{ot.tipo}}</li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Fecha de Inicio: {{ot.fecha_llegada}}</li>
+                      <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Fecha de Entrega: {{ot.fecha_entrega}}</li>
+                      <li class="list-group-item" *ngIf="!ot.esPrioridad" style="width: 350px; border: transparent; background-color:transparent;">Prioridad por: {{ot.motivo_prioridad}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-3">
+                <div class="card border-left-warning shadow" *ngIf="ot.estado == 'En ejecución'">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Estado</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{ot.estado}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card border-left-success shadow" *ngIf="ot.estado == 'Finalizado'">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Estado</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{ot.estado}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card border-left-danger shadow" *ngIf="ot.estado == 'No iniciado'">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Estado</div>
+                        <div class="h6 mb-0 font-weight-bold text-gray-800">{{ot.estado}}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <br>
+                <button type="button"  style="width:150px" class="btn btn-info" (click)="generateReport()">Generar Reporte</button>
+              </div>
+            </div>
 
-  <div class="container">
-    <section class="section section-container" style="padding-bottom: 10px;">
-      <div class="box">
-        <div class="row">
-          <div class="col-8">
-            <h1>Ficha de orden de trabajo</h1>
-          </div>
-          <div class="col-3">
-            <br>
-            <button type="button" class="btn btn-info" (click)="generateReport()">Generar Reporte</button>
-          </div>
-        </div>
-          <div class="field">
-              <label>Nombre OT: KTM 1290</label>
-          </div>
-          <div class="field">
-              <label>Nombre de Cliente: Hernán Rodriguez</label>
-          </div>
-          <div class="field">
-              <label>Motocicleta: KTM 1290</label>
-          </div>
-          <div class="field">
-              <label>Tipo de trabajo: Parrilla</label>
-          </div>
-          <div class="field">
-              <label>Prioridad: 3ra</label>
-          </div>
-          <div class="field">
-              <label>Fecha de Inicio: 12-07-2019</label>
-          </div>
-          <div class="field">
-              <label>Fecha de Entrega: 30-08-2019</label>
-          </div>
-          <div class="box">
-            <div class="field">
-              <table class="table table-hover">
-                <thead class="table-info">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Actividad</th>
-                    <th scope="col">Fecha de completado</th>
-                    <th scope="col">Estado</th>
 
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Desarmar partes de moto.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Dimensionar tubos.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Dimensionar pletinas.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">4</th>
-                    <td>Perforar y redondear pletinas.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">5</th>
-                    <td>Curvar tubos.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">6</th>
-                    <td>Aplastar y perforar placa perilla.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">7</th>
-                    <td>Soldar estructura.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">8</th>
-                    <td>Pulir soldadura.</td>
-                    <td>20-07-2019</td>
-                    <td>Listo</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">9</th>
-                    <td>Probar estructura en la moto.</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">10</th>
-                    <td>Enviar a electropontar.</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">11</th>
-                    <td>Instalar producto en la moto.</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <th scope="row">12</th>
-                    <td>Limpiar moto y entregar.</td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="row">
+              <div class="col-10" style="color:#4C4C4E; padding-left: 10%; ">
+                <br>
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+                    <thead class="table-info">
+                      <tr class="table-info">
+                        <th class="col-1 table-info">#</th>
+                        <th class="col-4">Actividad</th>
+                        <th class="col-4">Fecha de completado</th>
+                        <th class="col-3">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let act of Actividade$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+                        <th class="table-info" style="text-align: center;" scope="row">{{act.actividad_id}}</th>
+                        <td>{{act.actividad}}</td>
+                        <td>{{act.fecha_finalizado}}</td>
+                        <td>
+                          <a (click)="gotoDetailsAct(act.idRelacion)" class="btn btn-info" style="color:white;">
+                            <div class="row">
+                              <div class="col-8">
+                                <h5 style="font-size: 12px;">Detalles/<br>Editar </h5>
+                              </div>
+                              <div class="col-4">
+                                <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                              </div>
+                            </div>
+                          </a>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
-  </body>
+  </div>
+</body>

@@ -2,6 +2,7 @@ import { NgModule, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -12,7 +13,7 @@ import { ActivatedRoute } from '@angular/router';
 export class ClienteDetalleComponent implements OnInit {
 	id: any;
 	cliente$: any = [];
-	otRelacionada$: any = [];
+	otRelacionadas$: any = [];
 
 
 	datos = {
@@ -47,9 +48,9 @@ export class ClienteDetalleComponent implements OnInit {
 		comuna:'',
 		pais:''
 	}
-	
-	
-	constructor(private activatedRoute: ActivatedRoute, private http:HttpClient, private formBuilder: FormBuilder) {
+
+
+	constructor(private activatedRoute: ActivatedRoute, private router: Router, private http:HttpClient, private formBuilder: FormBuilder) {
 		this.id = this.activatedRoute.snapshot.paramMap.get('id');
 		this.EmailEditform = this.formBuilder.group({
 			nuevoEmail:['']
@@ -70,17 +71,17 @@ export class ClienteDetalleComponent implements OnInit {
 	}
 
 	ngOnInit() {
-   		this.getData();  
-   		console.log(this.cliente$)	
+   		this.getData();
+   		console.log(this.cliente$)
 	}
 
 	getData(){
-		this.http.get('http://localhost:4000/select-cliente/'+this.id).subscribe(
-   			resp => this.cliente$ = resp as []
-   			);
-   		this.http.get('http://localhost:4000/select-ot/'+this.id).subscribe(
-   			resp => this.otRelacionada$ = resp as []
-   			);	
+    this.http.get('http://localhost:4000/select-cliente/'+this.id).subscribe(
+      resp => this.cliente$ = resp as []
+    );
+    this.http.get('http://localhost:4000/select-ot/'+this.id).subscribe(
+      resp => this.otRelacionadas$ = resp as []
+    );
 	}
 
 	UpdateData(tipo:string){
@@ -179,5 +180,10 @@ export class ClienteDetalleComponent implements OnInit {
 		}
 	}
 
- 
+  gotoDetailsOT(idOT: any) {
+    console.log(idOT);
+    this.router.navigate(['/ficha-ind/', idOT]);
+  }
+
+
 }

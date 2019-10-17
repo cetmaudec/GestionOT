@@ -31,7 +31,6 @@
               <div class="col-8">
                 <br>
                 <h2>Datos de Cliente</h2>
-                
               </div>
             </div>
             <div class="row">
@@ -176,46 +175,32 @@
 
 
             <div class="row">
-              <div class="col-2"></div>
-              <div class="col-8">
+              <div class="col-10" style="color:#4C4C4E; padding-left: 10%; ">
+                <br>
+                <h2>Órdenes de trabajo asociadas</h2>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead class="table-info">
                       <tr class="table-info">
-                        <th class="table-info" >#</th>
-                        <th scope="col">Marca <br>motocicleta</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col"></th>
+                        <th class="col-1 table-info" style="text-align: center;">#</th>
+                        <th class="col-4" style="text-align: center;">Marca <br>motocicleta</th>
+                        <th class="col-4" style="text-align: center;">Estado</th>
+                        <th class="col-1"></th>
                       </tr>
                     </thead>
-                     <tbody>
-                      <tr *ngFor="let ot of otRelacionada$.data | paginate:{itemsPerPage: 8, currentPage:p}">
-                        <th class="table-info" style="text-align: center;" scope="row">{{ot.idCliente}}</th>
-                        <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
-                        <td>{{cliente.email}}</td>
-                        <td>{{cliente.celular}}</td>
-                        <td>
-                          <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
-                        </td>
-                      </tr>
-                    </tbody>
-
                     <tbody>
-                      <tr *ngFor="ot of otRelacionada$">
-                        <th scope="row">1</th>
-                        <td>MM1</td>
-                        <td>En ejecución</td>
-                        <td>
-                          <a href="/ficha-ind" class="btn btn-outline-info active" role="button" aria-pressed="true">
-                          Ver Detalles
-                          </a>
-                        </td>
-                      </tr>
-                    </tbody>
+                     <tr *ngFor="let ot of otRelacionadas$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+                       <th class="table-info" style="text-align: center;" scope="row">{{ot.idOT}}</th>
+                       <td>{{ot.motocicleta}}</td>
+                       <td>{{ot.estado}}</td>
+                       <td>
+                         <a (click)="gotoDetailsOT(ot.idOT)" class="btn btn-info" style="color:white;">Detalles</a>
+                       </td>
+                     </tr>
+                   </tbody>
                   </table>
                 </div>
               </div>
-              <div class="col-2"></div>
             </div>
           </div>
         </section>

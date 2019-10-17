@@ -27,6 +27,7 @@ import { LoginComponent } from './login/login.component';
 import { AddClienteComponent } from './add-cliente/add-cliente.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
+import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
 
 
 
@@ -46,6 +47,7 @@ import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.compo
     AddClienteComponent,
     ClientesComponent,
     ClienteDetalleComponent,
+    ActividadDetalleComponent,
   ],
   imports: [
     BrowserModule,

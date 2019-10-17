@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "cetma2019",
+  password: "karley.7331",
   database: "rozto_gestion"
 });
 
@@ -142,9 +142,32 @@ app.get('/select-cliente/:id' , (req, res, next) => {
     })
 })
 
+app.get('/select-actividad/:id' , (req, res, next) => {
+  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real FROM act_OT WHERE act_OT.idRelacion= ${req.params.id};`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.get('/select-act/:id' , (req, res, next) => {
+  con.query(`SELECT * FROM act_OT WHERE act_OT.ordenTrabajo = ${req.params.id};`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
 
 //SELECT ELEMENTS
-
+//Select OTs de un cliente
 app.get('/select-ot/:id' , (req, res, next) => {
   con.query(`SELECT * FROM orden_trabajo WHERE orden_trabajo.cliente = ${req.params.id};`, (err, resultados) => {
         if(err) {
@@ -156,6 +179,23 @@ app.get('/select-ot/:id' , (req, res, next) => {
         }
     })
 })
+
+
+//JOIN
+app.get('/select-cliente-ot/:id' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT idOT, cliente, motocicleta, tipo, DATE_FORMAT(orden_trabajo.fecha_llegada, "%e/%m/%Y") as fecha_llegada, DATE_FORMAT(orden_trabajo.fecha_entrega, "%e/%m/%Y") as fecha_entrega, esPrioridad, motivo_prioridad, dejaMoto, estado, idCliente, nombre, apellido_p, apellido_m, rut, email, dir_calle, dir_num, dir_depto, dir_comuna, dir_pais, telefono, celular FROM orden_trabajo, cliente WHERE orden_trabajo.idOT = ${req.params.id} AND orden_trabajo.cliente=cliente.idCliente;`
+
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 
 
 ///INSERT
@@ -267,6 +307,69 @@ app.put('/update-direccion/:id', bodyParser.json(), (req, res, next) =>
         }
     })
 });
+
+
+//DETALLES DE ACTIVIDADES
+app.put('/insert-material/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_MATERIAL = `UPDATE act_OT SET  act_OT.materiales = '${req.body.material}'  WHERE act_OT.idRelacion=${req.params.id} `
+    con.query(UPDATE_MATERIAL, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('Material actualizado con éxito')
+        }
+    })
+});
+
+app.put('/insert-costo/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_COSTO = `UPDATE act_OT SET  act_OT.costo = '${req.body.costo}'  WHERE act_OT.idRelacion=${req.params.id} `
+    con.query(UPDATE_COSTO, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('Costo actualizado con éxito')
+        }
+    })
+});
+
+app.put('/insert-inicio/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_INICIO = `UPDATE act_OT SET  act_OT.fecha_inicio = '${req.body.inicio}'  WHERE act_OT.idRelacion=${req.params.id} `
+    con.query(UPDATE_INICIO, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('Fecha Inicio actualizado con éxito')
+        }
+    })
+});
+
+app.put('/insert-fin/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_FIN = `UPDATE act_OT SET  act_OT.fecha_finalizado = '${req.body.fin}'  WHERE act_OT.idRelacion=${req.params.id} `
+    con.query(UPDATE_FIN, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('Fecha Fin actualizado con éxito')
+        }
+    })
+});
+
+app.put('/insert-tiempo/:id', bodyParser.json(), (req, res, next) =>
+{
+    const UPDATE_TIEMPO = `UPDATE act_OT SET  act_OT.tiempo_estimado = '${req.body.tiempo}'  WHERE act_OT.idRelacion=${req.params.id} `
+    con.query(UPDATE_TIEMPO, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('Fecha Fin actualizado con éxito')
+        }
+    })
+});
+
 
 app.listen(4000, () => {
     console.log('el servidor está usando el puerto 4000 -')

@@ -16,52 +16,16 @@ h2{
 	font-weight: bold;
 }
 
-h3{
-	bold: true;
-	font-family: Monaco;
-	text-align: left;
-	font-weight: bold;
-	font-size:1rem;
-}
-
-
-h5{
-	bold: true;
-	font-family: Monaco;
-	text-align: center;
-	font-weight: bold;
-}
-
-h6{
-	bold: true;
-	font-family: Monaco;
-	text-align: center;
-	font-weight: bold;
-	font-size: 18px;
-}
-
 label{
-	color: #4C4C4E;
+	color: #d96421;
 	font-family: Monaco;
-	text-align: center;
-	border: transparent;
-	text-align: left;
 }
 
 .box{
 	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;
+	background-color: #f8f9f9;	
 }
-.bloque{
-	color: #f8f9f9;
-	text-align: center;
-	align-content: center;
-	background-color: #f1c40f;
-	width:150px;
-	height: 40px;
-	border: 1px solid transparent !important;
-	border-radius:5px;
-}
+
 .th{
 	font-family: Monaco;
 	text-align: center;
@@ -90,5 +54,18 @@ ul {
 }
 
 .table{
-	background-color: #f8f9f9;
+	background-color: #f8f9f9;	
+}
+
+.button5 {
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 50%;
 }
