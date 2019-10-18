@@ -45,7 +45,7 @@
                               </div>
                                <div class="col-12" *ngIf="estadoCliente">
                                  <select class="form-control" disabled formControlName="nombreCliente" >
-                                    <option *ngFor="let cliente of cliente$.data" value="{{cliente.idCliente}}">{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</option>
+                                    <option *ngFor="let cliente of cliente$.data" value=null></option>
                                   </select>
                               </div>
                             </div>
@@ -127,7 +127,7 @@
                             </div>
                             <div class="col-5" *ngIf="!esPrioritario">
                               <select class="form-control"  formControlName="Prioridad" disabled>
-                                <option *ngFor="let prioridad of prioridade$.data" value="{{prioridad.idPrioridad}}">{{prioridad.motivo_prioridad}}</option>
+                                <option *ngFor="let prioridad of prioridade$.data" value=null></option>
                               </select>
                             </div>
                           </div>
@@ -173,7 +173,7 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf = "estadoCliente">
+              <div *ngIf = "estadoCliente && OTform.valid">
                 <div class="box" style="color: #FF0022; 	border: 0px solid #FF0022 !important;">
                   <h1>Datos de Clientes</h1>
                   <form [formGroup]="Clienteform">
@@ -293,16 +293,16 @@
               	</div>
               </div>
               <div class="col-12" *ngIf="!estadoCliente && !OTform.valid" style="padding-top: 5%; padding-left: 60%;">
-                <button type="button" disabled (click)="SubmitOTCliente(OTform.value)" style="align-content: right" class="btn btn-success">Guardar</button>
+                <button type="button" (click)="SubmitOTCliente(OTform.value)" disabled style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
               <div class="col-12" *ngIf="!estadoCliente && OTform.valid" style="padding-top: 5%; padding-left: 60%;">
                 <button type="button" (click)="SubmitOTCliente(OTform.value)" style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
-              <div class="col-12" *ngIf="estadoCliente && OTform.valid && Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+              <div class="col-12" *ngIf="estadoCliente && Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
                 <button type="button" (click)="SubmitCliente(OTform.value, Clienteform.value)"  style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
-              <div class="col-12" *ngIf="estadoCliente && !OTform.valid || !Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
-                <button type="button" (click)="SubmitCliente(OTform.value, Clienteform.value)" disabled  style="align-content: right" class="btn btn-success">Guardar</button>
+              <div class="col-12" *ngIf="estadoCliente && !Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+                <button type="button" disabled (click)="SubmitCliente(OTform.value, Clienteform.value)"  style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
            </div>
          </section>

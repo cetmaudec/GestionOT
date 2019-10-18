@@ -47,8 +47,8 @@
 	                </tr>
 	              </thead>
 	              <tbody>
-	                <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}">
-	                  <th class="table-info" style="text-align: center;" scope="row">{{cliente.idCliente}}</th>
+	                <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}; let i=index ">
+	                  <th class="table-info" style="text-align: center;" scope="row">{{i+1}}</th>
 	                  <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
 	                  <td>{{cliente.email}}</td>
 	                  <td>{{cliente.celular}}</td>

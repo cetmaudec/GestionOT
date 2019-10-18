@@ -21,7 +21,7 @@ con.connect(function(err) {
 app.use(cors())
 
 app.get('/cliente', (req, res) => {
-    con.query('SELECT * FROM cliente;', (err, resultados) => {
+    con.query('SELECT * FROM cliente ORDER BY(idCliente) DESC;', (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -128,6 +128,18 @@ app.get('/orden-trabajo', (req, res) => {
     })
 })
 
+app.get('/last-orden-trabajo', (req, res) => {
+  con.query('SELECT MAX(idOT) FROM orden_trabajo;', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 //SELECT ELEMENT
 app.get('/select-cliente/:id' , (req, res, next) => {
   con.query(`SELECT * FROM cliente WHERE cliente.idCliente = ${req.params.id};`, (err, resultados) => {
@@ -179,7 +191,6 @@ app.get('/select-ot/:id' , (req, res, next) => {
     })
 })
 
-
 //JOIN
 app.get('/select-cliente-ot/:id' , (req, res, next) => {
     const JOIN_CLIENTE_OT = `SELECT idOT, cliente, motocicleta, tipo, DATE_FORMAT(orden_trabajo.fecha_llegada, "%e/%m/%Y") as fecha_llegada, DATE_FORMAT(orden_trabajo.fecha_entrega, "%e/%m/%Y") as fecha_entrega, esPrioridad, motivo_prioridad, dejaMoto, estado, idCliente, nombre, apellido_p, apellido_m, rut, email, dir_calle, dir_num, dir_depto, dir_comuna, dir_pais, telefono, celular FROM orden_trabajo, cliente WHERE orden_trabajo.idOT = ${req.params.id} AND orden_trabajo.cliente=cliente.idCliente;`
@@ -208,7 +219,6 @@ app.get('/select-ot-cliente/' , (req, res, next) => {
     })
 })
 
-
 ///INSERT
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     const INSERT_TIPO_QUERY = `INSERT INTO tipo(nombre_tipo) VALUES('${req.body.nombre_tipo}');`
@@ -229,6 +239,22 @@ app.post('/add-actividad', bodyParser.json(), (req, res, next) => {
         } else {
             return res.send('actividad adicionado con éxito')
         }
+    })
+})
+
+app.post('/add-actividadOT', bodyParser.json(), (req, res, next) => {
+  con.query('SELECT COUNT(*) as conteo FROM orden_trabajo;', (err, resultados) => {
+      console.log(resultados);
+      let n = resultados[0].conteo;
+      console.log(n);
+      const INSERT_ACTIVIDAD = `INSERT INTO act_OT(ordenTrabajo,actividad_id,actividad) VALUES(${n},'${req.body.id}','${req.body.nombre}');`
+      con.query(INSERT_ACTIVIDAD, (err, resultados) => {
+          if(err) {
+              return res.send(err)
+          } else {
+              return res.send('actividad adicionado con éxito')
+          }
+      })
     })
 })
 
@@ -258,13 +284,13 @@ app.post('/add-marca-modelo', bodyParser.json(), (req, res, next) => {
     })
 })
 
-app.post('/add-modeloMarca', bodyParser.json(), (req, res, next) => {
-    const INSERT_MODELO = `INSERT INTO modelo(nombre_modelo,marca) VALUES('${req.body.nombre_modelo}', ${req.body.marca});`
+app.post('/add-cliente', bodyParser.json(), (req, res, next) => {
+    const INSERT_MODELO = `INSERT INTO cliente (nombre,apellido_p,apellido_m,rut,email,dir_calle,dir_num,dir_depto,dir_comuna,dir_pais,telefono,celular) VALUES ('${req.body.nombre}','${req.body.apellidoPat}','${req.body.apellidoMat}','${req.body.rut}','${req.body.correo}','${req.body.Dir_calle}',${req.body.Dir_numero},${req.body.Dir_depto},'${req.body.Dir_comuna}','${req.body.Dir_pais}','${req.body.Telefono}','${req.body.Celular}');`
     con.query(INSERT_MODELO, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.send('modelo adicionado con éxito')
+            return res.send('cliente adicionado con éxito')
         }
     })
 })
@@ -273,8 +299,6 @@ app.post('/add-OT', bodyParser.json(), (req, res, next) => {
     con.query('SELECT marca, modelo FROM motocicleta;', (err, resultados) => {
       let motocicleta = resultados[0].marca +' '+resultados[0].modelo;
       var INSERT_OT;
-      console.log(req.body.FechaEntrega);
-
       if(req.body.esPrioridad==0 && req.body.FechaEntrega!=null){
         console.log("sinprioridad");
         INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,fecha_entrega,esPrioridad,dejaMoto,estado)
@@ -295,7 +319,7 @@ app.post('/add-OT', bodyParser.json(), (req, res, next) => {
         } else {
             return res.send('OT adicionado con éxito')
         }
-      })
+      });
     }else if(req.body.FechaEntrega==null && req.body.esPrioridad!=0){
       console.log("conprioridad");
       INSERT_OT = `INSERT INTO orden_trabajo (cliente,moto_id, motocicleta, tipo,fecha_llegada,esPrioridad,motivo_prioridad,dejaMoto,estado)
@@ -333,7 +357,6 @@ app.post('/add-marca', bodyParser.json(), (req, res, next) => {
         console.log(req.body.nombre_marca)
     })
 })
-
 
 //UPDATE
 app.put('/update-email/:id', bodyParser.json(), (req, res, next) =>
@@ -445,7 +468,6 @@ app.put('/insert-tiempo/:id', bodyParser.json(), (req, res, next) =>
         }
     })
 });
-
 
 app.listen(4000, () => {
     console.log('el servidor está usando el puerto 4000 -')

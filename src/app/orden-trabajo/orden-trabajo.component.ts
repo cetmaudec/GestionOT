@@ -26,6 +26,8 @@ export class OrdenTrabajoComponent implements OnInit {
   motocicleta$: any = [];
   anio$: any = [];
   prioridade$: any = [];
+  actividade$: any = [];
+  LastOT: any = [];
 
   clienteOT = {
       nombre:null,
@@ -56,7 +58,6 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {
-
     this.OTform = this.formBuilder.group({
       nombreCliente:[''],
       Motocicleta:['', Validators.required],
@@ -66,7 +67,6 @@ export class OrdenTrabajoComponent implements OnInit {
       FechaLlegada:['',Validators.required],
       FechaEntrega:['']
     });
-
     this.Clienteform = this.formBuilder.group({
       nombre:['', Validators.required],
       apellidoPat:['', Validators.required],
@@ -84,11 +84,12 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.CleanDatos();
     this.getClientes();
     this.getTipos();
     this.getMotocicletas();
     this.getPrioridades();
-    this.CleanDatos();
+    this.getActividades();
   }
 
   AddClient(){
@@ -117,8 +118,8 @@ export class OrdenTrabajoComponent implements OnInit {
     console.log(this.dejaMoto);
   }
 
-
   CleanDatos(){
+    console.log("clean");
     this.OTform.reset();
     this.Clienteform.reset();
 
@@ -147,6 +148,37 @@ export class OrdenTrabajoComponent implements OnInit {
       );
   }
 
+  getActividades(){
+    this.http.get('http://localhost:4000/actividad').subscribe(resp =>
+      this.actividade$ = resp as []
+      );
+  }
+
+  LastOT(){
+    this.http.get('http://localhost:4000/last-orden-trabajo').subscribe(resp =>
+      this.LastOT$ = resp as []
+      );
+  }
+
+  sendActividades(){
+    for(let act of this.actividade$.data){
+      var datoAct = {
+          'id': act.idActividad,
+          'nombre': act.nombre_actividad
+      };
+      console.log(datoAct);
+      this.http.post('http://localhost:4000/add-actividadOT', datoAct, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+        (response) => {
+          console.log('response from post data is ', response);
+        },
+        (error)=>{
+          console.log('error during post is ', error)
+        }
+      );
+    }
+    this.router.navigate(['/ficha-ind/', this.LastOT]);
+  }
+
   getPrioridades(){
     this.http.get('http://localhost:4000/prioridad').subscribe(resp =>
       this.prioridade$ = resp as []
@@ -154,54 +186,73 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
   SubmitOTCliente(){
-    this.dataOT = {
-      'nombreCliente':this.OTform.get('nombreCliente').value,
-      'idMotocicleta':this.OTform.get('Motocicleta').value,
-      'Anio':this.OTform.get('Anio').value,
-      'Tipo':this.OTform.get('Tipo').value,
-      'FechaLlegada':this.OTform.get('FechaLlegada').value,
-      'FechaEntrega':this.OTform.get('FechaEntrega').value,
-      'esPrioridad': this.prioritario,
-      'Prioridad':this.OTform.get('Prioridad').value,
-      'dejaMoto': this.dejamoto,
-      'estado': 'No iniciado'
-    };
+    if(this.estadoCliente == true){
+      this.dataOT = {
+        'nombreCliente':this.cliente$.data[0].idCliente+1,
+        'idMotocicleta':this.OTform.get('Motocicleta').value,
+        'Anio':this.OTform.get('Anio').value,
+        'Tipo':this.OTform.get('Tipo').value,
+        'FechaLlegada':this.OTform.get('FechaLlegada').value,
+        'FechaEntrega':this.OTform.get('FechaEntrega').value,
+        'esPrioridad': this.prioritario,
+        'Prioridad':this.OTform.get('Prioridad').value,
+        'dejaMoto': this.dejamoto,
+        'estado': 'No iniciado'
+      };
+    }else{
+      this.dataOT = {
+        'nombreCliente':this.OTform.get('nombreCliente').value,
+        'idMotocicleta':this.OTform.get('Motocicleta').value,
+        'Anio':this.OTform.get('Anio').value,
+        'Tipo':this.OTform.get('Tipo').value,
+        'FechaLlegada':this.OTform.get('FechaLlegada').value,
+        'FechaEntrega':this.OTform.get('FechaEntrega').value,
+        'esPrioridad': this.prioritario,
+        'Prioridad':this.OTform.get('Prioridad').value,
+        'dejaMoto': this.dejamoto,
+        'estado': 'No iniciado'
+      };
+    }
+
     this.http.post('http://localhost:4000/add-OT', this.dataOT, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
       (response) => {
         console.log('response from post data is ', response);
       },
       (error)=>{
         console.log('error during post is ', error)
-      });
-      this.ngOnInit();
-    }
-
-SubmitCliente(){
-  this.clienteOT = {
-    'nombre':this.Clienteform.get('nombre').value,
-    'apellidoPat':this.Clienteform.get('apellidoPat').value,
-    'apellidoMat':this.Clienteform.get('apellidoMat').value,
-    'rut':this.Clienteform.get('rut').value,
-    'correo':this.Clienteform.get('correo').value,
-    'Dir_calle':this.Clienteform.get('Dir_calle').value,
-    'Dir_numero':this.Clienteform.get('Dir_numero').value,
-    'Dir_depto':this.Clienteform.get('Dir_depto').value,
-    'Dir_comuna':this.Clienteform.get('Dir_comuna').value,
-    'Dir_pais':this.Clienteform.get('Dir_pais').value,
-    'Telefono':this.Clienteform.get('Telefono').value,
-    'Celular':this.Clienteform.get('Celular').value
+      }
+    );
+    this.sendActividades();
+    this.ngOnInit();
   }
 
-  this.http.post('http://localhost:4000/add-Client', this.dataOT, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
-    (response) => {
-      console.log('response from post data is ', response);
-    },
-    (error)=>{
-      console.log('error during post is ', error)
-    });
+  SubmitCliente(){
+    this.clienteOT = {
+      'nombre':this.Clienteform.get('nombre').value,
+      'apellidoPat':this.Clienteform.get('apellidoPat').value,
+      'apellidoMat':this.Clienteform.get('apellidoMat').value,
+      'rut':this.Clienteform.get('rut').value,
+      'correo':this.Clienteform.get('correo').value,
+      'Dir_calle':this.Clienteform.get('Dir_calle').value,
+      'Dir_numero':this.Clienteform.get('Dir_numero').value,
+      'Dir_depto':this.Clienteform.get('Dir_depto').value,
+      'Dir_comuna':this.Clienteform.get('Dir_comuna').value,
+      'Dir_pais':this.Clienteform.get('Dir_pais').value,
+      'Telefono':this.Clienteform.get('Telefono').value,
+      'Celular':this.Clienteform.get('Celular').value
+    }
+
+
+    this.http.post('http://localhost:4000/add-cliente', this.clienteOT, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+      (response) => {
+        console.log('response from post data is ', response);
+      },
+      (error)=>{
+        console.log('error during post is ', error);
+      }
+    );
+
+    this.SubmitOTCliente();
     this.ngOnInit();
-
-}
-
-
+  }
 }
