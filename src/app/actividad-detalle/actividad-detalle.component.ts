@@ -52,6 +52,10 @@ export class ActividadDetalleComponent implements OnInit {
 		tiempo:''
 	}
 
+	dato = {
+    	estado: ''
+  	}
+
 	constructor(private activatedRoute: ActivatedRoute, private router: Router, private http:HttpClient, private formBuilder: FormBuilder) {
 		this.idAct= this.activatedRoute.snapshot.paramMap.get('id');
 		this.MaterialEditform = this.formBuilder.group({
@@ -73,7 +77,7 @@ export class ActividadDetalleComponent implements OnInit {
 		this.anio = this.displayDate.getFullYear();
 		this.mes = this.displayDate.getMonth()+1;
 		this.dia = this.displayDate.getDate();
-   	}
+	}
 
   	ngOnInit() {
   		this.getData();
@@ -84,6 +88,7 @@ export class ActividadDetalleComponent implements OnInit {
 	      resp => this.actividad$ = resp as []
 	    );
 	}
+
 
   	Edit(tipo:any){
   		if(tipo=='materiales'){
@@ -126,14 +131,13 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Tiempo = {
 				'tiempo': this.TiempoEditform.get('nuevoTiempo').value
 			};
-			this.http.put('http://localhost:4000/insert-tiempo/'+this.idAct, this.dato_Tiempo, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.http.put('http://localhost:4000/insert-tiempo/'+this.idAct, this.dato_Tiempo, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
 	        console.log('error during post is ', error)
 	      });
+			this.editTiempoEstimado=false;
 	      }else if(this.editTiempoEstimado==true){
 	  		this.editTiempoEstimado=false;
 	  	}
@@ -145,9 +149,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Costo = {
 				'costo': this.CostoEditform.get('nuevoCosto').value
 			};
-			this.http.put('http://localhost:4000/insert-costo/'+this.idAct, this.dato_Costo, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.http.put('http://localhost:4000/insert-costo/'+this.idAct, this.dato_Costo, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
@@ -165,15 +167,14 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaI = {
 				'inicio': this.FechaInicioEditform.get('nuevoInicio').value
 			};
-			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
 	        console.log('error during post is ', error)
 	      });
 	      this.fechaInicio=false;
+	      this.EstadoActividad('Iniciada');
 		}else if(this.fechaInicio==true){
 	  		this.fechaInicio=false;
 	  	}
@@ -185,15 +186,14 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaF = {
 				'fin': this.FechaFinEditform.get('nuevoFin').value
 			};
-			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
 	        console.log('error during post is ', error)
 	      });
 	      this.fechaFin=false;
+	      this.EstadoActividad('Finalizada');
 		}else if(this.fechaFin==true){
 	  		this.fechaFin=false;
 	  	}
@@ -207,10 +207,8 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaI = {
 				'inicio': this.date,
 			};
-			console.log(this.dato_FechaI);
-			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.EstadoActividad('Iniciada');
+			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
@@ -221,10 +219,8 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaF = {
 				'fin': this.date,
 			};
-			console.log(this.dato_FechaF);
-			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
+			this.EstadoActividad('Finalizada');
+			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
 	      (response) => {
 	        console.log('response from post data is ', response);
 	      },(error)=>{
@@ -233,6 +229,19 @@ export class ActividadDetalleComponent implements OnInit {
 		}
 		this.ngOnInit();
 	}
+
+	 EstadoActividad(estadoAct: any) {
+     this.dato= {
+        'estado': estadoAct
+      };
+      this.http.put('http://localhost:4000/estado-actividad/'+this.idAct, this.dato, {responseType: 'text'}).subscribe(
+        (response) => {
+          console.log('response from post data is ', response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        });
+      this.ngOnInit();
+  }
 
 	BackOT(idOT:any){
 		console.log(idOT)

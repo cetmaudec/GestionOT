@@ -45,7 +45,7 @@
                       <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Tipo de trabajo: {{ot.tipo}}</li>
                       <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Fecha de Inicio: {{ot.fecha_llegada}}</li>
                       <li class="list-group-item"style="width: 350px; border: transparent; background-color:transparent;">Fecha de Entrega: {{ot.fecha_entrega}}</li>
-                      <li class="list-group-item" *ngIf="!ot.esPrioridad" style="width: 350px; border: transparent; background-color:transparent;">Prioridad por: {{ot.motivo_prioridad}}</li>
+                      <li class="list-group-item" *ngIf="ot.esPrioridad" style="width: 350px; border: transparent; background-color:transparent;">Prioridad por: {{ot.motivo_prioridad}}</li>
                     </ul>
                   </div>
                 </div>
@@ -82,40 +82,52 @@
                   </div>
                 </div>
                 <br>
-                <button type="button"  style="width:150px" class="btn btn-info" (click)="generateReport()">Generar Reporte</button>
+                <div class="row" *ngIf="ot.estado == 'Finalizado' || ot.estado == 'No iniciado'">
+                  <button type="button"  style="width:150px" class="btn btn-success" disabled (click)="Finalizado()">Entregado</button>
+                </div>
+                <div class="row" *ngIf="ot.estado == 'En ejecución'">
+                  <button type="button"  style="width:150px" class="btn btn-success" (click)="Finalizado()">Entregado</button>
+                </div>
+                <br>
+                <div class="row">
+                  <button type="button"  style="width:150px" class="btn btn-warning" (click)="generateReport()">Generar Reporte</button>
+                </div>
               </div>
             </div>
 
-
             <div class="row">
-              <div class="col-10" style="color:#4C4C4E; padding-left: 10%; ">
+              <div class="col-12" style="color:#4C4C4E; padding-left: 2%; ">
                 <br>
                 <div class="table-responsive">
                   <table class="table table-bordered">
                     <thead class="table-info">
                       <tr class="table-info">
-                        <th class="col-1 table-info">#</th>
-                        <th class="col-4">Actividad</th>
-                        <th class="col-4">Fecha de completado</th>
-                        <th class="col-3">Estado</th>
+                        <th class="col-1 text-center table-info">#</th>
+                        <th class="col-4 text-center ">Actividad</th>
+                        <th class="col-3 text-center ">Fecha de completado</th>
+                        <th class="col-2 text-center  ">Estado</th>
+                        <th class="col-3 text-center "></th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let act of Actividade$.data | paginate:{itemsPerPage: 8, currentPage:p}">
-                        <th class="table-info" style="text-align: center;" scope="row">{{act.actividad_id}}</th>
-                        <td>{{act.actividad}}</td>
-                        <td>{{act.fecha_finalizado}}</td>
-                        <td>
-                          <a (click)="gotoDetailsAct(act.idRelacion)" class="btn btn-info" style="color:white;">
-                            <div class="row">
-                              <div class="col-8">
-                                <h5 style="font-size: 12px;">Detalles/<br>Editar </h5>
-                              </div>
-                              <div class="col-4">
+                      <tr *ngFor="let act of ActividadeOT$.data">
+                        <th class="table-info text-center" scope="row">{{act.actividad_id}}</th>
+                        <td class="text-center">{{act.actividad}}</td>
+                        <td class="text-center">{{act.fecha_finalizado}}</td>
+                        <td class="text-center">{{act.estado}}</td>
+                        <td class="text-center">
+                          <div class="row">
+                            <div class="col">
+                              <a (click)="gotoDetailsAct(act.idRelacion)" class="btn btn-light" style="color:white;">
                                 <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
-                              </div>
+                              </a>
                             </div>
-                          </a>
+                            <div class ="col">
+                              <a (click)="NoAplica(act.idRelacion)" class="btn btn-light" style="color:white;">
+                                <img  src="../assets/icons/svg/delete_c.svg"  width="20" class="d-inline-block align-center" alt="">
+                              </a>
+                            </div>
+                          </div>
                         </td>
                       </tr>
                     </tbody>

@@ -12,7 +12,13 @@ import { Router, RouterModule } from '@angular/router';
 export class FichaIndComponent implements OnInit {
   idOT: any;
   dataOT$: any = [];
-  Actividade$: any = [];
+
+  ActividadeOT$: any = [];
+  ActGeneral$: any = [];
+
+  dato = {
+    estado: ''
+  }
 
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private http:HttpClient) {
     this.idOT = this.activatedRoute.snapshot.paramMap.get('id');
@@ -22,14 +28,50 @@ export class FichaIndComponent implements OnInit {
     this.getData();
   }
 
+
   getData(){
     this.http.get('http://localhost:4000/select-cliente-ot/'+this.idOT).subscribe(
       resp => this.dataOT$ = resp as []
     );
     this.http.get('http://localhost:4000/select-act/'+this.idOT).subscribe(
-      resp => this.Actividade$ = resp as []
+      resp => this.ActividadeOT$ = resp as []
     );
   }
+
+  Finalizado(){
+      this.dato= {
+        'estado': 'Finalizado'
+      };
+      this.http.put('http://localhost:4000/end-estadoOT/'+this.idOT, this.dato, {responseType: 'text'}).subscribe(
+        (response) => {
+          console.log('response from post data is ', response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        });
+      this.ngOnInit();
+  }
+
+
+
+  gotoDetailsAct(idRelacion: any) {
+    console.log(idRelacion);
+    this.router.navigate(['/actividad-detalle/', idRelacion]);
+  }
+
+  NoAplica(idRelacion: any) {
+     this.dato= {
+        'estado': 'No aplica'
+      };
+      this.http.put('http://localhost:4000/estado-actividad/'+idRelacion, this.dato, {responseType: 'text'}).subscribe(
+        (response) => {
+          console.log('response from post data is ', response);
+        },(error)=>{
+          console.log('error during post is ', error)
+        });
+      this.ngOnInit();
+  }
+
+
 
   public generateReport(): void{
     const pdf: PdfMakeWrapper = new PdfMakeWrapper();
@@ -79,8 +121,4 @@ export class FichaIndComponent implements OnInit {
     pdf.create().open();
   }
 
-  gotoDetailsAct(idRelacion: any) {
-    console.log(idRelacion);
-    this.router.navigate(['/actividad-detalle/', idRelacion]);
-  }
 }

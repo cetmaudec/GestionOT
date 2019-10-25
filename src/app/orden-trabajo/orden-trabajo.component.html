@@ -63,7 +63,7 @@
                             <div class="col-6">
                               <label>Motocicleta (*)</label>
                               <select class="form-control" required placeholder="Motocicleta" formControlName="Motocicleta">
-                                <option *ngFor="let moto of motocicleta$.data" value="{{moto.idMoto}}">{{moto.marca}} {{moto.modelo}}</option>
+                                <option *ngFor="let moto of motocicleta$.data; let i=index" value="{{i}}"> {{moto.marca}} {{moto.modelo}}</option>
                               </select>
                             </div>
                             <div class="col-3">
@@ -76,11 +76,11 @@
                               <label style="font-size: 14px;">Deja Motocicleta?</label>
                               <div class="col-5">
                                 <button class="btn btn-warning" style="width:140px;" (click)="DejaMoto()">
-                                  <label *ngIf=!dejaMoto style="color:white">Si</label>
-                                  <label *ngIf=dejaMoto style="color:black">Si</label>
+                                  <label *ngIf=!dejaMoto style="color:#f9a825 ">Si</label>
+                                  <label *ngIf=dejaMoto style="color:white">Si</label>
                                   <label  style="color:gray">/</label>
-                                  <label *ngIf=!dejaMoto style="color:black">No</label>
-                                  <label *ngIf=dejaMoto style="color:white">No</label>
+                                  <label *ngIf=!dejaMoto style="color:white">No</label>
+                                  <label *ngIf=dejaMoto style="color:#f9a825 ">No</label>
                                 </button>
                               </div>
                             </div>
@@ -148,7 +148,7 @@
                               </div>
                             </div>
                             <div class="col-5">
-                              <label>Fecha de Entrega</label>
+                              <label>Fecha de Entrega (*)</label>
                               <div class="control">
                                 <input class="input" type="date"  formControlName="FechaEntrega">
                               </div>

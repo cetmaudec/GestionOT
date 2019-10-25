@@ -51,6 +51,7 @@
                 </button>
               </div>
             </div>
+
             <div class="row">
               <div class="col-10" style="color:#4C4C4E; padding-left: 10%;">
                 <div class="list-group" style="border: transparent;">
@@ -149,34 +150,43 @@
                     </ul>
                   </div>
 
-                
-                  <div class="list-group-item" *ngIf="!editTiempoEstimado" style="border: transparent; background-color:#f8f9f9;">
-                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}}
-                      </li>
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}}
-                      </li>
-                      <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
-                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
-                      </button>
-                    </ul>
-                  </div>
+                  <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
+                    <div class= "row">
 
-                  <div class="list-group-item" *ngIf="editTiempoEstimado" style="border: transparent; background-color:#f8f9f9;">
-                    <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Tiempo estimado:<br>
-                        <div class="row">
-                          <div class="col-6">
-                            <form [formGroup]="TiempoEditform">
-                              <input class="input" clearInput  type="time" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}>
-                            </form>
-                          </div>
-                          <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmitTiempo(TiempoEditform.value)" style="margin-left: 70%;">Actualizar</button>
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
+                      <div class="col-6" *ngIf="!editTiempoEstimado">
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}}
+                          </li>
+                          <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
+                            <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
+                          </button>
+                        </ul>
+                      </div>
+
+                      <div class="col-6" *ngIf="editTiempoEstimado">
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br>
+                            <div class="row">
+                              <div class="col-6">
+                                <form [formGroup]="TiempoEditform">
+                                  <input class="input" clearInput  type="number" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}>
+                                </form>
+                              </div>
+                              <div class="col-2">
+                                <button class="button is-success"  (click)="onSubmitTiempo(TiempoEditform.value)" style="margin-left: 70%;">Actualizar
+                                </button>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+
+                      <div class="col-6" >
+                        <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}}</li>
+                        </ul>
+                      </div>
+                    </div>
                   </div>
 
 

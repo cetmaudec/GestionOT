@@ -3,6 +3,8 @@ import { FormBuilder, FormArray, FormGroup, Validators, FormControl } from '@ang
 import {MatSelectModule} from '@angular/material/select';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router, RouterModule } from '@angular/router';
+
 
 
 @Component({
@@ -27,7 +29,9 @@ export class OrdenTrabajoComponent implements OnInit {
   anio$: any = [];
   prioridade$: any = [];
   actividade$: any = [];
-  LastOT: any = [];
+  LastOT$: any = [];
+
+  prueba:any;
 
   clienteOT = {
       nombre:null,
@@ -45,19 +49,20 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
   dataOT = {
-    nombreCliente:null,
-    idMotocicleta:null,
-    Anio:null,
-    Tipo:null,
-    FechaLlegada:null,
-    FechaEntrega:null,
-    esPrioridad:null,
-    Prioridad:null,
-    dejaMoto:null,
-    estado:null
+    nombreCliente:'',
+    idMotocicleta:'',
+    marca:'',
+    modelo:'',
+    tipo:'',
+    fechaLlegada:'',
+    fechaEntrega:'',
+    esPrioridad:'',
+    prioridad:'',
+    dejaMoto:'',
+    estado:''
   }
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {
+  constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router) {
     this.OTform = this.formBuilder.group({
       nombreCliente:[''],
       Motocicleta:['', Validators.required],
@@ -65,7 +70,7 @@ export class OrdenTrabajoComponent implements OnInit {
       Tipo:['',Validators.required],
       Prioridad:['',],
       FechaLlegada:['',Validators.required],
-      FechaEntrega:['']
+      FechaEntrega:['',Validators.required]
     });
     this.Clienteform = this.formBuilder.group({
       nombre:['', Validators.required],
@@ -122,7 +127,7 @@ export class OrdenTrabajoComponent implements OnInit {
     console.log("clean");
     this.OTform.reset();
     this.Clienteform.reset();
-
+    console.log(this.prueba);
     this.estadoCliente = false
     this.esPrioritario = false
     this.dejaMoto = false
@@ -154,20 +159,21 @@ export class OrdenTrabajoComponent implements OnInit {
       );
   }
 
-  LastOT(){
-    this.http.get('http://localhost:4000/last-orden-trabajo').subscribe(resp =>
-      this.LastOT$ = resp as []
+  getPrioridades(){
+    this.http.get('http://localhost:4000/prioridad').subscribe(resp =>
+      this.prioridade$ = resp as []
       );
   }
+
 
   sendActividades(){
     for(let act of this.actividade$.data){
       var datoAct = {
+          //'idOT': this.idOT,
           'id': act.idActividad,
           'nombre': act.nombre_actividad
       };
-      console.log(datoAct);
-      this.http.post('http://localhost:4000/add-actividadOT', datoAct, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+      this.http.post('http://localhost:4000/add-actividadOT', datoAct, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },
@@ -176,54 +182,48 @@ export class OrdenTrabajoComponent implements OnInit {
         }
       );
     }
-    this.router.navigate(['/ficha-ind/', this.LastOT]);
   }
 
-  getPrioridades(){
-    this.http.get('http://localhost:4000/prioridad').subscribe(resp =>
-      this.prioridade$ = resp as []
-      );
-  }
 
   SubmitOTCliente(){
     if(this.estadoCliente == true){
       this.dataOT = {
         'nombreCliente':this.cliente$.data[0].idCliente+1,
-        'idMotocicleta':this.OTform.get('Motocicleta').value,
-        'Anio':this.OTform.get('Anio').value,
-        'Tipo':this.OTform.get('Tipo').value,
-        'FechaLlegada':this.OTform.get('FechaLlegada').value,
-        'FechaEntrega':this.OTform.get('FechaEntrega').value,
+        'idMotocicleta':this.motocicleta$.data[this.OTform.get('Motocicleta').value].idMoto,
+        'marca': this.motocicleta$.data[this.OTform.get('Motocicleta').value].marca,
+        'modelo': this.motocicleta$.data[this.OTform.get('Motocicleta').value].modelo,
+        'tipo':this.OTform.get('Tipo').value,
+        'fechaLlegada':this.OTform.get('FechaLlegada').value,
+        'fechaEntrega':this.OTform.get('FechaEntrega').value,
         'esPrioridad': this.prioritario,
-        'Prioridad':this.OTform.get('Prioridad').value,
+        'prioridad':this.OTform.get('Prioridad').value,
         'dejaMoto': this.dejamoto,
         'estado': 'No iniciado'
       };
     }else{
       this.dataOT = {
         'nombreCliente':this.OTform.get('nombreCliente').value,
-        'idMotocicleta':this.OTform.get('Motocicleta').value,
-        'Anio':this.OTform.get('Anio').value,
-        'Tipo':this.OTform.get('Tipo').value,
-        'FechaLlegada':this.OTform.get('FechaLlegada').value,
-        'FechaEntrega':this.OTform.get('FechaEntrega').value,
+        'idMotocicleta':this.motocicleta$.data[this.OTform.get('Motocicleta').value].idMoto,
+        'marca': this.motocicleta$.data[this.OTform.get('Motocicleta').value].marca,
+        'modelo': this.motocicleta$.data[this.OTform.get('Motocicleta').value].modelo,
+        'tipo':this.OTform.get('Tipo').value,
+        'fechaLlegada':this.OTform.get('FechaLlegada').value,
+        'fechaEntrega':this.OTform.get('FechaEntrega').value,
         'esPrioridad': this.prioritario,
-        'Prioridad':this.OTform.get('Prioridad').value,
+        'prioridad':this.OTform.get('Prioridad').value,
         'dejaMoto': this.dejamoto,
         'estado': 'No iniciado'
       };
     }
 
-    this.http.post('http://localhost:4000/add-OT', this.dataOT, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+    this.http.post('http://localhost:4000/add-OT', this.dataOT, {responseType: 'text'}).subscribe(
       (response) => {
         console.log('response from post data is ', response);
-      },
-      (error)=>{
-        console.log('error during post is ', error)
       }
     );
+    this.CleanDatos();
     this.sendActividades();
-    this.ngOnInit();
+    this.router.navigate(['/ficha']);
   }
 
   SubmitCliente(){
@@ -243,16 +243,15 @@ export class OrdenTrabajoComponent implements OnInit {
     }
 
 
-    this.http.post('http://localhost:4000/add-cliente', this.clienteOT, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+    this.http.post('http://localhost:4000/add-cliente', this.clienteOT, {responseType: 'text'}).subscribe(
       (response) => {
+
         console.log('response from post data is ', response);
       },
       (error)=>{
         console.log('error during post is ', error);
       }
     );
-
     this.SubmitOTCliente();
-    this.ngOnInit();
   }
 }
