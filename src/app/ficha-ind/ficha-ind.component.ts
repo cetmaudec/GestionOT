@@ -58,9 +58,9 @@ export class FichaIndComponent implements OnInit {
     this.router.navigate(['/actividad-detalle/', idRelacion]);
   }
 
-  NoAplica(idRelacion: any) {
+  Estado(idRelacion: any, estadoAct: any) {
      this.dato= {
-        'estado': 'No aplica'
+        'estado': estadoAct
       };
       this.http.put('http://localhost:4000/estado-actividad/'+idRelacion, this.dato, {responseType: 'text'}).subscribe(
         (response) => {

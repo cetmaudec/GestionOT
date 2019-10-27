@@ -219,6 +219,44 @@ app.get('/select-ot-cliente/' , (req, res, next) => {
     })
 })
 
+app.get('/group-actividad-ot/' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT act_OT.ordenTrabajo AS ordenTrabajo, 
+    orden_trabajo.estado AS estadoOT, 
+    cliente.nombre AS nombre,
+    cliente.apellido_p AS apellido_p,
+    cliente.apellido_m AS apellido_m,
+    COUNT(CASE WHEN act_OT.estado = 'Iniciada' THEN 1 END) AS iniciada, 
+    COUNT(CASE WHEN act_OT.estado = 'Finalizada' THEN 1 END) AS finalizada, 
+    COUNT(CASE WHEN act_OT.estado = 'Aplica' THEN 1 END) AS app, 
+    COUNT(CASE WHEN act_OT.estado = 'No aplica' THEN 1 END) AS na 
+    FROM act_OT, orden_trabajo, cliente
+    WHERE cliente.idCliente=orden_trabajo.cliente AND act_OT.ordenTrabajo=orden_trabajo.idOT  GROUP BY(act_OT.ordenTrabajo);`
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///INSERT
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     const INSERT_TIPO_QUERY = `INSERT INTO tipo(nombre_tipo) VALUES('${req.body.nombre_tipo}');`
