@@ -13,87 +13,135 @@
   <script src="./assets/vendor/jquery/jquery.min.js"></script>
   <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="./assets/vendor/jquery-easing/jquery.easing.min.js"></script>
-  <script src="./assets/js/sb-admin-2.min.js"></script>
-  <script src="./assets/vendor/chart.js/Chart.min.js"></script>
 </head>
+
 <body style="background-color: #C4C4C4;">
   <app-nav></app-nav>
     <div id="content-wrapper" class="d-flex flex-column" style="padding:10%; padding-top:5%; background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
       <div id="content">
         <div class="container-fluid">
+
           <div class="row" style="margin-top:10px;">
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Motocicleta más<br> demandada</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{motoLabel[0]}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                      <img  src="../assets/icons/svg/motorbike_c.png"  width="72" class="d-inline-block align-center" alt="">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Producto Mayor<br> demanda</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{tipoLabel[0]}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                      <img  src="../assets/icons/svg/work_c.svg"  width="72" class="d-inline-block align-center" alt="">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="col-xl-3 col-md-6 mb-4">
-              <div class="card border-left-success shadow h-100 py-2">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-xl-3 col-md-6 mb-4">
+            <div class="col-xl-4 col-md-6 mb-4">
               <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>
-                      <div class="row no-gutters align-items-center">
-                        <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
-                        </div>
-                        <div class="col">
-                          <div class="progress progress-sm mr-2">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
-                      </div>
+                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Comuna con mayor<br> demanda</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{comunaLabel[0]}}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                      <img  src="../assets/icons/svg/address_c.svg"  width="72" class="d-inline-block align-center" alt="">
                     </div>
                   </div>
                 </div>
               </div>
             </div>
+
+          </div>
+
+          <div class="row" style="margin-top:10px;">
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <div class="row">
+                    <div class="col-10">
+                      <h6 class="m-0 font-weight-bold text-primary" style="padding-top:5%;">Demanda Motocicletas</h6>
+                    </div>
+                    <div class="col-2">
+                      <button (click)="createChartMoto()" class="btn btn-light" style="color:white;">
+                        <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" *ngIf="graphMoto">
+                  <div class="chart-pie pt-4">
+                    <canvas id="MotoChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <div class="row">
+                    <div class="col-10">
+                      <h6 class="m-0 font-weight-bold text-success" style="padding-top:5%;">Demanda Productos</h6>
+                    </div>
+                    <div class="col-2">
+                      <button (click)="createChartTipo()" class="btn btn-light" style="color:white;">
+                        <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" *ngIf="graphTipo">
+                  <div class="chart-pie pt-4">
+                    <canvas id="TipoChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <div class="row">
+                    <div class="col-10">
+                      <h6 class="m-0 font-weight-bold text-info" style="padding-top:5%;">Ubicación de demanda</h6>
+                    </div>
+                    <div class="col-2">
+                      <button (click)="createChartComuna()" class="btn btn-light" style="color:white;">
+                        <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body" *ngIf="graphComuna">
+                  <div class="chart-pie pt-4">
+                    <canvas id="ComunaChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
           </div>
 
           <div class="card">
@@ -102,10 +150,9 @@
                 <h6 class="m-0 font-weight-bold text-primary">Ordenes de trabajo:</h6>
               </div>
               <div class="card-body" *ngFor="let ot of ordenTrabajoAct$.data; let i=index">
-                <h4 class="small font-weight-bold">OT{{ot.ordenTrabajo}}: {{ot.nombre}} {{ot.apellido_p}} {{ot.apellido_m}} 
+                <h4 class="small font-weight-bold">OT{{ot.ordenTrabajo}}: {{ot.nombre}} {{ot.apellido_p}} {{ot.apellido_m}}
                   <span class="float-right">{{otPorc[i].porcentaje}}%</span>
                 </h4>
-
 
                 <div class="progress mb-4" >
                   <div class="progress-bar" *ngIf="otPorc[i].porcentaje >0" role="progressbar" style="width:1%; background-color:#da4f4a;" aria-valuenow="20" aria-valuemin="0"  aria-valuemax="100"></div>

@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "karley.7331",
+  password: "cetma2019",
   database: "rozto_gestion"
 });
 
@@ -220,15 +220,15 @@ app.get('/select-ot-cliente/' , (req, res, next) => {
 })
 
 app.get('/group-actividad-ot/' , (req, res, next) => {
-    const JOIN_CLIENTE_OT = `SELECT act_OT.ordenTrabajo AS ordenTrabajo, 
-    orden_trabajo.estado AS estadoOT, 
+    const JOIN_CLIENTE_OT = `SELECT act_OT.ordenTrabajo AS ordenTrabajo,
+    orden_trabajo.estado AS estadoOT,
     cliente.nombre AS nombre,
     cliente.apellido_p AS apellido_p,
     cliente.apellido_m AS apellido_m,
-    COUNT(CASE WHEN act_OT.estado = 'Iniciada' THEN 1 END) AS iniciada, 
-    COUNT(CASE WHEN act_OT.estado = 'Finalizada' THEN 1 END) AS finalizada, 
-    COUNT(CASE WHEN act_OT.estado = 'Aplica' THEN 1 END) AS app, 
-    COUNT(CASE WHEN act_OT.estado = 'No aplica' THEN 1 END) AS na 
+    COUNT(CASE WHEN act_OT.estado = 'Iniciada' THEN 1 END) AS iniciada,
+    COUNT(CASE WHEN act_OT.estado = 'Finalizada' THEN 1 END) AS finalizada,
+    COUNT(CASE WHEN act_OT.estado = 'Aplica' THEN 1 END) AS app,
+    COUNT(CASE WHEN act_OT.estado = 'No aplica' THEN 1 END) AS na
     FROM act_OT, orden_trabajo, cliente
     WHERE cliente.idCliente=orden_trabajo.cliente AND act_OT.ordenTrabajo=orden_trabajo.idOT  GROUP BY(act_OT.ordenTrabajo);`
   con.query(JOIN_CLIENTE_OT, (err, resultados) => {
@@ -243,17 +243,53 @@ app.get('/group-actividad-ot/' , (req, res, next) => {
 })
 
 
+//SELECT COUNT
 
 
+app.get('/group-moto' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT count(*) as cantidad, motocicleta FROM orden_trabajo GROUP BY(motocicleta) ORDER BY(cantidad) DESC;`
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
 
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
 
+        }
+    })
+})
 
+app.get('/group-tipo' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT count(*) as cantidad, tipo FROM orden_trabajo GROUP BY(tipo) ORDER BY(cantidad) DESC;`
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
 
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
 
+        }
+    })
+})
 
+app.get('/group-comuna' , (req, res, next) => {
+    const JOIN_CLIENTE_OT = `SELECT count(*) as cantidad, cliente.dir_comuna as comuna FROM orden_trabajo, cliente WHERE orden_trabajo.cliente = cliente.idCliente GROUP BY(cliente.dir_comuna) ORDER BY(cantidad) DESC;`
+  con.query(JOIN_CLIENTE_OT, (err, resultados) => {
 
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
 
-
+        }
+    })
+})
 
 
 
@@ -436,10 +472,10 @@ app.put('/end-estadoOT/:id', bodyParser.json(), (req, res, next) => {
 
 
 app.put('/insert-inicio/:id', bodyParser.json(), (req, res, next) => {
-    con.query(`UPDATE act_OT SET  act_OT.fecha_inicio = '${req.body.inicio}' WHERE act_OT.idRelacion=${req.params.id}`, 
+    con.query(`UPDATE act_OT SET  act_OT.fecha_inicio = '${req.body.inicio}' WHERE act_OT.idRelacion=${req.params.id}`,
         (err, resultados) => {
-        con.query(`UPDATE orden_trabajo  INNER JOIN act_OT ON orden_trabajo.idOT = act_OT.ordenTrabajo  
-            SET orden_trabajo.estado = "En ejecución"  WHERE act_OT.idRelacion = ${req.params.id};`, 
+        con.query(`UPDATE orden_trabajo  INNER JOIN act_OT ON orden_trabajo.idOT = act_OT.ordenTrabajo
+            SET orden_trabajo.estado = "En ejecución"  WHERE act_OT.idRelacion = ${req.params.id};`,
             (err, resultados) => {
             if(err) {
                 return res.send(err)
@@ -451,7 +487,7 @@ app.put('/insert-inicio/:id', bodyParser.json(), (req, res, next) => {
 });
 
 app.put('/insert-fin/:id', bodyParser.json(), (req, res, next) => {
-    con.query(`UPDATE act_OT SET  act_OT.fecha_finalizado = '${req.body.fin}' WHERE act_OT.idRelacion=${req.params.id} `, 
+    con.query(`UPDATE act_OT SET  act_OT.fecha_finalizado = '${req.body.fin}' WHERE act_OT.idRelacion=${req.params.id} `,
         (err, resultados) => {
         con.query(`UPDATE act_OT SET  act_OT.tiempo_real =  DATEDIFF(act_OT.fecha_finalizado, act_OT.fecha_inicio) WHERE act_OT.idRelacion=${req.params.id}`, (err, resultados) => {
             if(err) {
@@ -464,7 +500,7 @@ app.put('/insert-fin/:id', bodyParser.json(), (req, res, next) => {
 });
 
 app.put('/estado-actividad/:id', bodyParser.json(), (req, res, next) => {
-    con.query(`UPDATE act_OT SET act_OT.estado = '${req.body.estado}' WHERE act_OT.idRelacion=${req.params.id} `, 
+    con.query(`UPDATE act_OT SET act_OT.estado = '${req.body.estado}' WHERE act_OT.idRelacion=${req.params.id} `,
         (err, resultados) => {
         if(err) {
             return res.send(err)
