@@ -22,7 +22,7 @@ export class AddMotocicletaComponent implements OnInit {
   moto$: any = [];
   marca$: any = [];
   count_marca$: any;
-  
+
   private motoAdd: boolean = false;
   private nuevaMarca: boolean = false;
 
@@ -38,7 +38,7 @@ export class AddMotocicletaComponent implements OnInit {
     marca: ''
   }
 
-  constructor(private formBuilder: FormBuilder, private http:HttpClient) { 
+  constructor(private formBuilder: FormBuilder, private http:HttpClient) {
     this.Motocicletaform = this.formBuilder.group({
         Marca:[''],
         Nueva_Marca:[''],
@@ -53,13 +53,13 @@ export class AddMotocicletaComponent implements OnInit {
   }
 
   getModelosMarca(){
-    this.http.get('http://localhost:4000/marca-modelo').subscribe(resp => 
+    this.http.get('http://localhost:4000/motocicleta').subscribe(resp => 
       this.moto$ = resp as []
       );
   }
 
   getMarcas(){
-    this.http.get('http://localhost:4000/marca').subscribe(resp => 
+    this.http.get('http://localhost:4000/marca').subscribe(resp =>
       this.marca$ = resp as []
       );
   }

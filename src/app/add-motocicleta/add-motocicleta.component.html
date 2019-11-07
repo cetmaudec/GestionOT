@@ -95,10 +95,10 @@
 					              </tr>
 			            		</thead>
 					            <tbody>
-					               <tr *ngFor="let mo of moto$.data">
-                  <th class="table-danger" style="text-align: center;" scope="row">{{mo.idModelo}}</th>
-                  <td>{{mo.nombre_marca}}</td>
-					                <td>{{mo.nombre_modelo}}</td>
+					               <tr *ngFor="let mo of moto$.data; let i=index">
+                  <th class="table-danger" style="text-align: center;" scope="row">{{i}}</th>
+                    <td>{{mo.marca}}</td>
+					                <td>{{mo.modelo}}</td>
 					              </tr>
 					          	</tbody>
 					        </table>

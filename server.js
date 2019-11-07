@@ -68,30 +68,6 @@ app.get('/marca', (req, res) => {
     })
 })
 
-app.get('/modelo', (req, res) => {
-  con.query('SELECT * FROM modelo;', (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.json({
-                data: resultados
-            })
-        }
-    })
-})
-
-app.get('/marca-modelo', (req, res) => {
-  con.query('SELECT * FROM modelo, marca WHERE modelo.marca=marca.idMarca;', (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.json({
-                data: resultados
-            })
-        }
-    })
-})
-
 app.get('/motocicleta', (req, res) => {
   con.query('SELECT * FROM motocicleta;', (err, resultados) => {
         if(err) {
@@ -166,7 +142,7 @@ app.get('/select-actividad/:id' , (req, res, next) => {
 })
 
 app.get('/select-act/:id' , (req, res, next) => {
-  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real, estado FROM act_OT WHERE act_OT.ordenTrabajo = ${req.params.id};`, (err, resultados) => {
+  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real, estado FROM act_OT WHERE act_OT.ordenTrabajo = ${req.params.id} ORDER BY(actividad_id) ASC;`, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {

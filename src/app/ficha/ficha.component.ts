@@ -25,8 +25,11 @@ export class FichaComponent implements OnInit {
   }
 
   gotoDetails(ordenTrabajoId: any) {
-    console.log(ordenTrabajoId);
     this.router.navigate(['/ficha-ind/', ordenTrabajoId]);
+  }
+
+  GenerarOT(){
+    this.router.navigate(['/orden-trabajo']);
   }
 
 }
