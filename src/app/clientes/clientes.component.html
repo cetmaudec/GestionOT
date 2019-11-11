@@ -21,48 +21,53 @@
   <app-nav></app-nav>
   <div id="content-wrapper" class="d-flex flex-column" style="background-image: url('./assets/img/background4.jpg'); background-position: center; background-size: cover;">
     <div id="content">
-      <div class="container-fluid">
+      <div class="container-fluid" style="width: 1000px; ">
         <section class="section section-container" style="padding-bottom: 10px;">
-        	<div class="box" >
-        		<div class="row" style="margin-bottom: 2%;">
-        			<div class="col-2-sm" style="margin-left: 5%;">
-        				<img  src="../assets/icons/svg/motorcyclist2_c.svg"  width="72" class="d-inline-block align-center" alt="">
-        			</div>
-        			<div class="col-8">
+          <div class="box" >
+            <div class="row" style="margin-bottom: 2%;">
+              <div class="col-2-sm" style="margin-left: 5%;">
+                <img  src="../assets/icons/svg/motorcyclist2_c.svg"  width="72" class="d-inline-block align-center" alt="">
+              </div>
+              <div class="col-8">
                 <br>
-        				<h2>Listado de Clientes</h2><br>
-        			</div>
-        		</div>
-            <div class="row">
-              <div class="col-12" style="color:#4C4C4E;">
-            <div class="table-responsive">
-	            <table class="table table-bordered">
-	              <thead class="table-info">
-	                <tr class="table-info">
-	                  <th class="col-1 table-info" style="text-align: center;">#</th>
-	                  <th class="col-2" style="text-align: center;">Nombre Cliente</th>
-	                  <th class="col-4" style="text-align: center;">Email</th>
-	                  <th class="col-2" style="text-align: center;">Móvil</th>
-	                  <th class="col-1" style="text-align: center;"></th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	                <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}; let i=index ">
-	                  <th class="table-info" style="text-align: center;" scope="row">{{i+1}}</th>
-	                  <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
-	                  <td>{{cliente.email}}</td>
-	                  <td>{{cliente.celular}}</td>
-	                  <td>
-	                    <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
-	                  </td>
-	                </tr>
-	              </tbody>
-	            </table>
-	            <pagination-controls (pageChange)="p=$event"></pagination-controls>
-	           </div>
-             </div>
-             </div>
-           </div>
+                <h2>Clientes</h2>
+                <br>
+              </div>
+              <div class="col-2-sm" style="margin-left: 5%;">
+                <!--<button class="btn btn-light" type="button" name="button" (click)="GenerarOT()">
+                  <div class="row" style="margin-left:10%">
+                    <img class="d-inline-block align-center" src="../assets/icons/svg/order.svg"  width="60" alt="">
+                  </div>
+                  <div class="row">
+                    <h6>Generar Nueva</h6>
+                  </div>
+                </button>-->
+              </div>
+            </div>
+              <table class="table table-bordered">
+                <thead class="table-info">
+                  <tr class="table-info">
+                    <th class="col-1 table-info" style="text-align: center;">#</th>
+                    <th class="col-4" style="text-align: center;">Nombre Cliente</th>
+                    <th class="col-4" style="text-align: center;">Email</th>
+                    <th class="col-4" style="text-align: center;">Teléfono/Celular</th>
+                    <th class="col-1" style="text-align: center;"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}">
+                    <th class="table-info" style="text-align: center;" scope="row">C{{cliente.idCliente}}</th>
+                    <td style="text-align: center;">{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
+                    <td style="text-align: center;">{{cliente.email}}</td>
+                    <td style="text-align: center;">{{cliente.celular}}</td>
+                    <td>
+                      <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="p=$event"></pagination-controls>
+          </div>
          </section>
       </div>
     </div>

@@ -13,6 +13,8 @@ import { LoginComponent } from './login/login.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
+import { NewComponent } from './new/new.component';
+import { ChartsComponent } from './charts/charts.component';
 
 
 
@@ -30,7 +32,8 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent},
   { path: 'cliente/:id', component: ClienteDetalleComponent},
   { path: 'actividad-detalle/:id', component: ActividadDetalleComponent},
-
+  { path: 'new', component: NewComponent},
+  { path: 'charts', component:ChartsComponent},
 ];
 
 @NgModule({

@@ -28,6 +28,8 @@ import { AddClienteComponent } from './add-cliente/add-cliente.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
+import { NewComponent } from './new/new.component';
+import { ChartsComponent } from './charts/charts.component';
 
 
 
@@ -48,6 +50,8 @@ import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle
     ClientesComponent,
     ClienteDetalleComponent,
     ActividadDetalleComponent,
+    NewComponent,
+    ChartsComponent,
   ],
   imports: [
     BrowserModule,
