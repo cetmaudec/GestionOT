@@ -74,6 +74,7 @@ export class HomeComponent implements OnInit {
         this.tipoCant.push(prod.cantidad);
       }
     });
+    return true;
   }
 
   getComunaToPie(){
@@ -125,9 +126,9 @@ export class HomeComponent implements OnInit {
   }
 
   createChartTipo(){
-    if(this.graphTipo == false){
-      this.graphTipo = true;
-    }
+    //if(this.graphTipo == false){
+    //  this.graphTipo = true;
+    //}
     var ctx = document.getElementById("TipoChart");
     var chart = new Chart(ctx, {
       type: 'pie',
@@ -160,6 +161,7 @@ export class HomeComponent implements OnInit {
         },
       }
     });
+    return true;
   }
 
   createChartComuna(){

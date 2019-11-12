@@ -12,38 +12,47 @@
 </head>
 
 <body>
-    <a class="navbar-brand" routerLink="/">
-      <img style="padding:10px; margin-left: 15px; margin-right: 15px;" src="./assets/img/rozto-logo.png"  width="100px" class="d-inline-block align-center" alt="">
-    </a>
+  <div class="page">
     <div class="container">
-			<div class="card card-container" >
-				<img class="profile-img-card" src="./assets/icons/png/user2.png" alt="" />
-				<form [formGroup]="loginForm" (ngSubmit)="loginUser()">
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="basic-addon1">
-					    	<img color="primary" src="./assets/icons/svg/user.svg"  width="15" class="d-inline-block align-center" alt="" />
-					    </span>
-					  </div>
-					  <input type="text" class="form-control"  formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-					</div>
-					<div class="input-group mb-3">
-					  <div class="input-group-prepend">
-					    <span class="input-group-text" id="basic-addon1">
-					    	<img color="primary" src="./assets/icons/svg/key(1).svg"  width="15" class="d-inline-block align-center" alt="" />
-					    </span>
-					  </div>
-					  <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-					</div>
-					<!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-					<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
-					<div id="remember" class="checkbox">
-						<label>
-							<input type="checkbox" value="remember-me"> Remember me
-						</label>
-					</div>
-					<button class="btn btn-success" type="submit">Ingresar</button>
-				</form>
-			</div>
-		</div>
+      <div class="card card-container">
+        <img class="profile-img-card" src="./assets/icons/png/user2.png" alt=""/>
+        <form [formGroup]="loginForm" (ngSubmit)="loginUser()">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <img color="primary" src="./assets/icons/svg/user.svg"  width="15" class="d-inline-block align-center" alt="" />
+              </span>
+            </div>
+            <input type="text" class="form-control"  formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">
+                <img color="primary" src="./assets/icons/svg/key(1).svg"  width="15" class="d-inline-block align-center" alt="" />
+              </span>
+            </div>
+            <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
+          </div>
+  				<!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+  				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
+          <div id="remember" class="checkbox">
+            <label>
+              <input type="checkbox" value="remember-me"> Remember me
+            </label>
+          </div>
+          <button class="btn btn-success" type="submit">Ingresar</button>
+        </form>
+      </div>
+    </div>
+    <div class="header">
+      <div class="row">
+        <div class="col-9">
+          <img style="width:8% !important; padding-top:2%;" src="./assets/img/rozto-logo.png" class="d-inline-block align-center" alt=""/>
+        </div>
+        <div class="col-3">
+          <img style="width:80% !important; margin-left:10%" src="./assets/img/Imagotipo horizontal.png" class="d-inline-block align-center" alt=""/>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
