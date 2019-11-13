@@ -1,9 +1,42 @@
-body{
-	background-image: url("/assets/img/background4.jpg");
-	height: 100%;
-	background-position: center;
-	background-size: cover;
-	background-repeat: no-repeat;
+body, html {
+  	height: 100%;
+}
+
+.page{
+  	background-image: url("/assets/img/background3.jpg");
+  	position: fixed;
+  	top: 0;
+  	left: 0;
+  	/* Preserve aspet ratio */
+  	min-width: 100%;
+  	min-height: 100%;
+  	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+.button-content{
+  margin: 27px auto 0;
+  position: relative;
+  width: 547px;
+  height: 100%;
+  background-color: #34495e;
+  border-radius: 8px;
+  font-size: 0;
+  align-items: center;
+}
+
+.button-content button{
+  height: 100%;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  cursor: pointer;
 }
 
 h1{
@@ -28,10 +61,6 @@ label{
 	font-family: Monaco;
 }
 
-.box{
-	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;
-}
 
 .th{
 	font-family: Monaco;

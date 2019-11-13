@@ -1,3 +1,40 @@
+body, html {
+  	height: 100%;
+}
+
+.page{
+  	background-image: url("/assets/img/background3.jpg");
+  	position: fixed;
+  	top: 0;
+  	left: 0;
+  	/* Preserve aspet ratio */
+  	min-width: 100%;
+  	min-height: 100%;
+  	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+footer {
+  	background-color: rgba(242, 243, 244, 0.35);
+  	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  	height: auto;
+  	color: white;
+  	padding-left:5%;
+  	padding-right:3%;
+}
+
+section{
+	position: center;
+}
+
+
+.box{
+	border: 1px solid #34495e !important;
+	background-color: #f8f9f9;
+}
 
 h1{
 	color: #4C4C4E;
@@ -48,10 +85,6 @@ label{
 	text-align: left;
 }
 
-.box{
-	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;
-}
 .bloque{
 	color: #f8f9f9;
 	text-align: center;

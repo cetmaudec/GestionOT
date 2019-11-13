@@ -8,10 +8,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { OrdenTrabajoComponent } from './orden-trabajo/orden-trabajo.component';
-import { AsignarComponent } from './asignar/asignar.component';
+
 import { FichaComponent } from './ficha/ficha.component';
 import { FichaIndComponent } from './ficha-ind/ficha-ind.component';
 import { AddNewActivityComponent } from './add-new-activity/add-new-activity.component';
@@ -30,16 +29,15 @@ import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.compo
 import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
 import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
     HomeComponent,
     OrdenTrabajoComponent,
-    AsignarComponent,
     FichaComponent,
     FichaIndComponent,
     AddNewActivityComponent,
@@ -52,6 +50,7 @@ import { ChartsComponent } from './charts/charts.component';
     ActividadDetalleComponent,
     NewComponent,
     ChartsComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,

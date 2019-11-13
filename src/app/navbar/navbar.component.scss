@@ -1,0 +1,90 @@
+.header{
+  background-color: rgba(242, 243, 244, 0.35);
+  width: 100%;
+  height: auto;
+  color: white;
+}
+
+img{
+  padding:10px; 
+  padding-left: 5px;
+  width: 35px;
+}
+
+nav {
+  margin: 27px auto 0;
+  position: relative;
+  width: 690px;
+  height: auto;
+  background-color: #34495e;
+  border-radius: 8px;
+  font-size: 0;
+  align-items: center;
+}
+
+nav a {
+  height: 100%;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+nav .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  transition: all .5s ease 0s;
+  border-radius: 8px;
+}
+
+a:nth-child(1) {
+  width: 110px;
+  position: center;
+}
+a:nth-child(2) {
+    width: 110px;
+  position: center;
+}
+a:nth-child(3) {
+    width: 180px;
+  position: center;
+}
+a:nth-child(4) {
+    width: 110px;
+  position: center;
+}
+a:nth-child(5) {
+    width: 180px;
+  position: center;
+}
+nav .start-home, a:nth-child(1):hover~.animation {
+  width: 110px;
+  background-color: #1abc9c;
+}
+nav .start-about, a:nth-child(2):hover~.animation {
+  width: 110px;
+  left: 110px;
+  background-color: #e74c3c;
+}
+nav .start-blog, a:nth-child(3):hover~.animation {
+  width: 180px;
+  left:220px;
+  background-color: #3498db;
+}
+nav .start-portefolio, a:nth-child(4):hover~.animation {
+  width: 110px;
+  left: 400px;
+  background-color: #9b59b6;
+}
+nav .start-contact, a:nth-child(5):hover~.animation {
+  width: 180px;
+  left: 510px;
+  background-color: #e67e22;
+}

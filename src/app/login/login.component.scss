@@ -1,12 +1,6 @@
 body, html {
   height: 100%;
 }
-.header{
-  background-color: rgba(242, 243, 244, 0.35);
-  padding-left:5%;
-  padding-right:3%;
-  margin-top:15%;
-}
 
 .page{
   background-image: url("/assets/img/background3.jpg");
@@ -16,10 +10,20 @@ body, html {
   /* Preserve aspet ratio */
   min-width: 100%;
   min-height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.footer{
-  background-color: transparent;
+footer {
+  background-color: rgba(242, 243, 244, 0.35);
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: auto;
+  color: white;
+    padding-left:5%;
+  padding-right:3%;
 }
 
 .card {

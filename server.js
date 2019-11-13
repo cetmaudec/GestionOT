@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "cetma2019",
+  password: "karley.7331",
   database: "rozto_gestion"
 });
 

@@ -1,7 +1,34 @@
+body, html {
+  	height: 100%;
+}
+
+.page{
+  	background-image: url("/assets/img/background3.jpg");
+  	position: fixed;
+  	top: 0;
+  	left: 0;
+  	/* Preserve aspet ratio */
+  	min-width: 100%;
+  	min-height: 100%;
+  	background-position: center;
+  	background-repeat: no-repeat;
+  	background-size: cover;
+}
+
+section{
+	position: center;
+}
+
+
+.box{
+	border: 1px solid #34495e !important;
+	background-color: #f8f9f9;
+}
+
 
 h1{
 	color: #4C4C4E;
-	bold: true;
+	text-decoration: bold;
 	font-family: Monaco;
 	text-align: center;
 	font-weight: bold;
@@ -10,7 +37,7 @@ h1{
 
 h2{
 	color: #4C4C4E;
-	bold: true;
+	text-decoration: bold;
 	font-family: Monaco;
 	text-align: center;
 	font-weight: bold;
@@ -19,11 +46,6 @@ h2{
 label{
 	color: #d96421;
 	font-family: Monaco;
-}
-
-.box{
-	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;
 }
 
 .th{
@@ -35,3 +57,4 @@ label{
 	font-family: Monaco;
 	text-align: center;
 }
+

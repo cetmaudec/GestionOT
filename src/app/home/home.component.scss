@@ -1,10 +1,58 @@
-.page{
-  background-image: url("/assets/img/background3.jpg");
-  position: fixed;
-  top: 0;
-  left: 0;
-  /* Preserve aspet ratio */
-  min-width: 100%;
-  min-height: 100%;
-  background-repeat: no-repeat;
+body, html {
+    height: 100%;
 }
+
+.page{
+    background-image: url("/assets/img/background3.jpg");
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+section{
+    position: center;
+}
+
+.box{
+    border: 1px solid #34495e !important;
+    background-color: #f8f9f9;
+}
+
+h1{
+    color: #4C4C4E;
+    text-decoration: bold;
+    font-family: Monaco;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+h2{
+    color: #4C4C4E;
+    text-decoration: bold;
+    font-family: Monaco;
+    text-align: center;
+    font-weight: bold;
+}
+
+label{
+    color: #d96421;
+    font-family: Monaco;
+}
+
+.th{
+    font-family: Monaco;
+    text-align: center;
+}
+
+.td{
+    font-family: Monaco;
+    text-align: center;
+}
+
