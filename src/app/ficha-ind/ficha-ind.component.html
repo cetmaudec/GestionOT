@@ -18,12 +18,11 @@
 
 <body>
   <div class="page">
-  <app-navbar></app-navbar>
-  <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
-      <div class="container-fluid" style="width: 1000px; ">
-        <section class="section section-container">
-          <div class="box">
+    <app-navbar></app-navbar>
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div class="content">
+          <section class="section section-container" style="padding-bottom: 15px;">
+            <div class="box">
             <div class="row" style="margin-bottom: 2%;">
               <div class="col-2-sm" style="margin-left: 5%;">
                 <img  src="../assets/icons/svg/profile_c.svg"  width="72" class="d-inline-block align-center" alt="">
@@ -34,7 +33,7 @@
               </div>
             </div>
             <div class="row" *ngFor = "let ot of dataOT$.data">
-              <div class="col-8" style="color:#4C4C4E; padding-left: 5%;">
+              <div class="col-6" style="color:#4C4C4E; padding-left: 12%;">
                 <div class="list-group" style="border: transparent;">
                   <div class="list-group-item" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group" style="background-color:#f4f4f4;">
@@ -50,7 +49,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-3">
+              <div class="col-4"  style="padding-left: 10%;">
                 <div class="card border-left-warning shadow" *ngIf="ot.estado == 'En ejecución'">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -100,49 +99,49 @@
                 <br>
                 <div class="table-responsive">
                   <table class="table table-bordered">
-                    <thead class="table-info">
-                      <tr class="table-info">
-                        <th class="col-1 text-center table-info">#</th>
-                        <th class="col-4 text-center ">Actividad</th>
-                        <th class="col-2 text-center  ">Estado</th>
-                        <th class="col-3 text-center "></th>
+                    <thead>
+                      <tr>
+                        <th class="col-1 text-center">#</th>
+                        <th class="col-4 text-center">Actividad</th>
+                        <th class="col-2 text-center">Estado</th>
+                        <th class="col-3 text-center"></th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let act of ActividadeOT$.data">
-                        <th class="table-info text-center" scope="row">{{act.actividad_id}}</th>
+                        <th class="text-center" scope="row">{{act.actividad_id}}</th>
                         <td class="text-center">{{act.actividad}}</td>
                         <td class="text-center">{{act.estado}}</td>
                         <td class="text-center">
                           <div class="row">
                             <div class="col" *ngIf="act.estado != 'No aplica' ">
-                              <button (click)="gotoDetailsAct(act.idRelacion)" class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/edit(2).svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="gotoDetailsAct(act.idRelacion)" class="btn btn-light">
+                                <img  src="../assets/icons/svg/edit(2).svg"  width="20">
                               </button>
                             </div>
                             <div class="col" *ngIf="act.estado == 'No aplica' ">
-                              <button (click)="gotoDetailsAct(act.idRelacion)" disabled class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/edit(2).svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="gotoDetailsAct(act.idRelacion)" disabled class="btn btn-light">
+                                <img  src="../assets/icons/svg/edit(2).svg"  width="20">
                               </button>
                             </div>
                             <div class ="col" *ngIf="!act.estado">
-                              <button (click)="Estado(act.idRelacion, 'Aplica')" class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/check_3.svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="Estado(act.idRelacion, 'Aplica')" class="btn btn-light">
+                                <img  src="../assets/icons/svg/check_3.svg"  width="20">
                               </button>
                             </div>
                             <div class ="col" *ngIf="act.estado">
-                              <button (click)="Estado(act.idRelacion, 'Aplica')" disabled class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/check_3.svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="Estado(act.idRelacion, 'Aplica')" disabled class="btn btn-light">
+                                <img  src="../assets/icons/svg/check_3.svg"  width="20">
                               </button>
                             </div>
                             <div class ="col" *ngIf="act.estado == 'No aplica' || !act.estado">
-                              <button (click)="Estado(act.idRelacion, 'No aplica')" class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/equis_3.svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="Estado(act.idRelacion, 'No aplica')" class="btn btn-light">
+                                <img  src="../assets/icons/svg/equis_3.svg"  width="20">
                               </button>
                             </div>
                             <div class ="col" *ngIf="act.estado == 'Aplica' || act.estado == 'Iniciada' || act.estado == 'Finalizada'">
-                              <button (click)="Estado(act.idRelacion, 'No aplica')" disabled class="btn btn-light" style="color:white;">
-                                <img  src="../assets/icons/svg/equis_3.svg"  width="50" class="d-inline-block align-center" alt="">
+                              <button (click)="Estado(act.idRelacion, 'No aplica')" disabled class="btn btn-light">
+                                <img  src="../assets/icons/svg/equis_3.svg"  width="20">
                               </button>
                             </div>
                           </div>
@@ -158,5 +157,4 @@
       </div>
     </div>
   </div>
-</div>
 </body>

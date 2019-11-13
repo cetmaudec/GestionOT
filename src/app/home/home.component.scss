@@ -1,18 +1,14 @@
-body, html {
-    height: 100%;
-}
-
 .page{
     background-image: url("/assets/img/background3.jpg");
-    position: fixed;
+    position: absolute;
     top: 0;
+    min-width: 100%;
     left: 0;
     /* Preserve aspet ratio */
-    min-width: 100%;
     min-height: 100%;
-    background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    overflow-x: auto !important;
 }
 
 section{
@@ -46,13 +42,12 @@ label{
     font-family: Monaco;
 }
 
-.th{
+th{
     font-family: Monaco;
     text-align: center;
 }
 
-.td{
+td{
     font-family: Monaco;
     text-align: center;
 }
-

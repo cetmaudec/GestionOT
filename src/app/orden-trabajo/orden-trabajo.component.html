@@ -1,7 +1,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no scrollbar">
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Dashboard General</title>
@@ -14,16 +14,15 @@
   <script src="../assets/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="../assets/js/sb-admin-2.min.js"></script>
   <script src="../assets/vendor/chart.js/Chart.min.js"></script>
-</head> 
+</head>
 
 <body>
   <div class="page">
-  <app-navbar></app-navbar>
-  <div id="content-wrapper" class="d-flex flex-column">
-    <div id="content">
-      <div class="container-fluid" style="width: 1000px; ">
-        <section class="section section-container">
-          <div class="box">
+    <app-navbar></app-navbar>
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div class="content">
+          <section class="section section-container" style="padding-bottom: 15px;">
+            <div class="box">
             <h1>Nueva Orden de Trabajo</h1>
             <div class="row">
               <div class="col">
@@ -68,7 +67,7 @@
                             <div class="col-3">
                               <label style="font-size: 14px;">Año(*)</label>
                               <div class="control">
-                                <input class="input" type="number" min="2000" formControlName="Anio">
+                                <input class="input" style="width:100px" type="number" min="2000" formControlName="Anio">
                               </div>
                             </div>
                             <div class="col-3">
@@ -187,11 +186,11 @@
                               <label>Nombre Completo (*)</label>
                               <div class="control">
                                 <div class="row">
-                                  <div class="col-6">
+                                  <div class="col-3">
                                     <input class="input" type="text" placeholder="Nombre"  formControlName="nombre">
               					 					</div>
               					 					<div class="col-3">
-              					 						<input class="input" type="text" placeholder="Apellido Paterno Apallido Materno"  formControlName="apellidoPat">
+              					 						<input class="input" type="text" placeholder="Apellido Paterno"  formControlName="apellidoPat">
               					 					</div>
               					 					<div class ="col-3">
               					 						<input class="input" type="text" placeholder="Apallido Materno"  formControlName="apellidoMat">
@@ -291,22 +290,23 @@
                   </form>
               	</div>
               </div>
-              <div class="col-12" *ngIf="!estadoCliente && !OTform.valid" style="padding-top: 5%; padding-left: 60%;">
+              
+              <div class="col-12" *ngIf="!estadoCliente && !OTform.valid" style="padding-top: 5%; padding-left: 60%; padding-bottom:5%;">
                 <button type="button" (click)="SubmitOTCliente(OTform.value)" disabled style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
-              <div class="col-12" *ngIf="!estadoCliente && OTform.valid" style="padding-top: 5%; padding-left: 60%;">
+              <div class="col-12" *ngIf="!estadoCliente && OTform.valid" style="padding-top: 5%; padding-left: 60%; padding-bottom:5%;">
                 <button type="button" (click)="SubmitOTCliente(OTform.value)" style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
-              <div class="col-12" *ngIf="estadoCliente && Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+              <div class="col-12" *ngIf="estadoCliente && Clienteform.valid" style="padding-top: 5%; padding-left: 60%; padding-bottom:5%;">
                 <button type="button" (click)="SubmitCliente(OTform.value, Clienteform.value)"  style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
-              <div class="col-12" *ngIf="estadoCliente && !Clienteform.valid" style="padding-top: 5%; padding-left: 60%;">
+              <div class="col-12" *ngIf="estadoCliente && !Clienteform.valid" style="padding-top: 5%; padding-left: 60%; padding-bottom:5%;">
                 <button type="button" disabled (click)="SubmitCliente(OTform.value, Clienteform.value)"  style="align-content: right" class="btn btn-success">Guardar</button>
               </div>
            </div>
          </section>
        </div>
      </div>
+
    </div>
- </div>
  </body>

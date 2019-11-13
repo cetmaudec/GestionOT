@@ -112,22 +112,17 @@
 
         <div class="row" style="margin-top:10px;">
           <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
+            <div class="card shadow mb-6">
+              <div class="card-header py-8">
                 <div class="row">
                   <div class="col-8">
                     <h6 class="m-0 font-weight-bold text-primary" style="padding-top:5%;">Demanda Motocicletas</h6>
                   </div>
-                  <div class="col-2">
-                    <button (click)="createChartMoto()" class="btn btn-light" style="color:white;">
-                      <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
-                    </button>
-                  </div>
                 </div>
               </div>
               <div class="card-body">
-                <div class="chart-pie pt-4">
-                  <canvas id="MotoChart"></canvas>
+                <div class="chart-pie pt-8">
+                  <canvas id="myChart"></canvas>
                 </div>
               </div>
             </div>
@@ -139,11 +134,6 @@
                 <div class="row">
                   <div class="col-8">
                     <h6 class="m-0 font-weight-bold text-success" style="padding-top:5%;">Demanda Productos</h6>
-                  </div>
-                  <div class="col-2">
-                    <button (click)="createChartTipo()" class="btn btn-light" style="color:white;">
-                      <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
-                    </button>
                   </div>
                 </div>
               </div>
@@ -161,11 +151,6 @@
                 <div class="row">
                   <div class="col-8">
                     <h6 class="m-0 font-weight-bold text-info" style="padding-top:5%;">Ubicación de demanda</h6>
-                  </div>
-                  <div class="col-2">
-                    <button (click)="createChartComuna()" class="btn btn-light" style="color:white;">
-                      <img  src="../assets/icons/svg/pie-chart.svg"  width="20" class="d-inline-block align-center" alt="">
-                    </button>
                   </div>
                 </div>
               </div>

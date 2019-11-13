@@ -20,12 +20,11 @@
   <div class="page">
     <app-navbar></app-navbar>
     <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
-        <div class="container-fluid" style="width: 1000px; ">
+      <div class="content">
           <section class="section section-container" style="padding-bottom: 10px;">
-            <div class="box" >
-              <div class="row" style="margin-bottom: 2%;">
-                <div class="col-2-sm" style="margin-left: 5%;">
+            <div class="box">
+              <div class="row">
+                <div class="col-1">
                   <img  src="../assets/icons/svg/motorcyclist2_c.svg"  width="72" class="d-inline-block align-center" alt="">
                 </div>
                 <div class="col-8">
@@ -35,21 +34,21 @@
                 </div>
               </div>
               <table class="table table-bordered">
-                <thead class="table-info">
-                  <tr class="table-info">
-                    <th class="col-1 table-info" style="text-align: center;">#</th>
-                    <th class="col-4" style="text-align: center;">Nombre Cliente</th>
-                    <th class="col-4" style="text-align: center;">Email</th>
-                    <th class="col-4" style="text-align: center;">Teléfono/Celular</th>
-                    <th class="col-1" style="text-align: center;"></th>
+                <thead>
+                  <tr>
+                    <th class="col-1" >#</th>
+                    <th class="col-3" >Nombre Cliente</th>
+                    <th class="col-3" >Email</th>
+                    <th class="col-3" >Teléfono/Celular</th>
+                    <th class="col-1" ></th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let cliente of cliente$.data | paginate:{itemsPerPage: 8, currentPage:p}">
-                    <th class="table-info" style="text-align: center;" scope="row">C{{cliente.idCliente}}</th>
-                    <td style="text-align: center;">{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
-                    <td style="text-align: center;">{{cliente.email}}</td>
-                    <td style="text-align: center;">{{cliente.celular}}</td>
+                    <th style="text-align: center;" scope="row">C{{cliente.idCliente}}</th>
+                    <td>{{cliente.nombre}} {{cliente.apellido_p}} {{cliente.apellido_m}}</td>
+                    <td>{{cliente.email}}</td>
+                    <td>{{cliente.celular}}</td>
                     <td>
                       <a (click)="gotoDetails(cliente.idCliente)" class="btn btn-info" style="color:white;">Detalles</a>
                     </td>
@@ -62,5 +61,4 @@
         </div>
       </div>
     </div>
-  </div>
 </body>

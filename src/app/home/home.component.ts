@@ -36,11 +36,14 @@ export class HomeComponent implements OnInit {
 	constructor(private http: HttpClient) {
 	}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.getActOT();
-    this.getMotoToPie();
-    this.getTipoToPie();
-    this.getComunaToPie();
+    this.motoGroup$ = await this.getMotoToPie();
+    this.createChartMoto();
+    this.tipoGroup$ = await this.getTipoToPie();
+    this.createChartTipo();
+    this.comunaGroup$ = await this.getComunaToPie();
+    this.createChartComuna();
   }
 
   getActOT(){
@@ -56,79 +59,69 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  getMotoToPie(){
-    this.http.get('http://localhost:4000/group-moto').subscribe((resp) => {
-      this.motoGroup$ = resp as []
-      for(let mt of this.motoGroup$.data){
-        this.motoLabel.push(mt.motocicleta);
-        this.motoCant.push(mt.cantidad);
-      }
-    });
+  async getMotoToPie(){
+    this.motoGroup$ = await this.http.get('http://localhost:4000/group-moto').toPromise();
+    return this.motoGroup$;
   }
 
-  getTipoToPie(){
-    this.http.get('http://localhost:4000/group-tipo').subscribe((resp) => {
-      this.tipoGroup$ = resp as []
-      for(let prod of this.tipoGroup$.data){
-        this.tipoLabel.push(prod.tipo);
-        this.tipoCant.push(prod.cantidad);
-      }
-    });
-    return true;
+  async getTipoToPie(){
+      this.tipoGroup$ = await this.http.get('http://localhost:4000/group-tipo').toPromise();
+    return  this.tipoGroup$;
   }
 
-  getComunaToPie(){
-    this.http.get('http://localhost:4000/group-comuna').subscribe((resp) => {
-      this.comunaGroup$ = resp as []
-      for(let cm of this.comunaGroup$.data){
-        this.comunaLabel.push(cm.comuna);
-        this.comunaCant.push(cm.cantidad);
-      }
-    });
+  async getComunaToPie(){
+    this.comunaGroup$ = await this.http.get('http://localhost:4000/group-comuna').toPromise();
+    return  this.comunaGroup$;
   }
 
   createChartMoto(){
-    if(this.graphMoto == false){
-      this.graphMoto = true;
+    for(let mt of this.motoGroup$.data){
+       this.motoLabel.push(mt.motocicleta);
+        this.motoCant.push(mt.cantidad);
     }
-    var ctx = document.getElementById("MotoChart");
-    var chart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: this.motoLabel,
-        datasets: [{
-            data: [1,2,3,4,5],
-            fill: false
-          }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          colorschemes: {
-            scheme: 'office.BlueWarm6'
-          }
+
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: this.motoLabel,
+            datasets: [{
+                data:this.motoCant,
+                borderWidth: 1
+            }]
         },
-        legend: {
-          display: false
-        },
-        tooltips: {
-          backgroundColor: "rgb(255,255,255)",
-          bodyFontColor: "#858796",
-          borderColor: '#dddfeb',
-          borderWidth: 1,
-          xPadding: 15,
-          yPadding: 15,
-          displayColors: false,
-          caretPadding: 10,
-        },
-      }
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            colorschemes: {
+              scheme: 'office.BlueWarm6'
+            }
+          },
+          legend: {
+            display: true,
+            position: 'bottom',
+            align: 'center'
+
+          },
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+        }
     });
   }
 
   createChartTipo(){
-    //if(this.graphTipo == false){
-    //  this.graphTipo = true;
-    //}
+    for(let prod of this.tipoGroup$.data){
+      this.tipoLabel.push(prod.tipo);
+      this.tipoCant.push(prod.cantidad);
+    }
     var ctx = document.getElementById("TipoChart");
     var chart = new Chart(ctx, {
       type: 'pie',
@@ -147,7 +140,10 @@ export class HomeComponent implements OnInit {
           }
         },
         legend: {
-          display: false
+          display: true,
+          position: 'bottom',
+          align: 'center'
+
         },
         tooltips: {
           backgroundColor: "rgb(255,255,255)",
@@ -161,12 +157,12 @@ export class HomeComponent implements OnInit {
         },
       }
     });
-    return true;
   }
 
   createChartComuna(){
-    if(this.graphComuna == false){
-      this.graphComuna = true;
+    for(let prod of this.comunaGroup$.data){
+      this.comunaLabel.push(prod.comuna);
+      this.comunaCant.push(prod.cantidad);
     }
     var ctx = document.getElementById("ComunaChart");
     var chart = new Chart(ctx, {
@@ -186,7 +182,10 @@ export class HomeComponent implements OnInit {
           }
         },
         legend: {
-          display: false
+          display: true,
+          position: 'bottom',
+          align: 'center'
+
         },
         tooltips: {
           backgroundColor: "rgb(255,255,255)",

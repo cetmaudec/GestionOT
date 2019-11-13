@@ -1,43 +1,38 @@
 body, html {
-  	height: 100%;
+  	height: auto;
 }
 
 .page{
   	background-image: url("/assets/img/background3.jpg");
-  	position: fixed;
+  	position: absolute;
   	top: 0;
   	left: 0;
-  	/* Preserve aspet ratio */
   	min-width: 100%;
-  	min-height: 100%;
-  	background-position: center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
+    min-height: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
-footer {
-  	background-color: rgba(242, 243, 244, 0.35);
-  	position: absolute;
-  	bottom: 0;
-  	width: 100%;
-  	height: auto;
-  	color: white;
-  	padding-left:5%;
-  	padding-right:3%;
+.field{
+  padding-left: 5%;
+  margin-bottom: 2%;
 }
-
-section{
-	position: center;
+.content{
+  padding-top: 3%;
+  position: absolute;
+  width: 65%;
 }
-
 
 .box{
 	border: 1px solid #34495e !important;
 	background-color: #f8f9f9;
+  width: 100%;
+  height: 100%;
 }
+
 h1{
 	color: #4C4C4E;
-	bold: true;
+	text-decoration: bold;
 	font-family: Monaco;
 	text-align: center;
 	font-weight: bold;
@@ -45,5 +40,5 @@ h1{
 
 label{
 	color: #d96421;
+	font-family: Monaco;
 }
-
