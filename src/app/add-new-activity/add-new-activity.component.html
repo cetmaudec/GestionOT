@@ -19,12 +19,12 @@
 <body>
   <div class="page">
     <div id="content-wrapper">
-      <div id="content">
+      <div class="content">
         <div class="row">
           <div class="col-6" center>
             <section class="section section-container">
               <div class="box" style="align-content: center;">
-                <h2>Agregar nueva actividad</h2>
+                <h2 style="margin-top:2%;" >Agregar nueva actividad</h2>
                 <form [formGroup]="Activityform" (ngSubmit)="onSubmit(Activityform.value)">
                   <div class="field">
                     <div class="row" style="margin-left: 10%;">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="field">
                       <div class="control">
-                        <button class="button is-success"  style="margin-left: 70%;">
+                        <button class="btn  btn-success"  style="margin-left: 70%;">
                           Guardar
                         </button>
                       </div>
@@ -49,28 +49,29 @@
               </div>
             </section>
           </div>
+
           <div class="col-6">
             <section class="section section-container" style="padding-bottom: 20%;">
               <div class="box">
                 <div class="row">
                   <div class="col-2" style="margin-left: 5%;">
-                    <img  src="../assets/icons/svg/workflow2_c.svg"  width="72" class="d-inline-block align-center" alt="">
+                    <img  src="../assets/icons/svg/workflow_c.svg"  width="72" class="d-inline-block align-center" alt="">
                   </div>
                   <div class="col-8">
-                    <h3>Listado de Actividades</h3>
+                    <h2 style="margin-top:2%;">Listado de Actividades</h2>
                   </div>
                 </div>
                 <div class="table-responsive" style="align-content: center;">
-                  <table class="table" style="width:60%; margin-top: 2%;margin-left: 20%;">
-                    <thead class="thead-danger">
-                      <tr class="table-danger">
-                        <th style="text-align: center;" scope="col">#</th>
-                        <th scope="col">Actividad</th>
+                  <table class="table table-bordered" style="width:60%; margin-top: 2%;">
+                    <thead>
+                      <tr>
+                        <th class="col-1">#</th>
+                        <th class="col-2">Actividad</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let act of actividade$.data">
-                        <th class="table-danger" style="text-align: center;" scope="row">{{act.idActividad}}</th>
+                      <tr *ngFor="let act of actividade$.data; let i=index">
+                        <th style="text-align: center;" scope="row">{{i}}</th>
                         <td>{{act.nombre_actividad}}</td>
                       </tr>
                     </tbody>

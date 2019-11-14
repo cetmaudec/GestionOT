@@ -4,7 +4,7 @@ body, html {
 
 .page{
   	background-image: url("/assets/img/background3.jpg");
-  	position: fixed;
+  	position: absolute;
   	top: 0;
   	left: 0;
   	/* Preserve aspet ratio */
@@ -13,6 +13,13 @@ body, html {
   	background-position: center;
   	background-repeat: no-repeat;
   	background-size: cover;
+}
+
+.content{
+  padding-top: 3%;
+  position: relative;
+  left:20%;
+  width: 65%;
 }
 
 footer {
@@ -26,14 +33,10 @@ footer {
   	padding-right:3%;
 }
 
-section{
-	position: center;
-}
-
-
 .box{
 	border: 1px solid #34495e !important;
 	background-color: #f8f9f9;
+  width: auto;
 }
 
 h1{
@@ -59,12 +62,22 @@ label{
 }
 
 
-.th{
-	font-family: Monaco;
-	text-align: center;
+thead{
+  background-color: #4f667c;
+  color: #f4f4f4;
+  text-align: center;
+  border-radius: 20px
+
 }
 
-.td{
+th{
+  background-color: #4f667c;
+	font-family: Monaco;
+	text-align: center;
+  color: #f4f4f4;
+}
+
+td{
 	font-family: Monaco;
 	text-align: center;
 }
@@ -86,8 +99,12 @@ ul {
     border-radius: 2%;
 }
 
-.table{
-	background-color: #f8f9f9;	
+table{
+  width: 980px !important;
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  margin-left: 5% !important;
 }
 
 .button5 {

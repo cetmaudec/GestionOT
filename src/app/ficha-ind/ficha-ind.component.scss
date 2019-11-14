@@ -3,20 +3,27 @@ body, html {
 }
 
 .page{
-  	background-image: url("/assets/img/background3.jpg");
-  	position: fixed;
-  	top: 0;
-  	left: 0;
-  	/* Preserve aspet ratio */
-  	min-width: 100%;
-  	min-height: 100%;
-  	background-position: center;
-  	background-repeat: no-repeat;
-  	background-size: cover;
+  background-image: url("/assets/img/background3.jpg");
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  background-repeat: repeat;
+  background-size: cover;
 }
 
-section{
-	position: center;
+.box{
+	border: 1px solid #34495e !important;
+	background-color: #f8f9f9;
+  width: auto;
+}
+
+.content{
+  padding-top: 3%;
+  width: 65%;
+  left:20%;
+  position: relative;
 }
 
 .col-2-sm img{
@@ -24,19 +31,6 @@ section{
   margin-top: 20%;
   margin-bottom: 20%;
   margin-left: 190%;
-}
-
-.content{
-  padding-top: 3%;
-  position: fixed;
-  left:20%;
-  width: 65%;
-}
-
-.box{
-	border: 1px solid #34495e !important;
-	background-color: #f8f9f9;
-  width: auto;
 }
 
 h1{
@@ -103,16 +97,4 @@ ul {
     -moz-columns: 2;
     border: 1px solid #e3dcdc;
     border-radius: 2%;
-}
-
-
-.bloque{
-	color: #f8f9f9;
-	text-align: center;
-	align-content: center;
-	background-color: #f1c40f;
-	width:150px;
-	height: 40px;
-	border: 1px solid transparent !important;
-	border-radius:5px;
 }

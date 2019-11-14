@@ -19,12 +19,12 @@
 <body>
   <div class="page">
     <div id="content-wrapper">
-      <div id="content">
+      <div class="content">
         <div class="row">
           <div class="col-6" center>
             <section class="section section-container">
               <div class="box" style="align-content: center;">
-                <h2>Agregar nuevo producto</h2>
+                <h2 style="margin-top:2%;">Agregar nuevo producto</h2>
                 <form [formGroup]="Productoform" (ngSubmit)="onSubmit(Productoform.value)">
                   <div class="field">
                     <div class="row" style="margin-left: 10%;">
@@ -39,7 +39,7 @@
                     </div>
                     <div class="field">
                       <div class="control">
-                        <button class="button is-success"  style="margin-left: 70%;">
+                        <button class="btn btn-success"  style="margin-left: 70%;">
                           Guardar
                         </button>
                       </div>
@@ -49,6 +49,7 @@
               </div>
             </section>
           </div>
+
           <div class="col-6">
             <section class="section section-container" style="padding-bottom: 20%;">
               <div class="box">
@@ -57,20 +58,20 @@
                     <img  src="../assets/icons/svg/box_c.svg"  width="72" class="d-inline-block align-center" alt="">
                   </div>
                   <div class="col-8">
-                    <h2>Listado de Productos</h2>
+                    <h2 style="margin-top:2%;">Listado de Productos</h2>
                   </div>
                 </div>
                 <div class="table-responsive" style="align-content: center;">
-                  <table class="table" style="width:50%; margin-left: 25%;">
-                    <thead class="thead-danger">
-                      <tr class="table-danger">
-                        <th style="text-align: center;" scope="col">#</th>
-                        <th scope="col">Producto</th>
+                  <table class="table table-bordered" style="width:60%; margin-top: 2%;">
+                    <thead>
+                      <tr>
+                        <th class="col-1">#</th>
+                        <th class="col-2">Producto</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let prod of tipo$.data">
-                        <th class="table-danger" style="text-align: center;" scope="row">{{prod.idTipo}}</th>
+                      <tr *ngFor="let prod of tipo$.data; let i=index">
+                        <th style="text-align: center;" scope="row">{{i}}</th>
                         <td>{{prod.nombre_tipo}}</td>
                       </tr>
                     </tbody>

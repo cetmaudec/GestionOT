@@ -4,7 +4,7 @@ body, html {
 
 .page{
   	background-image: transparent;
-  	position: fixed;
+  	position: absolute;
   	top: auto;
   	left: 0;
   	/* Preserve aspet ratio */
@@ -15,6 +15,31 @@ body, html {
   	background-size: cover;
 }
 
+.box{
+	border: 1px solid #34495e !important;
+	background-color: #f8f9f9;
+  width: auto;
+
+}
+
+.field{
+  padding-left: 5%;
+  margin-bottom: 2%;
+}
+
+img{
+  padding: 5%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 20%;
+}
+
+.content{
+  padding-top: 2%;
+  width: 65%;
+  left:20%;
+  position: relative;
+}
 
 h1{
 	color: #4C4C4E;
@@ -26,7 +51,7 @@ h1{
 
 
 h2{
-	color: #4C4C4E;
+	color: #6b6b70;
 	text-decoration: bold;
 	font-family: Monaco;
 	text-align: center;
@@ -40,15 +65,33 @@ label{
 
 .box{
 	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;	
+	background-color: #f8f9f9;
 }
 
-.th{
+table{
+  width: auto !important;
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+}
+
+thead{
+  background-color: #4f667c;
+  color: #f4f4f4;
+  text-align: center;
+  border-radius: 20px;
+}
+
+th{
+  background-color: #4f667c;
 	font-family: Monaco;
 	text-align: center;
+  color: #f4f4f4;
 }
 
-.td{
+td{
 	font-family: Monaco;
 	text-align: center;
 }
