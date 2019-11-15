@@ -4,7 +4,7 @@ body, html {
 
 .page{
     background-image: url("/assets/img/background3.jpg");
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     /* Preserve aspet ratio */
@@ -19,40 +19,72 @@ section{
     position: center;
 }
 
+img{
+  padding: 5%;
+  margin-top: 20%;
+  margin-bottom: 20%;
+  margin-left: 190%;
+}
+
+.content{
+  padding-top: 3%;
+  position: fixed;
+  left:5%;
+  width: 90%;
+}
+
 .box{
-    border: 1px solid #34495e !important;
-    background-color: #f8f9f9;
+	border: 1px solid #34495e !important;
+	background-color: #f8f9f9;
+  width: auto;
 }
 
 h1{
-    color: #4C4C4E;
-    text-decoration: bold;
-    font-family: Monaco;
-    text-align: center;
-    font-weight: bold;
+	color: #4C4C4E;
+	text-decoration: bold;
+	font-family: Monaco;
+	text-align: center;
+	font-weight: bold;
 }
 
-
 h2{
-    color: #4C4C4E;
-    text-decoration: bold;
-    font-family: Monaco;
-    text-align: center;
-    font-weight: bold;
+	color: #4C4C4E;
+	text-decoration: bold;
+	font-family: Monaco;
+	text-align: center;
+	font-weight: bold;
+  margin-left: 15%;
 }
 
 label{
-    color: #d96421;
-    font-family: Monaco;
+	color: #d96421;
+	font-family: Monaco;
 }
 
-.th{
-    font-family: Monaco;
-    text-align: center;
+table{
+  width: 980px !important;
+  border-collapse: collapse;
+  border-radius: 1em;
+  overflow: hidden;
+  margin-left: 5% !important;
 }
 
-.td{
-    font-family: Monaco;
-    text-align: center;
+thead{
+  background-color: #4f667c;
+  color: #f4f4f4;
+  text-align: center;
+  border-radius: 20px
+
 }
 
+th{
+  background-color: #4f667c;
+	font-family: Monaco;
+	text-align: center;
+  color: #f4f4f4;
+}
+
+td{
+	font-family: Monaco;
+	text-align: center;
+}

@@ -19,21 +19,23 @@
 <body>
   <div class="page">
     <app-navbar></app-navbar>
-    <div class="button-content">
-    <button class="btn btn-info" type="button" name="button" (click)="AddComponent('moto')">
-        <img style="padding-left: 5px;" src="./assets/icons/svg/motorbike_c.png" width="50" alt="">
-          <br>Agregar Motocicleta
-      </button>
-      <button class="btn btn-info" type="button" name="button" (click)="AddComponent('tipo')">
-        <img style="padding-left: 5px;" src="./assets/icons/svg/work_c.svg" width="50" alt="">
+    <div class="content">
+      <div class="button-content">
+        <button class="btn btn-info" type="button" name="button" (click)="AddComponent('moto')">
+          <img style="padding-left: 5px;" src="./assets/icons/svg/motorbike_c.png" width="50" alt="">
+            <br>Agregar Motocicleta
+        </button>
+        <button class="btn btn-info" type="button" name="button" (click)="AddComponent('tipo')">
+          <img style="padding-left: 5px;" src="./assets/icons/svg/work_c.svg" width="50" alt="">
+            <br>
+            Agregar Producto
+        </button>
+        <button class="btn btn-info" type="button" name="button" (click)="AddComponent('actividad')">
+          <img style="padding-left: 5px;" src="./assets/icons/svg/workflow2_c.svg" width="50" alt="">
           <br>
-          Agregar Producto
-      </button>
-      <button class="btn btn-info" type="button" name="button" (click)="AddComponent('actividad')">
-        <img style="padding-left: 5px;" src="./assets/icons/svg/workflow2_c.svg" width="50" alt="">
-        <br>
-          Agregar Actividad
-      </button>
+            Agregar Actividad
+        </button>
+      </div>
     </div>
     <div *ngIf="addMoto">
       <app-add-motocicleta></app-add-motocicleta>

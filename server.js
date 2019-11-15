@@ -129,6 +129,18 @@ app.get('/select-cliente/:id' , (req, res, next) => {
     })
 })
 
+app.get('/select-group-tipo' , (req, res, next) => {
+  con.query(`SELECT tipo, MONTH(fecha_llegada), COUNT(*) as cantidad FROM orden_trabajo GROUP BY tipo, MONTH(fecha_llegada);`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 app.get('/select-actividad/:id' , (req, res, next) => {
   con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real FROM act_OT WHERE act_OT.idRelacion= ${req.params.id};`, (err, resultados) => {
         if(err) {
@@ -266,7 +278,6 @@ app.get('/group-comuna' , (req, res, next) => {
         }
     })
 })
-
 
 
 ///INSERT
