@@ -23,7 +23,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { LoginComponent } from './login/login.component';
-import { AddClienteComponent } from './add-cliente/add-cliente.component';
+
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.component';
 import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
@@ -44,7 +44,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     AddNewProductComponent,
     AddMotocicletaComponent,
     LoginComponent,
-    AddClienteComponent,
     ClientesComponent,
     ClienteDetalleComponent,
     ActividadDetalleComponent,

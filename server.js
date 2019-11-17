@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "cetma2019",
+  password: "karley.7331",
   database: "rozto_gestion"
 });
 
@@ -129,8 +129,48 @@ app.get('/select-cliente/:id' , (req, res, next) => {
     })
 })
 
-app.get('/select-group-tipo' , (req, res, next) => {
-  con.query(`SELECT tipo, MONTH(fecha_llegada), COUNT(*) as cantidad FROM orden_trabajo GROUP BY tipo, MONTH(fecha_llegada);`, (err, resultados) => {
+app.get('/pivot-tipo-mes' , (req, res, next) => {
+  con.query(`SELECT tipo, 
+            COUNT(IF(MONTH(fecha_llegada) = 1, 1, NULL)) AS Enero,
+            COUNT(IF(MONTH(fecha_llegada) = 2, 1, NULL)) AS Febrero,
+            COUNT(IF(MONTH(fecha_llegada) = 3, 1, NULL)) AS Marzo,
+            COUNT(IF(MONTH(fecha_llegada) = 4, 1, NULL)) AS Abril,
+            COUNT(IF(MONTH(fecha_llegada) = 5, 1, NULL)) AS Mayo,
+            COUNT(IF(MONTH(fecha_llegada) = 6, 1, NULL)) AS Junio,
+            COUNT(IF(MONTH(fecha_llegada) = 7, 1, NULL)) AS Julio,
+            COUNT(IF(MONTH(fecha_llegada) = 8, 1, NULL)) AS Agosto,
+            COUNT(IF(MONTH(fecha_llegada) = 9, 1, NULL)) AS Septiembre,
+            COUNT(IF(MONTH(fecha_llegada) = 10, 1, NULL)) AS Octubre,
+            COUNT(IF(MONTH(fecha_llegada) = 11, 1, NULL)) AS Noviembre,
+            COUNT(IF(MONTH(fecha_llegada) = 12, 1, NULL)) AS Diciembre
+            FROM orden_trabajo 
+            WHERE YEAR(fecha_llegada) = YEAR(CURDATE()) 
+            GROUP BY tipo;`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+
+app.get('/cont-dejamoto', (req, res, next) => {
+  con.query('SELECT dejaMoto, COUNT(*) as cantidad FROM orden_trabajo GROUP BY(dejaMoto);', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.get('/max-demanda', (req, res, next) => {
+  con.query('SELECT COUNT(*) as cantidad, MONTH(fecha_llegada) as mes FROM orden_trabajo WHERE YEAR(fecha_llegada) = YEAR(CURDATE())-1 OR YEAR(fecha_llegada) = YEAR(CURDATE()) GROUP BY(MONTH(fecha_llegada)) ORDER BY(cantidad) DESC;', (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {

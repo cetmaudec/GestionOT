@@ -85,7 +85,7 @@
                                 </form>
                               </div>
                               <div class="col-2">
-                                <button class="button is-success"  (click)="onSubmitInicio(FechaInicioEditform.value)" style="margin-left: 70%;">Actualizar
+                                <button class="btn btn-success"  (click)="onSubmitInicio(FechaInicioEditform.value)" style="margin-left: 70%;">Actualizar
                                 </button>
                               </div>
                             </div>
@@ -112,7 +112,7 @@
                                 </form>
                               </div>
                               <div class="col-2">
-                                <button class="button is-success"  (click)="onSubmitFin(FechaFinEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                                <button class="btn btn-success"  (click)="onSubmitFin(FechaFinEditform.value)" style="margin-left: 70%;">Actualizar</button>
                               </div>
                             </div>
                           </li>
@@ -137,12 +137,12 @@
                         <div class="row">
                           <div class="col-8">
                             <form [formGroup]="MaterialEditform">
-                              <textarea class="input" clearInput  type="textarea" maxlength="240" rows="100" cols="20" formControlName="nuevoMaterial" value={{act.materiales}}>
+                              <textarea class="input" clearInput  type="textarea" maxlength="240" rows="8" cols="35" formControlName="nuevoMaterial" value={{act.materiales}}>
                               </textarea>
                             </form>
                           </div>
                           <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmitMaterial(MaterialEditform.value)" style="margin-left: 70%;">Actualizar
+                            <button class="btn btn-success"  (click)="onSubmitMaterial(MaterialEditform.value)" style="margin-left: 70%;">Actualizar
                             </button>
                           </div>
                         </div>
@@ -155,7 +155,7 @@
 
                       <div class="col-6" *ngIf="!editTiempoEstimado">
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}}
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}} días
                           </li>
                           <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
                             <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -169,11 +169,11 @@
                             <div class="row">
                               <div class="col-6">
                                 <form [formGroup]="TiempoEditform">
-                                  <input class="input" clearInput  type="number" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}>
+                                  <input class="input" clearInput  type="number" width="5" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}> días
                                 </form>
                               </div>
                               <div class="col-2">
-                                <button class="button is-success"  (click)="onSubmitTiempo(TiempoEditform.value)" style="margin-left: 70%;">Actualizar
+                                <button class="btn btn-success"  (click)="onSubmitTiempo(TiempoEditform.value)" style="margin-left: 70%;">Actualizar
                                 </button>
                               </div>
                             </div>
@@ -183,7 +183,7 @@
 
                       <div class="col-6" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}}</li>
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}} días</li>
                         </ul>
                       </div>
                     </div>
@@ -210,7 +210,7 @@
                             </form>
                           </div>
                           <div class="col-2">
-                            <button class="button is-success"  (click)="onSubmitCosto(CostoEditform.value)" style="margin-left: 70%;">Actualizar</button>
+                            <button class="btn btn-success"  (click)="onSubmitCosto(CostoEditform.value)" style="margin-left: 70%;">Actualizar</button>
                           </div>
                         </div>
                       </li>

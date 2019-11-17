@@ -13,55 +13,87 @@ import 'chartjs-plugin-colorschemes';
 export class ChartsComponent implements OnInit {
 
   TipoChart1Group$: any = [];
-  DistTipo$: any[] = [];
-  motoLabel: string[] = [];
-  motoCant:  number[] = [];
+  DespachoChart2Group$: any = [];
+  MaxDemanda$: any = [];
 
-  constructor() { }
+  PivotData: any[] = [];
+  CountDespacho: number;
+  CountInstalar: number;
+  MesMaxDemanda: string;
+
+
+  constructor(private http: HttpClient) { }
 
   async ngOnInit() {
     this.TipoChart1Group$ = await this.getDataChart1();
-    this.DistTipo = await this.getTipo();
+    this.DespachoChart2Group$ = await this.getDataChart2();
+    this.MaxDemanda$ = await this.getDataChart3();
     this.createChart1();
+    this.createChart2();
   }
 
-  async getTipo(){
-      this.DistTipo$ = await this.http.get('http://localhost:4000/tipo').toPromise();
-      return this.DistTipo$;
-  }
 
   async getDataChart1(){
-    this.TipoChart1Group$ = await this.http.get('http://localhost:4000/select-group-tipo/').toPromise();
+    this.TipoChart1Group$ = await this.http.get('http://localhost:4000/pivot-tipo-mes').toPromise();
     return this.TipoChart1Group$;
   }
 
-  createChart1(){
-    for(let tipo of DistTipo$.data){
-      for(let info of TipoChart1Group$.data){
+  async getDataChart2(){
+    this.DespachoChart2Group$ = await this.http.get('http://localhost:4000/cont-dejamoto').toPromise();
+    return this.DespachoChart2Group$;
+  }
 
-
-
-      }
+  async getDataChart3(){
+    this.MaxDemanda$ = await this.http.get('http://localhost:4000/max-demanda').toPromise();
+    if(this.MaxDemanda$.data[0].mes == 1){
+      this.MesMaxDemanda = 'Enero'
+    }else if(this.MaxDemanda$.data[0].mes == 2){
+      this.MesMaxDemanda = 'Febrero'
+    }else if(this.MaxDemanda$.data[0].mes == 3){
+      this.MesMaxDemanda = 'Marzo'
+    }else if(this.MaxDemanda$.data[0].mes == 4){
+      this.MesMaxDemanda = 'Abril'
+    }else if(this.MaxDemanda$.data[0].mes == 5){
+      this.MesMaxDemanda = 'Mayo'
+    }else if(this.MaxDemanda$.data[0].mes == 6){
+      this.MesMaxDemanda = 'Junio'
+    }else if(this.MaxDemanda$.data[0].mes == 7){
+      this.MesMaxDemanda = 'Julio'
+    }else if(this.MaxDemanda$.data[0].mes == 8){
+      this.MesMaxDemanda = 'Agosto'
+    }else if(this.MaxDemanda$.data[0].mes == 9){
+      this.MesMaxDemanda = 'Septiembre'
+    }else if(this.MaxDemanda$.data[0].mes == 10){
+      this.MesMaxDemanda = 'Octubre'
+    }else if(this.MaxDemanda$.data[0].mes == 11){
+      this.MesMaxDemanda = 'Noviembre'
+    }else if(this.MaxDemanda$.data[0].mes == 12){
+      this.MesMaxDemanda = 'Diciembre'
     }
+    return this.MaxDemanda$;
+  }
 
+  createChart1(){
+    for(let pivot of this.TipoChart1Group$.data){
+      console.log(pivot);
+      this.PivotData.push(
+      {
+        label: pivot.tipo,
+        data: [pivot.Enero, pivot.Febrero, pivot.Marzo, pivot.Abril, pivot.Mayo, pivot.Junio, pivot.Julio, pivot.Agosto, pivot.Septiembre, pivot.Octubre, pivot.Noviembre, pivot.Diciembre]
+      })
+    }
     var ctx = document.getElementById("myLineChart");
     var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-      datasets: [{
-        label: "Earnings",
-        data: [0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000, 25000, 40000],
-      },{
-        label: "Earnings",
-        data: [0, 1000, 500, 1500, 1000, 2000, 1500, 2500, 2000, 3000, 2500, 4000],
-      }],
+      datasets: this.PivotData
     },
     options: {
       maintainAspectRatio: false,
       plugins: {
         colorschemes: {
-          scheme: 'office.BlueWarm6'
+          scheme: 'tableau.Classic20'
         }
       },
       layout: {
@@ -74,9 +106,58 @@ export class ChartsComponent implements OnInit {
       },
 
       legend: {
-        display: false
+          display: true,
+          position: 'bottom',
+          align: 'center'
+
+        },
+    }
+    });
+  }
+
+  createChart2(){
+    for(let entrega of this.DespachoChart2Group$.data){
+      if( entrega.dejaMoto == 0 ){
+        this.CountDespacho = entrega.cantidad;
+      }else if( entrega.dejaMoto == 1 ){
+        this.CountInstalar = entrega.cantidad;
       }
     }
+
+    var ctx = document.getElementById('myChart2');
+    var myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: ['Despacho','Instalación'],
+            datasets: [{
+                data:[this.CountDespacho, this.CountInstalar],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          maintainAspectRatio: false,
+          plugins: {
+            colorschemes: {
+              scheme: 'office.Parallax6'
+            }
+          },
+          legend: {
+            display: true,
+            position: 'right',
+            align: 'center'
+
+          },
+          tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+          },
+        }
     });
   }
 
