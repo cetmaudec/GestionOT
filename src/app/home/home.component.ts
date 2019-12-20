@@ -39,11 +39,12 @@ export class HomeComponent implements OnInit {
   async ngOnInit() {
     this.getActOT();
     this.motoGroup$ = await this.getMotoToPie();
-    this.createChartMoto();
     this.tipoGroup$ = await this.getTipoToPie();
-    this.createChartTipo();
     this.comunaGroup$ = await this.getComunaToPie();
-    this.createChartComuna();
+
+   /*this.createChartComuna();
+    this.createChartMoto();
+    this.createChartTipo();*/
   }
 
   getActOT(){
@@ -61,144 +62,28 @@ export class HomeComponent implements OnInit {
 
   async getMotoToPie(){
     this.motoGroup$ = await this.http.get('http://localhost:4000/group-moto').toPromise();
+    for(let mt of this.motoGroup$.data){
+       this.motoLabel.push(mt.motocicleta);
+       this.motoCant.push(mt.cantidad);
+    }
     return this.motoGroup$;
   }
 
   async getTipoToPie(){
-      this.tipoGroup$ = await this.http.get('http://localhost:4000/group-tipo').toPromise();
+    this.tipoGroup$ = await this.http.get('http://localhost:4000/group-tipo').toPromise();
+    for(let prod of this.tipoGroup$.data){
+      this.tipoLabel.push(prod.tipo);
+      this.tipoCant.push(prod.cantidad);
+    }
     return  this.tipoGroup$;
   }
 
   async getComunaToPie(){
     this.comunaGroup$ = await this.http.get('http://localhost:4000/group-comuna').toPromise();
-    return  this.comunaGroup$;
-  }
-
-  createChartMoto(){
-    for(let mt of this.motoGroup$.data){
-       this.motoLabel.push(mt.motocicleta);
-        this.motoCant.push(mt.cantidad);
-    }
-
-    var ctx = document.getElementById('myChart');
-    var myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: this.motoLabel,
-            datasets: [{
-                data:this.motoCant,
-                borderWidth: 1
-            }]
-        },
-        options: {
-          maintainAspectRatio: false,
-          plugins: {
-            colorschemes: {
-              scheme: 'office.BlueWarm6'
-            }
-          },
-          legend: {
-            display: true,
-            position: 'bottom',
-            align: 'center'
-
-          },
-          tooltips: {
-            backgroundColor: "rgb(255,255,255)",
-            bodyFontColor: "#858796",
-            borderColor: '#dddfeb',
-            borderWidth: 1,
-            xPadding: 15,
-            yPadding: 15,
-            displayColors: false,
-            caretPadding: 10,
-          },
-        }
-    });
-  }
-
-  createChartTipo(){
-    for(let prod of this.tipoGroup$.data){
-      this.tipoLabel.push(prod.tipo);
-      this.tipoCant.push(prod.cantidad);
-    }
-    var ctx = document.getElementById("TipoChart");
-    var chart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: this.tipoLabel,
-        datasets: [{
-            data: this.tipoCant,
-            fill: false
-          }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          colorschemes: {
-            scheme: 'tableau.Temperature7'
-          }
-        },
-        legend: {
-          display: true,
-          position: 'bottom',
-          align: 'center'
-
-        },
-        tooltips: {
-          backgroundColor: "rgb(255,255,255)",
-          bodyFontColor: "#858796",
-          borderColor: '#dddfeb',
-          borderWidth: 1,
-          xPadding: 15,
-          yPadding: 15,
-          displayColors: false,
-          caretPadding: 10,
-        },
-      }
-    });
-  }
-
-  createChartComuna(){
     for(let prod of this.comunaGroup$.data){
       this.comunaLabel.push(prod.comuna);
       this.comunaCant.push(prod.cantidad);
     }
-    var ctx = document.getElementById("ComunaChart");
-    var chart = new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: this.comunaLabel,
-        datasets: [{
-            data: this.comunaCant,
-            fill: false
-          }]
-      },
-      options: {
-        maintainAspectRatio: false,
-        plugins: {
-          colorschemes: {
-            scheme: 'tableau.HueCircle19'
-          }
-        },
-        legend: {
-          display: true,
-          position: 'bottom',
-          align: 'center'
-
-        },
-        tooltips: {
-          backgroundColor: "rgb(255,255,255)",
-          bodyFontColor: "#858796",
-          borderColor: '#dddfeb',
-          borderWidth: 1,
-          xPadding: 15,
-          yPadding: 15,
-          displayColors: false,
-          caretPadding: 10,
-        },
-      }
-    });
+    return  this.comunaGroup$;
   }
-
 }

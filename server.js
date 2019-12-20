@@ -4,10 +4,12 @@ const cors = require('cors')
 const express = require('express')
 const bodyParser = require('body-parser')
 
+const jwt = require('jsonwebtoken');
+
 const con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "karley.7331",
+  password: "cetma2019",
   database: "rozto_gestion"
 });
 
@@ -19,6 +21,27 @@ con.connect(function(err) {
 });
 
 app.use(cors())
+
+app.post('/auth', function(req, res) {
+    const body = req.body;
+    console.log(req.body.username);
+    console.log(req.body.password);
+    const select_query=`SELECT COUNT(*) as total FROM usuarios where rut='${req.body.username}' AND CAST(AES_DECRYPT(pass, 'encriptado') AS CHAR)='${req.body.password}';`
+    con.query(select_query, (err, result) => {
+    console.log(result[0].total);
+     if (err){
+           return res.sendStatus(401);
+        }else{
+            if(result[0].total>0){
+                console.log("entreeeee");
+                var token = jwt.sign({userID: req.body.username}, 'todo-app-super-shared-secret', {expiresIn: '2h'});
+                res.send({token});
+            }else{
+                return res.sendStatus(401);
+            }
+     }
+    });
+});
 
 app.get('/cliente', (req, res) => {
     con.query('SELECT * FROM cliente ORDER BY(idCliente) DESC;', (err, resultados) => {
@@ -155,6 +178,31 @@ app.get('/pivot-tipo-mes' , (req, res, next) => {
         }
     })
 })
+
+app.get('/cont-prioridad', (req, res, next) => {
+  con.query('SELECT COUNT(*) as cantidad, motivo_prioridad FROM orden_trabajo GROUP BY(motivo_prioridad);', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.get('/avg-costo', (req, res, next) => {
+  con.query('SELECT AVG(costo) as costo, AVG(tiempo_estimado) as tiempo_estimado, AVG(tiempo_real) as tiempo_real, tipo FROM orden_trabajo, act_OT WHERE orden_trabajo.idOT = act_OT.ordentrabajo GROUP BY(orden_trabajo.tipo);', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
 
 
 app.get('/cont-dejamoto', (req, res, next) => {
