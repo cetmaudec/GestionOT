@@ -76,7 +76,7 @@ export class ClienteDetalleComponent implements OnInit {
 	}
 
 	getData(){
-    this.http.get('http://localhost:4000/select-cliente/'+this.id).subscribe(
+    this.http.get('http://localhost:4000/cliente/'+this.id).subscribe(
       resp => this.cliente$ = resp as []
     );
     this.http.get('http://localhost:4000/select-ot/'+this.id).subscribe(

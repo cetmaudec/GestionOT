@@ -148,7 +148,7 @@ export class ChartsComponent implements OnInit {
         data: [pivot.Enero, pivot.Febrero, pivot.Marzo, pivot.Abril, pivot.Mayo, pivot.Junio, pivot.Julio, pivot.Agosto, pivot.Septiembre, pivot.Octubre, pivot.Noviembre, pivot.Diciembre]
       })
     }
-    var ctx = document.getElementById("myLineChart");
+    var ctx = document.getElementById("FlowChart");
     var myLineChart = new Chart(ctx, {
     type: 'line',
     data: {

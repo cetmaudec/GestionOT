@@ -1,10 +1,14 @@
 <div class="header">
+	<div class="top">
+		<b>Hola {{User}} !</b>
+		<input type="image" (click)="logOut()" src="../assets/icons/svg/next.svg" width="40" />
+	</div>
 	<nav>
 		<a routerLink="/home">
-	    	<img  src="./assets/icons/svg/home.svg">
-	    	<br>
-	    	Inicio
-	    </a>
+			<img  src="./assets/icons/svg/home.svg">
+			<br>
+			Inicio
+		</a>
 	    <a routerLink="/clientes">
 	    	<img  src="./assets/icons/svg/worker.svg">
 	    	<br>
@@ -23,8 +27,8 @@
 	    <a routerLink="/charts">
 	    	<img  src="./assets/icons/svg/stats.svg">
 	    	<br>
-	    	Análisis estadístico
-	    </a>	
-	    <div class="animation start-home"></div>
+		    Análisis estadístico
+		</a>	
+		<div class="animation start-home"></div>
 	</nav>
 </div>

@@ -22,13 +22,28 @@ con.connect(function(err) {
 
 app.use(cors())
 
-app.post('/auth', function(req, res) {
+//USUARIO
+
+app.get('/auth/:user/:pass' , (req, res, next) => {
+    con.query(`SELECT count(idUsuario) as login, idUsuario FROM usuario WHERE usuario.usuario = '${req.params.user}' AND usuario.password = SHA('${req.params.pass}') GROUP BY(idUsuario);`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            console.log(resultados);
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.post('/auth',  bodyParser.json(), (req, res, next) => {
     const body = req.body;
-    console.log(req.body.username);
-    console.log(req.body.password);
-    const select_query=`SELECT COUNT(*) as total FROM usuarios where rut='${req.body.username}' AND CAST(AES_DECRYPT(pass, 'encriptado') AS CHAR)='${req.body.password}';`
+    console.log("username "+req.body.username);
+    console.log("password "+req.body.password);
+    const select_query=`SELECT COUNT(*) as total FROM usuario where usuario.usuario='${req.body.username}' AND usuario.password = SHA('${req.body.password}');`
     con.query(select_query, (err, result) => {
-    console.log(result[0].total);
+    console.log("resultado "+result[0].total);
      if (err){
            return res.sendStatus(401);
         }else{
@@ -36,6 +51,7 @@ app.post('/auth', function(req, res) {
                 console.log("entreeeee");
                 var token = jwt.sign({userID: req.body.username}, 'todo-app-super-shared-secret', {expiresIn: '2h'});
                 res.send({token});
+                console.log(token);
             }else{
                 return res.sendStatus(401);
             }
@@ -43,8 +59,70 @@ app.post('/auth', function(req, res) {
     });
 });
 
+
+
+app.get('/users', (req, res) => {
+    con.query('SELECT * FROM usuario ORDER BY(idUsuario) ASC;', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.post('/user/add', bodyParser.json(), (req, res, next) => {
+    const INSERT_USER_QUERY = `INSERT INTO usuario(nombreUsuario, email, usuario, password) VALUES('${req.body.name}','${req.body.email}','${req.body.user}',SHA('${req.body.password}'));`
+    con.query(INSERT_USER_QUERY, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('usuario adicionado con exito')
+        }
+    })
+})
+
+
+//HISTORIAL DE ACCESO
+
+app.post('/history/insert', bodyParser.json(), (req, res, next) => {
+    con.query(`INSERT INTO history (usuario, fecha_login)
+        VALUES ('${req.body.usuario}', CURRENT_TIMESTAMP());`, (err, resultados) => {
+            if(err) {
+                return res.send(err)
+            } else {
+                return res.send('History adicionado con exito');
+            }
+        })
+})
+
+app.put('/history/update/:id', bodyParser.json(), (req, res, next) => {
+    con.query(`UPDATE history SET history.fecha_logout = CURRENT_TIMESTAMP() WHERE history.idUsuario=${req.params.id}`, (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.send('History adicionado con exito');
+        }
+    })
+})
+
+//CLIENTE
 app.get('/cliente', (req, res) => {
     con.query('SELECT * FROM cliente ORDER BY(idCliente) DESC;', (err, resultados) => {
+        if(err) {
+            return res.send(err)
+        } else {
+            return res.json({
+                data: resultados
+            })
+        }
+    })
+})
+
+app.get('/cliente/:id' , (req, res, next) => {
+  con.query(`SELECT * FROM cliente WHERE cliente.idCliente = ${req.params.id};`, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -140,17 +218,7 @@ app.get('/last-orden-trabajo', (req, res) => {
 })
 
 //SELECT ELEMENT
-app.get('/select-cliente/:id' , (req, res, next) => {
-  con.query(`SELECT * FROM cliente WHERE cliente.idCliente = ${req.params.id};`, (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.json({
-                data: resultados
-            })
-        }
-    })
-})
+
 
 app.get('/pivot-tipo-mes' , (req, res, next) => {
   con.query(`SELECT tipo, 
@@ -230,7 +298,7 @@ app.get('/max-demanda', (req, res, next) => {
 })
 
 app.get('/select-actividad/:id' , (req, res, next) => {
-  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real FROM act_OT WHERE act_OT.idRelacion= ${req.params.id};`, (err, resultados) => {
+  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y, %k:%i:%s") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y, %k:%i:%s") as fecha_finalizado, tiempo_estimado, tiempo_real FROM act_OT WHERE act_OT.idRelacion= ${req.params.id};`, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -242,7 +310,7 @@ app.get('/select-actividad/:id' , (req, res, next) => {
 })
 
 app.get('/select-act/:id' , (req, res, next) => {
-  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y") as fecha_finalizado, tiempo_estimado, tiempo_real, estado FROM act_OT WHERE act_OT.ordenTrabajo = ${req.params.id} ORDER BY(actividad_id) ASC;`, (err, resultados) => {
+  con.query(`SELECT idRelacion, ordenTrabajo, actividad_id, actividad, costo, materiales, DATE_FORMAT(fecha_inicio, "%e/%m/%Y, %k:%i:%s") as fecha_inicio, DATE_FORMAT(fecha_finalizado, "%e/%m/%Y, %k:%i:%s") as fecha_finalizado, tiempo_estimado, tiempo_real, estado FROM act_OT WHERE act_OT.ordenTrabajo = ${req.params.id} ORDER BY(actividad_id) ASC;`, (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -367,8 +435,8 @@ app.get('/group-comuna' , (req, res, next) => {
     })
 })
 
-
 ///INSERT
+
 app.post('/add-tipo', bodyParser.json(), (req, res, next) => {
     const INSERT_TIPO_QUERY = `INSERT INTO tipo(nombre_tipo) VALUES('${req.body.nombre_tipo}');`
     con.query(INSERT_TIPO_QUERY, (err, resultados) => {
@@ -564,7 +632,7 @@ app.put('/insert-inicio/:id', bodyParser.json(), (req, res, next) => {
 app.put('/insert-fin/:id', bodyParser.json(), (req, res, next) => {
     con.query(`UPDATE act_OT SET  act_OT.fecha_finalizado = '${req.body.fin}' WHERE act_OT.idRelacion=${req.params.id} `,
         (err, resultados) => {
-        con.query(`UPDATE act_OT SET  act_OT.tiempo_real =  DATEDIFF(act_OT.fecha_finalizado, act_OT.fecha_inicio) WHERE act_OT.idRelacion=${req.params.id}`, (err, resultados) => {
+        con.query(`UPDATE act_OT SET  act_OT.tiempo_real = FLOOR(HOUR(TIMEDIFF(act_OT.fecha_finalizado, act_OT.fecha_inicio)) / 24)*24+ MOD(HOUR(TIMEDIFF(act_OT.fecha_finalizado, act_OT.fecha_inicio)), 24)+ MINUTE(TIMEDIFF(act_OT.fecha_finalizado, act_OT.fecha_inicio))/60 WHERE act_OT.idRelacion=${req.params.id}`, (err, resultados) => {          
             if(err) {
                 return res.send(err)
             } else {
@@ -580,7 +648,7 @@ app.put('/estado-actividad/:id', bodyParser.json(), (req, res, next) => {
         if(err) {
             return res.send(err)
         } else {
-            return res.send('Tiempo Real actualizado con exito')
+            return res.send('Estado actividad actualizado con exito')
         }
     })
 });

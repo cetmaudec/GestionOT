@@ -23,6 +23,9 @@ export class ActividadDetalleComponent implements OnInit {
 	anio: number;
 	mes: number;
 	dia: number;
+	hours: number;
+	minutes: number;
+	seconds: number;
 	displayDate: any;
 	date: any;
 
@@ -77,6 +80,9 @@ export class ActividadDetalleComponent implements OnInit {
 		this.anio = this.displayDate.getFullYear();
 		this.mes = this.displayDate.getMonth()+1;
 		this.dia = this.displayDate.getDate();
+		this.hours = this.displayDate.getHours();
+		this.minutes = this.displayDate.getMinutes();
+		this.seconds = this.displayDate.getSeconds();
 	}
 
   	ngOnInit() {
@@ -200,8 +206,22 @@ export class ActividadDetalleComponent implements OnInit {
 	  	this.ngOnInit();
 	}
 
+	CurrentTime(){
+		var dateTime;
+		this.displayDate = new Date();
+		this.anio = this.displayDate.getFullYear();
+		this.mes = this.displayDate.getMonth()+1;
+		this.dia = this.displayDate.getDate();
+		this.hours = this.displayDate.getHours();
+		this.minutes = this.displayDate.getMinutes();
+		this.seconds = this.displayDate.getSeconds();
+		dateTime = this.anio+'/'+this.mes+'/'+this.dia+" "+this.hours+":"+this.minutes+":"+this.seconds;
+		return dateTime
+	}
+
 	ActionDate(action:any){
-		this.date = this.anio+'/'+this.mes+'/'+this.dia;
+		this.date = this.CurrentTime();
+		console.log(this.date);
 		if(action == 'inicio'){
 			console.log("inicio");
 			this.dato_FechaI = {

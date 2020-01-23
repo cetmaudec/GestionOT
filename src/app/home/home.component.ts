@@ -2,6 +2,7 @@ import { Component, OnInit} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from "rxjs/Observable";
 import { Chart } from 'chart.js';
+import { ActivatedRoute } from '@angular/router';
 import 'chartjs-plugin-colorschemes';
 
 
@@ -32,8 +33,11 @@ export class HomeComponent implements OnInit {
   graphTipo: boolean = false;
   graphComuna: boolean = false;
 
+  User: any;
 
-	constructor(private http: HttpClient) {
+	constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) {
+    this.User = localStorage.getItem('user');
+    
 	}
 
   async ngOnInit() {

@@ -1,10 +1,26 @@
 .header{
   background-color: rgba(242, 243, 244, 0.35);
   width: 100%;
-  height: auto;
+  height: 100%;
   color: white;
 }
-
+.top{
+  text-align:right;
+  width: 100%;
+  height: auto;
+  color: #34495e;
+  bold: true;
+  text-transform: capitalize;
+}
+input{
+  background-color: #e6f0f2; 
+  padding: 0.15%; 
+  border: 1px solid #e3dcdc;
+  border-radius: 50%;
+  margin-left:10px;
+  margin-right:10px;
+  margin-top: 5px;
+}
 img{
   padding:10px; 
   padding-left: 5px;
@@ -12,7 +28,7 @@ img{
 }
 
 nav {
-  margin: 27px auto 0;
+  margin: -50px auto 0;
   position: relative;
   width: 690px;
   height: auto;
@@ -88,3 +104,4 @@ nav .start-contact, a:nth-child(5):hover~.animation {
   left: 510px;
   background-color: #e67e22;
 }
+

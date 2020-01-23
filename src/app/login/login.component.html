@@ -38,12 +38,20 @@
             </div>
             <input type="password" class="form-control" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
           </div>
-  				<!--<input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-  				<input type="password" id="inputPassword" class="form-control" placeholder="Password" required>-->
-          <div id="remember" class="checkbox">
-            <label>
-              <input type="checkbox" value="remember-me"> Remember me
-            </label>
+
+          <div class="row">
+            <div class="col">
+              <div id="remember" class="checkbox">
+                <label>
+                  <input type="checkbox" value="remember-me"> Recordar
+                </label>
+              </div>
+            </div>
+            <div class="col">
+              <div class="register">
+                <a routerLink="/register">Registrarme</a>
+              </div>
+            </div>
           </div>
           <button class="btn btn-success" type="submit">Ingresar</button>
         </form>

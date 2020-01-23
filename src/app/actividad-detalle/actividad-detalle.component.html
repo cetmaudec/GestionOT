@@ -155,7 +155,7 @@
 
                       <div class="col-6" *ngIf="!editTiempoEstimado">
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}} días
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}} horas
                           </li>
                           <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
                             <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -169,7 +169,7 @@
                             <div class="row">
                               <div class="col-6">
                                 <form [formGroup]="TiempoEditform">
-                                  <input class="input" clearInput  type="number" width="5" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}> días
+                                  <input class="input" clearInput  type="number" width="5" formControlName="nuevoTiempo" value={{act.tiempo_estimado}}> horas
                                 </form>
                               </div>
                               <div class="col-2">
@@ -183,7 +183,7 @@
 
                       <div class="col-6" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}} días</li>
+                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}} horas</li>
                         </ul>
                       </div>
                     </div>

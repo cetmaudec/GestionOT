@@ -7,6 +7,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth.service';
+import { AuthGuard } from './auth.guard';
 
 import { HomeComponent } from './home/home.component';
 import { OrdenTrabajoComponent } from './orden-trabajo/orden-trabajo.component';
@@ -30,7 +32,11 @@ import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle
 import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { RegisterComponent } from './register/register.component';
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 
 @NgModule({
@@ -50,6 +56,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     NewComponent,
     ChartsComponent,
     NavbarComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -66,7 +73,10 @@ import { NavbarComponent } from './navbar/navbar.component';
     AngularSvgIconModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

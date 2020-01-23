@@ -21,10 +21,9 @@ body, html {
 }
 
 .box{
-	border: 1px solid #34495e !important;
-	background-color: #f8f9f9;
-  width: auto;
-
+  border: 1px solid !important;
+  border-radius: 5%;
+  background-color: #f8f9f9;
 }
 
 .field{
@@ -59,11 +58,6 @@ h2{
 label{
 	color: #d96421;
 	font-family: Monaco;
-}
-
-.box{
-	border: 1px solid #FF0022 !important;
-	background-color: #f8f9f9;
 }
 
 table{

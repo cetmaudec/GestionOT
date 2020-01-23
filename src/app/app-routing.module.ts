@@ -14,24 +14,25 @@ import { ClienteDetalleComponent } from './cliente-detalle/cliente-detalle.compo
 import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle.component';
 import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
-
-
+import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
-  { path: 'home', component: HomeComponent },
-  { path: 'orden-trabajo', component: OrdenTrabajoComponent},
-  { path: 'ficha', component: FichaComponent },
-  { path: 'ficha-ind/:id', component: FichaIndComponent },
-  { path: 'nueva-moto', component: AddMotocicletaComponent},
-  { path: 'nueva-actividad', component: AddNewActivityComponent},
-  { path: 'nuevo-producto', component: AddNewProductComponent},
-  { path: 'clientes', component: ClientesComponent},
-  { path: 'cliente/:id', component: ClienteDetalleComponent},
-  { path: 'actividad-detalle/:id', component: ActividadDetalleComponent},
-  { path: 'new', component: NewComponent},
-  { path: 'charts', component:ChartsComponent},
+  { path: 'register', component:RegisterComponent},
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'orden-trabajo', component: OrdenTrabajoComponent, canActivate: [AuthGuard]},
+  { path: 'ficha', component: FichaComponent, canActivate: [AuthGuard] },
+  { path: 'ficha-ind/:id', component: FichaIndComponent, canActivate: [AuthGuard] },
+  { path: 'nueva-moto', component: AddMotocicletaComponent, canActivate: [AuthGuard]},
+  { path: 'nueva-actividad', component: AddNewActivityComponent, canActivate: [AuthGuard]},
+  { path: 'nuevo-producto', component: AddNewProductComponent, canActivate: [AuthGuard]},
+  { path: 'clientes', component: ClientesComponent, canActivate: [AuthGuard]},
+  { path: 'cliente/:id', component: ClienteDetalleComponent, canActivate: [AuthGuard]},
+  { path: 'actividad-detalle/:id', component: ActividadDetalleComponent, canActivate: [AuthGuard]},
+  { path: 'new', component: NewComponent, canActivate: [AuthGuard]},
+  { path: 'charts', component:ChartsComponent, canActivate: [AuthGuard]},
 ];
 
 @NgModule({
