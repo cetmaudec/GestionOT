@@ -33,6 +33,7 @@ import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgetpassComponent } from './forgetpass/forgetpass.component';
 
 export function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -57,6 +58,7 @@ export function tokenGetter() {
     ChartsComponent,
     NavbarComponent,
     RegisterComponent,
+    ForgetpassComponent,
   ],
   imports: [
     BrowserModule,

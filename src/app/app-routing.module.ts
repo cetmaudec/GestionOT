@@ -15,12 +15,14 @@ import { ActividadDetalleComponent } from './actividad-detalle/actividad-detalle
 import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
 import { RegisterComponent } from './register/register.component';
+import { ForgetpassComponent } from './forgetpass/forgetpass.component';
 import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'register', component:RegisterComponent},
+  { path: 'forgetpass', component:ForgetpassComponent},
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'orden-trabajo', component: OrdenTrabajoComponent, canActivate: [AuthGuard]},
   { path: 'ficha', component: FichaComponent, canActivate: [AuthGuard] },

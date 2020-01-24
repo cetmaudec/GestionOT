@@ -62,7 +62,7 @@ app.post('/auth',  bodyParser.json(), (req, res, next) => {
 
 
 app.get('/users', (req, res) => {
-    con.query('SELECT * FROM usuario ORDER BY(idUsuario) ASC;', (err, resultados) => {
+    con.query('SELECT * FROM usuario;', (err, resultados) => {
         if(err) {
             return res.send(err)
         } else {
@@ -74,10 +74,11 @@ app.get('/users', (req, res) => {
 })
 
 app.post('/user/add', bodyParser.json(), (req, res, next) => {
-    const INSERT_USER_QUERY = `INSERT INTO usuario(nombreUsuario, email, usuario, password) VALUES('${req.body.name}','${req.body.email}','${req.body.user}',SHA('${req.body.password}'));`
+    const INSERT_USER_QUERY = `INSERT INTO usuario(nombreUsuario, email, usuario, password, question1, question2, question3) 
+    VALUES('${req.body.name}','${req.body.email}','${req.body.user}',SHA('${req.body.password}'), '${req.body.question1}', '${req.body.question2}', '${req.body.question3}');`
     con.query(INSERT_USER_QUERY, (err, resultados) => {
         if(err) {
-            return res.send(err)
+            return res.sendStatus(401);
         } else {
             return res.send('usuario adicionado con exito')
         }
