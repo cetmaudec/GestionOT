@@ -4,7 +4,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-
+import Swal from'sweetalert2'
 
 
 @Component({
@@ -120,14 +120,11 @@ export class OrdenTrabajoComponent implements OnInit {
       this.dejaMoto=false;
       this.dejamoto=0;
     }
-    console.log(this.dejaMoto);
   }
 
   CleanDatos(){
-    console.log("clean");
     this.OTform.reset();
     this.Clienteform.reset();
-    console.log(this.prueba);
     this.estadoCliente = false
     this.esPrioritario = false
     this.dejaMoto = false
@@ -173,7 +170,7 @@ export class OrdenTrabajoComponent implements OnInit {
           'id': act.idActividad,
           'nombre': act.nombre_actividad
       };
-      this.http.post('http://localhost:4000/add-actividadOT', datoAct, {responseType: 'text'}).subscribe(
+      this.http.post('http://localhost:4000/act_OT/insert', datoAct, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },
@@ -216,14 +213,25 @@ export class OrdenTrabajoComponent implements OnInit {
       };
     }
 
-    this.http.post('http://localhost:4000/add-OT', this.dataOT, {responseType: 'text'}).subscribe(
-      (response) => {
-        console.log('response from post data is ', response);
-      }
+    this.http.post('http://localhost:4000/orden-trabajo/insert', this.dataOT, {responseType: 'text'}).subscribe(
+      response =>  Swal.fire({
+                icon: 'success',
+                title: 'Nueva orden de trabajo!',
+                text: 'La OT ha sido creada exitosamente.',
+                confirmButtonText: 'Ok!'
+                }).then((result) => {
+                  if (result.value) {
+                    this.sendActividades(); 
+                    this.router.navigate(['/ficha']);
+                  }
+                }) ,
+        err => Swal.fire({
+              icon: 'error',
+              title: 'Oops!',
+              text: 'Ha ocurrido un error, vuelva a intentarlo'
+          })
     );
-    this.CleanDatos();
-    this.sendActividades();
-    this.router.navigate(['/ficha']);
+    this.CleanDatos();      
   }
 
   SubmitCliente(){
@@ -243,7 +251,7 @@ export class OrdenTrabajoComponent implements OnInit {
     }
 
 
-    this.http.post('http://localhost:4000/add-cliente', this.clienteOT, {responseType: 'text'}).subscribe(
+    this.http.post('http://localhost:4000/cliente/insert', this.clienteOT, {responseType: 'text'}).subscribe(
       (response) => {
 
         console.log('response from post data is ', response);

@@ -67,7 +67,7 @@
 
                       <div class="col-6" *ngIf="!fechaInicio" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Inicio:<br> {{act.fecha_inicio}}
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Fecha Inicio:<br> {{act.fecha_inicio}}
                           </li>
                           <button type="button" class="btn btn-sm" (click)="Edit('fechaInicio')">
                             <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -77,7 +77,7 @@
 
                       <div class="col-6" *ngIf="fechaInicio" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Inicio:<br>
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Fecha Inicio:<br>
                             <div class="row">
                               <div class="col-6">
                                 <form [formGroup]="FechaInicioEditform">
@@ -95,7 +95,7 @@
 
                       <div class="col-6" *ngIf="!fechaFin" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Finalización:<br> {{act.fecha_finalizado}}</li>
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Fecha Finalización:<br> {{act.fecha_finalizado}}</li>
                           <button type="button" class="btn btn-sm" (click)="Edit('fechaFin')">
                             <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
                           </button>
@@ -104,7 +104,7 @@
 
                       <div class="col-6" *ngIf="fechaFin" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Fecha Finalización:<br>
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Fecha Finalización:<br>
                             <div class="row">
                               <div class="col-6">
                                 <form [formGroup]="FechaFinEditform">
@@ -123,7 +123,7 @@
 
                   <div class="list-group-item" *ngIf="!editMaterial" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Materiales:<br> {{act.materiales}}
+                      <li class="list-group-item" style="width: 890px; border: transparent; background-color:transparent;">Materiales:<br> {{act.materiales}}
                       </li>
                       <button type="button" class="btn btn-sm" (click)="Edit('materiales')">
                         <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -133,7 +133,7 @@
 
                   <div class="list-group-item" *ngIf="editMaterial" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Materiales:<br>
+                      <li class="list-group-item" style="width: 890px; border: transparent; background-color:transparent;">Materiales:<br>
                         <div class="row">
                           <div class="col-8">
                             <form [formGroup]="MaterialEditform">
@@ -155,7 +155,7 @@
 
                       <div class="col-6" *ngIf="!editTiempoEstimado">
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}} horas
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Tiempo estimado:<br> {{act.tiempo_estimado}} horas
                           </li>
                           <button type="button" class="btn btn-sm" (click)="Edit('tiempo')">
                             <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -165,7 +165,7 @@
 
                       <div class="col-6" *ngIf="editTiempoEstimado">
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo estimado:<br>
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Tiempo estimado:<br>
                             <div class="row">
                               <div class="col-6">
                                 <form [formGroup]="TiempoEditform">
@@ -183,7 +183,7 @@
 
                       <div class="col-6" >
                         <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                          <li class="list-group-item" style="width: 350px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}} horas</li>
+                          <li class="list-group-item" style="width: 450px; border: transparent; background-color:transparent;">Tiempo real:<br> {{act.tiempo_real}} horas</li>
                         </ul>
                       </div>
                     </div>
@@ -192,7 +192,7 @@
 
                   <div class="list-group-item" *ngIf="!editCosto" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Costo ($):<br> {{act.costo}}
+                      <li class="list-group-item" style="width: 890px; border: transparent; background-color:transparent;">Costo ($):<br> {{act.costo}}
                       </li>
                       <button type="button" class="btn btn-sm" (click)="Edit('costo')">
                          <img  src="../assets/icons/svg/edit(2).svg"  width="20" class="d-inline-block align-center" alt="">
@@ -202,7 +202,7 @@
 
                   <div class="list-group-item" *ngIf="editCosto" style="border: transparent; background-color:#f8f9f9;">
                     <ul class="list-group list-group-horizontal" style="background-color:#f4f4f4;">
-                      <li class="list-group-item" style="width: 600px; border: transparent; background-color:transparent;">Costo ($):<br>
+                      <li class="list-group-item" style="width: 890px; border: transparent; background-color:transparent;">Costo ($):<br>
                         <div class="row">
                           <div class="col-6">
                             <form [formGroup]="CostoEditform">

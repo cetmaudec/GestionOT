@@ -16,13 +16,17 @@ import { NewComponent } from './new/new.component';
 import { ChartsComponent } from './charts/charts.component';
 import { RegisterComponent } from './register/register.component';
 import { ForgetpassComponent } from './forgetpass/forgetpass.component';
+import { UserforgetpassComponent } from './userforgetpass/userforgetpass.component';
+import { ChangepassComponent } from './changepass/changepass.component';
 import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
   { path: 'register', component:RegisterComponent},
-  { path: 'forgetpass', component:ForgetpassComponent},
+  { path: 'forgetpass', component:UserforgetpassComponent },
+  { path: 'forgetpass/:user', component: ForgetpassComponent },
+  { path: 'forgetpass/password/:user', component: ChangepassComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'orden-trabajo', component: OrdenTrabajoComponent, canActivate: [AuthGuard]},
   { path: 'ficha', component: FichaComponent, canActivate: [AuthGuard] },

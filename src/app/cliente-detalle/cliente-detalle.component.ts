@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
+import Swal from'sweetalert2'
 
 
 @Component({
@@ -70,18 +71,23 @@ export class ClienteDetalleComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
-   		this.getData();
+	async ngOnInit() {
+   		var ready = await this.getData();
+   		this.updateEmail = false;
+		this.updateTelefono = false;
+		this.updateCelular = false;
+		this.updateDireccion = false;
    		console.log(this.cliente$)
 	}
 
-	getData(){
-    this.http.get('http://localhost:4000/cliente/'+this.id).subscribe(
-      resp => this.cliente$ = resp as []
-    );
-    this.http.get('http://localhost:4000/select-ot/'+this.id).subscribe(
-      resp => this.otRelacionadas$ = resp as []
-    );
+	async getData(){
+    	this.http.get('http://localhost:4000/cliente/'+this.id).subscribe(
+      		resp => this.cliente$ = resp as []
+    	);
+    	this.http.get('http://localhost:4000/orden-trabajo/select/'+this.id).subscribe(
+      		resp => this.otRelacionadas$ = resp as []
+    	);
+    	return true;
 	}
 
 	UpdateData(tipo:string){
@@ -103,58 +109,96 @@ export class ClienteDetalleComponent implements OnInit {
 	}
 
 	onSubmitEmail(){
-		if(this.updateEmail==true && this.CelularEditform.get('nuevoEmail').value!=null ){
+		if(this.updateEmail==true && this.EmailEditform.get('nuevoEmail').value!=null ){
 			this.dato_email = {
 				'email': this.EmailEditform.get('nuevoEmail').value
 			};
-			this.http.put('http://localhost:4000/update-email/'+this.id, this.dato_email, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
-	      this.updateEmail=false;
-	      this.ngOnInit();
+		}else if(this.updateEmail){
+			this.dato_email = {
+				'email': this.cliente$[0].data.email
+			};
 		}
+		console.log(this.dato_email);
+		this.http.put('http://localhost:4000/cliente/email/update/'+this.id, this.dato_email, {responseType: 'text'}).subscribe(
+			response =>  Swal.fire({
+  						html: '<h3>Se ha actualizado el email exitosamente</h3>',
+  						confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) ,
+			err => Swal.fire({
+  					html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  					confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) 
+		);
+		
 	}
 
 	onSubmitTelefono(){
-		if(this.updateTelefono==true && this.CelularEditform.get('nuevoTelefono').value!=null ){
+		if(this.updateTelefono==true && this.TelefonoEditform.get('nuevoTelefono').value!=null ){
 			this.dato_telefono = {
 				'telefono': this.TelefonoEditform.get('nuevoTelefono').value
 			};
-			this.http.put('http://localhost:4000/update-telefono/'+this.id, this.dato_telefono, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
-	      this.updateTelefono=false;
-	      this.ngOnInit();
+		}else if(this.updateTelefono == true){
+			this.dato_telefono = {
+				'telefono': this.cliente$[0].data.telefono
+			};
 		}
+		this.http.put('http://localhost:4000/cliente/telefono/update/'+this.id, this.dato_telefono, {responseType: 'text'}).subscribe(
+			response =>  Swal.fire({
+  						html: '<h3>Se ha actualizado el número telefónico exitosamente</h3>',
+  						confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) ,
+			err => Swal.fire({
+  					html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  					confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) 
+		);
 	}
 
 	onSubmitCelular(){
 		if(this.updateCelular==true && this.CelularEditform.get('nuevoCelular').value!=null ){
-			console.log(this.CelularEditform.get('nuevoCelular').value);
 			this.dato_celular = {
 				'celular': this.CelularEditform.get('nuevoCelular').value
 			};
-			this.http.put('http://localhost:4000/update-celular/'+this.id, this.dato_celular, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      	}).subscribe(
-	      	(response) => {
-	        		console.log('response from post data is ', response);
-	      	},(error)=>{
-	        	console.log('error during post is ', error)
-	      	});
-	      	this.updateCelular=false;
-	      	this.ngOnInit();
+		}else if(this.updateCelular == true){
+			this.dato_celular = {
+				'celular': this.cliente$[0].data.celular
+			};
 		}
+		this.http.put('http://localhost:4000/cliente/email/update/'+this.id, this.dato_celular, {responseType: 'text'}).subscribe(
+			response =>  Swal.fire({
+  						html: '<h3>Se ha actualizado el número celular exitosamente</h3>',
+  						confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) ,
+			err => Swal.fire({
+  					html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  					confirmButtonText: 'Ok!'
+  						}).then((result) => {
+  							if (result.value) {
+  								this.ngOnInit();
+  							}
+  						}) 
+		);
+		
 	}
 
 	onSubmitDireccion(){
@@ -167,16 +211,24 @@ export class ClienteDetalleComponent implements OnInit {
 				'pais': this.DireccionEditform.get('Dir_pais').value
 			};
 
-			this.http.put('http://localhost:4000/update-direccion/'+this.id, this.dato_direccion, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	    	}).subscribe(
-	      	(response) => {
-	        	console.log('response from post data is ', response);
-	      	},(error)=>{
-	        	console.log('error during post is ', error)
-	      	});
-	      	this.updateDireccion=false;
-	      	this.ngOnInit();
+			this.http.put('http://localhost:4000/cliente/direccion/update/'+this.id, this.dato_direccion, {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado la dirección exitosamente</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 		}
 	}
 

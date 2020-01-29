@@ -1,6 +1,7 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import Swal from'sweetalert2'
 
 
 @Component({
@@ -44,14 +45,22 @@ export class AddNewProductComponent implements OnInit {
    		this.datos = {
    			'nombre_tipo': this.Productoform.get('nombre_tipo').value
    		};
-   		this.http.post('http://localhost:4000/add-tipo', this.datos, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
-   			(response) => {
-   				console.log('response from post data is ', response);
-		  	},
-		  	(error)=>{
-		  		console.log('error during post is ', error)
-		  	});
-		  	this.ngOnInit();
+   		this.http.post('http://localhost:4000/tipo/insert', this.datos, {responseType: 'text'}).subscribe(
+   			response =>  Swal.fire({
+                icon: 'success',
+                title: 'Nuevo producto agregado existosamente!',
+                confirmButtonText: 'Ok!'
+                }).then((result) => {
+                  if (result.value) {
+                    this.ngOnInit();
+                  }
+                }) ,
+        err => Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, vuelva a intentarlo'
+          })
+      );
+		  	
 	  	}
   	}  
 }

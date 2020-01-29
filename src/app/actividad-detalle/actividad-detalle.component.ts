@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import Swal from'sweetalert2'
+
 
 @Component({
   selector: 'app-actividad-detalle',
@@ -90,7 +92,7 @@ export class ActividadDetalleComponent implements OnInit {
   	}
 
   	getData(){
-	    this.http.get('http://localhost:4000/select-actividad/'+this.idAct).subscribe(
+	    this.http.get('http://localhost:4000/act_OT/select/'+this.idAct).subscribe(
 	      resp => this.actividad$ = resp as []
 	    );
 	}
@@ -117,14 +119,24 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Material = {
 				'material': this.MaterialEditform.get('nuevoMaterial').value
 			};
-			this.http.put('http://localhost:4000/insert-material/'+this.idAct, this.dato_Material, {
-	        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-	      }).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/material/insert/'+this.idAct, this.dato_Material,  {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado el ítem materiales</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 	      this.editMaterial=false;
 	  	}else if(this.editMaterial==true){
 	  		this.editMaterial=false;
@@ -137,17 +149,29 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Tiempo = {
 				'tiempo': this.TiempoEditform.get('nuevoTiempo').value
 			};
-			this.http.put('http://localhost:4000/insert-tiempo/'+this.idAct, this.dato_Tiempo, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/tiempo/update/'+this.idAct, this.dato_Tiempo, {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado tiempo estimado de ejecución</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 			this.editTiempoEstimado=false;
 	      }else if(this.editTiempoEstimado==true){
 	  		this.editTiempoEstimado=false;
 	  	}
-	  	this.ngOnInit();
+	  	
 	}
 
 	onSubmitCosto(){
@@ -155,12 +179,24 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Costo = {
 				'costo': this.CostoEditform.get('nuevoCosto').value
 			};
-			this.http.put('http://localhost:4000/insert-costo/'+this.idAct, this.dato_Costo, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/costo/insert/'+this.idAct, this.dato_Costo,  {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado el costo de ejecución</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 	      this.editCosto=false;
 	      }else if(this.editCosto==true){
 	  		this.editCosto=false;
@@ -173,12 +209,24 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaI = {
 				'inicio': this.FechaInicioEditform.get('nuevoInicio').value
 			};
-			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado el inicio de la actividad</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 	      this.fechaInicio=false;
 	      this.EstadoActividad('Iniciada');
 		}else if(this.fechaInicio==true){
@@ -192,12 +240,24 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaF = {
 				'fin': this.FechaFinEditform.get('nuevoFin').value
 			};
-			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha actualizado el fin de la actividad</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 	      this.fechaFin=false;
 	      this.EstadoActividad('Finalizada');
 		}else if(this.fechaFin==true){
@@ -228,24 +288,48 @@ export class ActividadDetalleComponent implements OnInit {
 				'inicio': this.date,
 			};
 			this.EstadoActividad('Iniciada');
-			this.http.put('http://localhost:4000/insert-inicio/'+this.idAct, this.dato_FechaI, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha dado inicio a la actividad</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 		}else if(action='final'){
 			console.log('fin');
 			this.dato_FechaF = {
 				'fin': this.date,
 			};
 			this.EstadoActividad('Finalizada');
-			this.http.put('http://localhost:4000/insert-fin/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
-	      (response) => {
-	        console.log('response from post data is ', response);
-	      },(error)=>{
-	        console.log('error during post is ', error)
-	      });
+			this.http.put('http://localhost:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
+				response =>  Swal.fire({
+  							html: '<h3>Se ha dado por finalizada la actividad</h3>',
+  							confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) ,
+				err => Swal.fire({
+  						html: '<h3>Ha ocurrido un error, vuelva a intentarlo</h3>',
+  						confirmButtonText: 'Ok!'
+  							}).then((result) => {
+  								if (result.value) {
+  									this.ngOnInit();
+  								}
+  							}) 
+			);
 		}
 		this.ngOnInit();
 	}
@@ -254,7 +338,7 @@ export class ActividadDetalleComponent implements OnInit {
      this.dato= {
         'estado': estadoAct
       };
-      this.http.put('http://localhost:4000/estado-actividad/'+this.idAct, this.dato, {responseType: 'text'}).subscribe(
+      this.http.put('http://localhost:4000/act_OT/estado/update/'+this.idAct, this.dato, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },(error)=>{

@@ -19,7 +19,7 @@ export class FichaComponent implements OnInit {
   }
 
   getClientes(){
-    this.http.get('http://localhost:4000/select-ot-cliente').subscribe(resp =>
+    this.http.get('http://localhost:4000/orden-trabajo/join/cliente/orderby/desc').subscribe(resp =>
       this.ordenTrabajo$ = resp as []
       );
   }

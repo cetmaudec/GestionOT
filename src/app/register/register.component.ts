@@ -5,8 +5,6 @@ import { AuthService } from '../auth.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-
-
 import { first } from 'rxjs/operators';
 
 @Component({
@@ -68,7 +66,7 @@ export class RegisterComponent implements OnInit {
   			Swal.fire({
   				icon: 'error',
   				title: 'Oops...',
-  				text: 'La clave ingresada no es correcta!'
+  				text: 'La clave ingresada no coinciden!'
 			})
 	   	}
 	}

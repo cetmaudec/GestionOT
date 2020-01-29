@@ -65,7 +65,7 @@ export class HomeComponent implements OnInit {
   }
 
   async getMotoToPie(){
-    this.motoGroup$ = await this.http.get('http://localhost:4000/group-moto').toPromise();
+    this.motoGroup$ = await this.http.get('http://localhost:4000/motocicleta/groupby').toPromise();
     for(let mt of this.motoGroup$.data){
        this.motoLabel.push(mt.motocicleta);
        this.motoCant.push(mt.cantidad);
@@ -74,7 +74,7 @@ export class HomeComponent implements OnInit {
   }
 
   async getTipoToPie(){
-    this.tipoGroup$ = await this.http.get('http://localhost:4000/group-tipo').toPromise();
+    this.tipoGroup$ = await this.http.get('http://localhost:4000/tipo/groupby').toPromise();
     for(let prod of this.tipoGroup$.data){
       this.tipoLabel.push(prod.tipo);
       this.tipoCant.push(prod.cantidad);
@@ -83,7 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   async getComunaToPie(){
-    this.comunaGroup$ = await this.http.get('http://localhost:4000/group-comuna').toPromise();
+    this.comunaGroup$ = await this.http.get('http://localhost:4000/cliente/comuna/groupby').toPromise();
     for(let prod of this.comunaGroup$.data){
       this.comunaLabel.push(prod.comuna);
       this.comunaCant.push(prod.cantidad);

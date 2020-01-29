@@ -19,22 +19,11 @@
     <div class="container">
       <div class="card card-container">
       	<h1><b>Olvidé mi contraseña</b></h1>
-        <img class="profile-img-card" src="./assets/icons/svg/add.svg" alt=""/>
+        <img class="profile-img-card" src="./assets/icons/svg/031-answer.svg" alt=""/>
+        <h2><b>Paso 2/3</b></h2>
         <br>
         <h5>Las siguientes preguntas validarán el cambio de clave. <br> *Tiene 3 intento o su cuenta será eliminada</h5>
-        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
-        	<div class="form-group">
-        		<label for="name" class="cols-sm-2 control-label"><b>Usuario</b></label>
-        		<div class="cols-sm-10">
-        			<div class="input-group">
-        				<span class="input-group-text" id="basic-addon1">
-			                <img color="primary" src="./assets/icons/svg/017-user.svg"  width="22" class="d-inline-block align-center" alt="" />
-			              </span>
-			              <input type="text" class="form-control"  formControlName="user" placeholder="Ingrese su usuario" aria-label="user" aria-describedby="basic-addon1">
-        			</div>
-        		</div>
-        	</div>
-
+        <form [formGroup]="questionPassForm" (ngSubmit)="forgetPassQuestion()">
             <div class="form-group">
               <label for="confirm" class="cols-sm-2 control-label"><b>Pregunta de Seguridad 1:</b> Nombre de la ciudad de nacimiento. (Sin tildes ni mayúsculas)</label>
                 <div class="cols-sm-10">
@@ -70,34 +59,7 @@
                     </div>
                 </div>
             </div>
-
-            <div class="form-group">
-        		<label for="name" class="cols-sm-2 control-label"><b>Contraseña Nueva</b></label>
-        		<div class="cols-sm-10">
-        			<div class="input-group">
-        				<span class="input-group-text" id="basic-addon1">
-			                <img color="primary" src="./assets/icons/svg/015-password.svg"  width="22" class="d-inline-block align-center" alt="" />
-			              </span>
-			              <input type="password" class="form-control"  formControlName="password" placeholder="Ingrese su contraseña" aria-describedby="basic-addon1">
-        			</div>
-        		</div>
-        	</div>
-
-        	<div class="form-group">
-            	<label for="confirm" class="cols-sm-2 control-label"><b>Confirme Contraseña Nueva</b></label>
-                <div class="cols-sm-10">
-                	<div class="input-group">
-                    	<span class="input-group-text" id="basic-addon1">
-                    		<img color="primary" src="./assets/icons/svg/015-password.svg"  width="22" class="d-inline-block align-center" alt="" />
-                    	</span>
-                        <input type="password" class="form-control" formControlName="confirm" placeholder="Confirme su contraseña" aria-describedby="basic-addon1">
-                    </div>
-                </div>
-            </div>
-
-
-
-          <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Cambiar contraseña</button>
+            <button class="btn btn-success" [disabled]="!questionPassForm.valid" type="submit">Cambiar contraseña</button>
         </form>
       </div>
     </div>

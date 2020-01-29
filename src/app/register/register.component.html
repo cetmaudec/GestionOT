@@ -18,7 +18,10 @@
   <div class="page">
     <div class="container">
       <div class="card card-container">
+        <h1><b>Registro de nuevo usuario</b></h1>
         <img class="profile-img-card" src="./assets/icons/svg/add.svg" alt=""/>
+        <br>
+        <h5>Para realizar el registro se deben completar todos los campos que se encuetran a continuación</h5>
         <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
         	<div class="form-group">
         		<label for="name" class="cols-sm-2 control-label"><b>Nombre</b></label>

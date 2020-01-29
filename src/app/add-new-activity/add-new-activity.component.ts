@@ -1,7 +1,7 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import Swal from'sweetalert2'
 
 @Component({
   selector: 'app-add-new-activity',
@@ -47,14 +47,21 @@ export class AddNewActivityComponent implements OnInit {
     		this.datos = {
    			'nombre_actividad': this.Activityform.get('nombre_actividad').value
    		};
-   		this.http.post('http://localhost:4000/add-actividad', this.datos, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
-   			(response) => {
-   				console.log('response from post data is ', response);
-		  	},
-		  	(error)=>{
-		  		console.log('error during post is ', error)
-		  	});
-		  	this.ngOnInit();
+   		this.http.post('http://localhost:4000/actividad/insert', this.datos, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+   			response =>  Swal.fire({
+                icon: 'success',
+                title: 'Nueva actividad agregada existosamente!',
+                confirmButtonText: 'Ok!'
+                }).then((result) => {
+                  if (result.value) {
+                    this.ngOnInit();
+                  }
+                }) ,
+        err => Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, vuelva a intentarlo'
+          })
+      );
 	  	}
   	}  
 }

@@ -1,7 +1,7 @@
 import { NgModule, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import Swal from'sweetalert2'
 
 export interface Tile {
   color: string;
@@ -23,6 +23,8 @@ export class AddMotocicletaComponent implements OnInit {
   marca$: any = [];
   count_marca$: any;
 
+  bool:any;
+
   private motoAdd: boolean = false;
   private nuevaMarca: boolean = false;
 
@@ -30,23 +32,21 @@ export class AddMotocicletaComponent implements OnInit {
     nombre_marca: ''
   };
 
-  datos_modelo = {
-    nombre_modelo: ''
-  };
   datos_modeloMarca = {
-    nombre_modelo: '',
-    marca: ''
+    nombre_marca: '',
+    nombre_modelo: ''
   }
 
   constructor(private formBuilder: FormBuilder, private http:HttpClient) {
-    this.Motocicletaform = this.formBuilder.group({
-        Marca:[''],
-        Nueva_Marca:[''],
-        Modelo:['']
-      });
+    
 }
 
   ngOnInit() {
+    this.Motocicletaform = this.formBuilder.group({
+        Marca:[''],
+        Nueva_Marca:[''],
+        Modelo:['', Validators.required]
+      });
     this.getModelosMarca();
     this.getMarcas();
     this.CleanDatos();
@@ -77,49 +77,45 @@ export class AddMotocicletaComponent implements OnInit {
     }
   }
 
-  onSubmit(){
-    if(this.Motocicletaform.get('Nueva_Marca')!=null && this.Motocicletaform.get('Modelo')!=null){
-      //Agrega nueva marca y se inserta modelo
-      this.motoAdd = true;
-      this.datos_marca = {
-        'nombre_marca': this.Motocicletaform.get('Nueva_Marca').value
+  async AddNuevaMarca(marca:any){
+    this.datos_marca = {
+        'nombre_marca': marca
       };
-      this.http.post('http://localhost:4000/add-marca', this.datos_marca, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-      }).subscribe(
-      (response) => {
-        console.log('response from post data is ', response);
-      },(error)=>{
-        console.log('error during post is ', error)
-      });
-      //Agrega modelo, obtiene marcac mediante conteo en serve.js
-      this.datos_modelo = {
+    this.bool = await this.http.post('http://localhost:4000/marca/insert', this.datos_marca, {responseType: 'text'}).toPromise();
+    return true;
+  }
+
+  async onSubmit(){
+    if(this.Motocicletaform.get('Nueva_Marca').value!=null ){
+      this.bool = await this.AddNuevaMarca(this.Motocicletaform.get('Nueva_Marca').value);
+      if(this.bool){
+        this.datos_modeloMarca = {
+          'nombre_marca': this.Motocicletaform.get('Nueva_Marca').value,
+          'nombre_modelo': this.Motocicletaform.get('Modelo').value
+        };
+      }
+    }else if(this.Motocicletaform.get('Marca').value!=null ){
+      this.datos_modeloMarca = {
+        'nombre_marca': this.Motocicletaform.get('Marca').value,
         'nombre_modelo': this.Motocicletaform.get('Modelo').value
       };
-      this.http.post('http://localhost:4000/add-marca-modelo', this.datos_modelo, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-      }).subscribe(
-      (response) => {
-        console.log('response from post data is ', response);
-      },(error)=>{
-        console.log('error during post is ', error)
-      });
-
-    }else if(this.Motocicletaform.get('Marca')!=null && this.Motocicletaform.get('Modelo')!=null){
-      //Agrega sólo modelo mediante la respuesta del formulario
-      this.datos_modeloMarca = {
-        'nombre_modelo': this.Motocicletaform.get('Modelo').value,
-        'marca': this.Motocicletaform.get('Marca').value
-      };
-      this.http.post('http://localhost:4000/add-marca-modelo', this.datos_modeloMarca, {
-        headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-      }).subscribe(
-      (response) => {
-        console.log('response from post data is ', response);
-      },(error)=>{
-        console.log('error during post is ', error)
-      });
     }
-    this.ngOnInit();
+
+    this.http.post('http://localhost:4000/motocicleta/insert', this.datos_modeloMarca, {responseType: 'text'}).subscribe(
+      response =>  Swal.fire({
+                icon: 'success',
+                title: 'Nuevo modelo ha sido agregado existosamente!',
+                confirmButtonText: 'Ok!'
+                }).then((result) => {
+                  if (result.value) {
+                    this.ngOnInit();
+                  }
+                }) ,
+        err => Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, vuelva a intentarlo'
+          })
+      );
   }
 }
+

@@ -79,17 +79,17 @@ export class ChartsComponent implements OnInit {
   }
 
   async getDataChart2(){
-    this.DespachoChart2Group$ = await this.http.get('http://localhost:4000/cont-dejamoto').toPromise();
+    this.DespachoChart2Group$ = await this.http.get('http://localhost:4000/orden-trabajo/dejaMoto/count').toPromise();
     return this.DespachoChart2Group$;
   }
 
   async getMotoToPie(){
-    this.motoGroup$ = await this.http.get('http://localhost:4000/group-moto').toPromise();
+    this.motoGroup$ = await this.http.get('http://localhost:4000/motocicleta/groupby').toPromise();
     return this.motoGroup$;
   }
 
   async getTipoToPie(){
-      this.tipoGroup$ = await this.http.get('http://localhost:4000/group-tipo').toPromise();
+      this.tipoGroup$ = await this.http.get('http://localhost:4000/tipo/groupby').toPromise();
     return  this.tipoGroup$;
   }
 
@@ -99,7 +99,7 @@ export class ChartsComponent implements OnInit {
   }
 
   async getComunaToPie(){
-    this.comunaGroup$ = await this.http.get('http://localhost:4000/group-comuna').toPromise();
+    this.comunaGroup$ = await this.http.get('http://localhost:4000/cliente/comuna/groupby').toPromise();
     return  this.comunaGroup$;
   }
 
@@ -134,7 +134,7 @@ export class ChartsComponent implements OnInit {
   }
 
   async getDataChartPrioridad(){
-    this.PrioridadChart4Group$ = await this.http.get('http://localhost:4000/cont-prioridad').toPromise();
+    this.PrioridadChart4Group$ = await this.http.get('http://localhost:4000/prioridad/count').toPromise();
     return this.PrioridadChart4Group$;
   }
 
