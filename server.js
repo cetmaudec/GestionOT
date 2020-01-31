@@ -28,7 +28,6 @@ app.get('/auth/:user/:pass' , (req, res, next) => {
         if(err) {
             return res.send(err)
         } else {
-            console.log(resultados);
             return res.json({
                 data: resultados
             })
@@ -38,19 +37,14 @@ app.get('/auth/:user/:pass' , (req, res, next) => {
 
 app.post('/auth',  bodyParser.json(), (req, res, next) => {
     const body = req.body;
-    console.log("username "+req.body.username);
-    console.log("password "+req.body.password);
     const select_query=`SELECT COUNT(*) as total FROM usuario where usuario.usuario='${req.body.username}' AND usuario.password = SHA('${req.body.password}');`
     con.query(select_query, (err, result) => {
-    console.log("resultado "+result[0].total);
      if (err){
            return res.sendStatus(401);
         }else{
             if(result[0].total>0){
-                console.log("entreeeee");
                 var token = jwt.sign({userID: req.body.username}, 'todo-app-super-shared-secret', {expiresIn: '2h'});
                 res.send({token});
-                console.log(token);
             }else{
                 return res.sendStatus(401);
             }
@@ -96,12 +90,14 @@ app.get('/user/:username' , (req, res, next) => {
 })
 
 app.put('/user/update/pass', bodyParser.json(), (req, res, next) => {
-    con.query(`UPDATE usuario SET usuario.password = SHA('${req.body.password}') WHERE usuario.usuario='${req.body.user}'`, (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.send('History adicionado con exito');
-        }
+    con.query(`DELETE forgetpass FROM forgetpass WHERE forgetpass.usuario = '${req.body.user}';`, (err, resultados) => {
+        con.query(`UPDATE usuario SET usuario.password = SHA('${req.body.password}') WHERE usuario.usuario='${req.body.user}'`, (err, resultados) => {
+            if(err) {
+                return res.send(err)
+            } else {
+                return res.send('History adicionado con exito');
+            }
+        })
     })
 })
 
@@ -676,20 +672,6 @@ app.put('/act_OT/tiempo/update/:id', bodyParser.json(), (req, res, next) => {
         }
     })
 });
-
-
-/*app.get('/last-orden-trabajo', (req, res) => {
-  con.query('SELECT MAX(idOT) as last FROM orden_trabajo;', (err, resultados) => {
-        if(err) {
-            return res.send(err)
-        } else {
-            return res.json({
-                data: resultados
-            })
-        }
-    })
-})*/
-
 
 /*
 ESPECIALES
