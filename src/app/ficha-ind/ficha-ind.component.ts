@@ -40,7 +40,7 @@ export class FichaIndComponent implements OnInit {
   	}
 
   	getData(){
-  		this.http.get('http://localhost:4000/orden-trabajo/join/cliente/select/'+this.idOT).subscribe(
+  		this.http.get('http://152.74.17.95:4000/orden-trabajo/join/cliente/select/'+this.idOT).subscribe(
   			(resp) => {
   				this.dataOT$ = resp as []
   				for(let ot of this.dataOT$.data){
@@ -48,7 +48,7 @@ export class FichaIndComponent implements OnInit {
   				}
   			}
   		);
-  		this.http.get('http://localhost:4000/act_OT/select/orden-trabajo/'+this.idOT).subscribe(
+  		this.http.get('http://152.74.17.95:4000/act_OT/select/orden-trabajo/'+this.idOT).subscribe(
       		(resp) => {
         		this.ActividadeOT$ = resp as []
         		for(let ot of this.ActividadeOT$.data){
@@ -62,7 +62,7 @@ export class FichaIndComponent implements OnInit {
   		this.dato= {
   			'estado': 'Finalizado'
   		};
-  		this.http.put('http://localhost:4000/orden-trabajo/estado/update/'+this.idOT, this.dato, {responseType: 'text'}).subscribe(
+  		this.http.put('http://152.74.17.95:4000/orden-trabajo/estado/update/'+this.idOT, this.dato, {responseType: 'text'}).subscribe(
   			response =>  Swal.fire({
   				icon: 'success',
   				title: 'El trabajo ha sido entregado y finalizado!',
@@ -87,7 +87,7 @@ export class FichaIndComponent implements OnInit {
   		this.dato= {
   			'estado': estadoAct
   		};
-  		this.http.put('http://localhost:4000/estado-actividad/'+idRelacion, this.dato, {responseType: 'text'}).subscribe(
+  		this.http.put('http://152.74.17.95:4000/estado-actividad/'+idRelacion, this.dato, {responseType: 'text'}).subscribe(
   			(response) => {
   				console.log('response from post data is ', response);
   			},(error)=>{

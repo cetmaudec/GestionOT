@@ -29,7 +29,7 @@ export class UserforgetpassComponent implements OnInit {
 	}
 
 	async getUsers(){
-		this.user$ = await this.http.get('http://localhost:4000/users').toPromise();
+		this.user$ = await this.http.get('http://152.74.17.95:4000/users').toPromise();
 		for(let us of this.user$.data){
 			this.users.push(us.usuario);
 		}
@@ -55,7 +55,7 @@ export class UserforgetpassComponent implements OnInit {
 			this.user = {
 				'user': this.UserforgetPassForm.get('user').value
 			}
-			this.http.post('http://localhost:4000/forgetpass/insert', this.user, {responseType: 'text'}).subscribe(
+			this.http.post('http://152.74.17.95:4000/forgetpass/insert', this.user, {responseType: 'text'}).subscribe(
 				response =>  this.router.navigate(['/forgetpass/', this.UserforgetPassForm.get('user').value]),  							
 				err => Swal.fire({
   						icon: 'error',

@@ -5,9 +5,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <title>Dashboard General</title>
-  <link href="../assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <!-- Custom styles for this template-->
-  <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+
   <!-- Bootstrap core JavaScript-->
   <script src="../assets/vendor/jquery/jquery.min.js"></script>
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -25,7 +23,7 @@
             <section class="section section-container">
               <div class="box" style="align-content: center;">
                 <h2 style="margin-top:2%;">Agregar nuevo producto</h2>
-                <form [formGroup]="Productoform" (ngSubmit)="onSubmit(Productoform.value)">
+                <form [formGroup]="Productoform" (ngSubmit)="onSubmit()">
                   <div class="field">
                     <div class="row">
                       <div class="col-2">

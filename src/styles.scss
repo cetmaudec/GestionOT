@@ -2,6 +2,8 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
+@import './assets/vendor/fontawesome-free/css/all.min.css';
+@import './assets/css/sb-admin-2.min.css';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -30,3 +32,6 @@ $GestionRozto-theme: mat-light-theme($GestionRozto-primary, $GestionRozto-accent
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.page{
+  background-image: url(src/assets/img/background3.jpg);
+  }

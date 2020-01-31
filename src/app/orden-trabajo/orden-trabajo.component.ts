@@ -17,9 +17,9 @@ export class OrdenTrabajoComponent implements OnInit {
   OTform: FormGroup;
   Clienteform: FormGroup;
 
-  private estadoCliente = false
-  private esPrioritario = false
-  private dejaMoto = false
+  estadoCliente = false
+  esPrioritario = false
+  dejaMoto = false
   prioritario: any = 0;
   dejamoto: any = 0;
 
@@ -133,31 +133,31 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
   getClientes(){
-    this.http.get('http://localhost:4000/cliente').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/cliente').subscribe(resp =>
       this.cliente$ = resp as []
       );
   }
 
   getTipos(){
-    this.http.get('http://localhost:4000/tipo').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/tipo').subscribe(resp =>
       this.tipo$ = resp as []
       );
   }
 
   getMotocicletas(){
-    this.http.get('http://localhost:4000/motocicleta').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/motocicleta').subscribe(resp =>
       this.motocicleta$ = resp as []
       );
   }
 
   getActividades(){
-    this.http.get('http://localhost:4000/actividad').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/actividad').subscribe(resp =>
       this.actividade$ = resp as []
       );
   }
 
   getPrioridades(){
-    this.http.get('http://localhost:4000/prioridad').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/prioridad').subscribe(resp =>
       this.prioridade$ = resp as []
       );
   }
@@ -170,7 +170,7 @@ export class OrdenTrabajoComponent implements OnInit {
           'id': act.idActividad,
           'nombre': act.nombre_actividad
       };
-      this.http.post('http://localhost:4000/act_OT/insert', datoAct, {responseType: 'text'}).subscribe(
+      this.http.post('http://152.74.17.95:4000/act_OT/insert', datoAct, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },
@@ -213,7 +213,7 @@ export class OrdenTrabajoComponent implements OnInit {
       };
     }
 
-    this.http.post('http://localhost:4000/orden-trabajo/insert', this.dataOT, {responseType: 'text'}).subscribe(
+    this.http.post('http://152.74.17.95:4000/orden-trabajo/insert', this.dataOT, {responseType: 'text'}).subscribe(
       response =>  Swal.fire({
                 icon: 'success',
                 title: 'Nueva orden de trabajo!',
@@ -251,7 +251,7 @@ export class OrdenTrabajoComponent implements OnInit {
     }
 
 
-    this.http.post('http://localhost:4000/cliente/insert', this.clienteOT, {responseType: 'text'}).subscribe(
+    this.http.post('http://152.74.17.95:4000/cliente/insert', this.clienteOT, {responseType: 'text'}).subscribe(
       (response) => {
 
         console.log('response from post data is ', response);

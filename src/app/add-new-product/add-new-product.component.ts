@@ -31,7 +31,7 @@ export class AddNewProductComponent implements OnInit {
     }
 
     getTipos(){
-    	this.http.get('http://localhost:4000/tipo').subscribe(resp => this.tipo$ = resp as []);
+    	this.http.get('http://152.74.17.95:4000/tipo').subscribe(resp => this.tipo$ = resp as []);
     }
 
   	CleanDatos(){
@@ -45,7 +45,7 @@ export class AddNewProductComponent implements OnInit {
    		this.datos = {
    			'nombre_tipo': this.Productoform.get('nombre_tipo').value
    		};
-   		this.http.post('http://localhost:4000/tipo/insert', this.datos, {responseType: 'text'}).subscribe(
+   		this.http.post('http://152.74.17.95:4000/tipo/insert', this.datos, {responseType: 'text'}).subscribe(
    			response =>  Swal.fire({
                 icon: 'success',
                 title: 'Nuevo producto agregado existosamente!',

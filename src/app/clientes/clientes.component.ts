@@ -13,6 +13,7 @@ import { Router, RouterModule } from '@angular/router';
 export class ClientesComponent implements OnInit {
 
 	cliente$: any = [];
+	p: number = 1;
 
 	constructor(private http: HttpClient, private router: Router) { }
 
@@ -21,7 +22,7 @@ export class ClientesComponent implements OnInit {
 	}
 
 	getClientes(){
-		this.http.get('http://localhost:4000/cliente').subscribe(resp => 
+		this.http.get('http://152.74.17.95:4000/cliente').subscribe(resp => 
 			this.cliente$ = resp as []
 			);
 	}

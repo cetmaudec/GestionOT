@@ -92,7 +92,7 @@ export class ActividadDetalleComponent implements OnInit {
   	}
 
   	getData(){
-	    this.http.get('http://localhost:4000/act_OT/select/'+this.idAct).subscribe(
+	    this.http.get('http://152.74.17.95:4000/act_OT/select/'+this.idAct).subscribe(
 	      resp => this.actividad$ = resp as []
 	    );
 	}
@@ -119,7 +119,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Material = {
 				'material': this.MaterialEditform.get('nuevoMaterial').value
 			};
-			this.http.put('http://localhost:4000/act_OT/material/insert/'+this.idAct, this.dato_Material,  {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/material/insert/'+this.idAct, this.dato_Material,  {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado el ítem materiales</h3>',
   							confirmButtonText: 'Ok!'
@@ -149,7 +149,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Tiempo = {
 				'tiempo': this.TiempoEditform.get('nuevoTiempo').value
 			};
-			this.http.put('http://localhost:4000/act_OT/tiempo/update/'+this.idAct, this.dato_Tiempo, {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/tiempo/update/'+this.idAct, this.dato_Tiempo, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado tiempo estimado de ejecución</h3>',
   							confirmButtonText: 'Ok!'
@@ -179,7 +179,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_Costo = {
 				'costo': this.CostoEditform.get('nuevoCosto').value
 			};
-			this.http.put('http://localhost:4000/act_OT/costo/insert/'+this.idAct, this.dato_Costo,  {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/costo/insert/'+this.idAct, this.dato_Costo,  {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado el costo de ejecución</h3>',
   							confirmButtonText: 'Ok!'
@@ -209,7 +209,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaI = {
 				'inicio': this.FechaInicioEditform.get('nuevoInicio').value
 			};
-			this.http.put('http://localhost:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado el inicio de la actividad</h3>',
   							confirmButtonText: 'Ok!'
@@ -240,7 +240,7 @@ export class ActividadDetalleComponent implements OnInit {
 			this.dato_FechaF = {
 				'fin': this.FechaFinEditform.get('nuevoFin').value
 			};
-			this.http.put('http://localhost:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado el fin de la actividad</h3>',
   							confirmButtonText: 'Ok!'
@@ -288,7 +288,7 @@ export class ActividadDetalleComponent implements OnInit {
 				'inicio': this.date,
 			};
 			this.EstadoActividad('Iniciada');
-			this.http.put('http://localhost:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/inicio/update/'+this.idAct, this.dato_FechaI,  {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha dado inicio a la actividad</h3>',
   							confirmButtonText: 'Ok!'
@@ -312,7 +312,7 @@ export class ActividadDetalleComponent implements OnInit {
 				'fin': this.date,
 			};
 			this.EstadoActividad('Finalizada');
-			this.http.put('http://localhost:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
+			this.http.put('http://152.74.17.95:4000/act_OT/fin/update/'+this.idAct, this.dato_FechaF, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha dado por finalizada la actividad</h3>',
   							confirmButtonText: 'Ok!'
@@ -338,7 +338,7 @@ export class ActividadDetalleComponent implements OnInit {
      this.dato= {
         'estado': estadoAct
       };
-      this.http.put('http://localhost:4000/act_OT/estado/update/'+this.idAct, this.dato, {responseType: 'text'}).subscribe(
+      this.http.put('http://152.74.17.95:4000/act_OT/estado/update/'+this.idAct, this.dato, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },(error)=>{

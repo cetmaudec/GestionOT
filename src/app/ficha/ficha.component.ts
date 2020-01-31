@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 export class FichaComponent implements OnInit {
 
   ordenTrabajo$: any = [];
+  p: number = 1;
 
   constructor(private router: Router, private http:HttpClient) { }
 
@@ -19,7 +20,7 @@ export class FichaComponent implements OnInit {
   }
 
   getClientes(){
-    this.http.get('http://localhost:4000/orden-trabajo/join/cliente/orderby/desc').subscribe(resp =>
+    this.http.get('http://152.74.17.95:4000/orden-trabajo/join/cliente/orderby/desc').subscribe(resp =>
       this.ordenTrabajo$ = resp as []
       );
   }

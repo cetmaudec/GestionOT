@@ -74,37 +74,37 @@ export class ChartsComponent implements OnInit {
 
 
   async getDataChart1(){
-    this.TipoChart1Group$ = await this.http.get('http://localhost:4000/pivot-tipo-mes').toPromise();
+    this.TipoChart1Group$ = await this.http.get('http://152.74.17.95:4000/pivot-tipo-mes').toPromise();
     return this.TipoChart1Group$;
   }
 
   async getDataChart2(){
-    this.DespachoChart2Group$ = await this.http.get('http://localhost:4000/orden-trabajo/dejaMoto/count').toPromise();
+    this.DespachoChart2Group$ = await this.http.get('http://152.74.17.95:4000/orden-trabajo/dejaMoto/count').toPromise();
     return this.DespachoChart2Group$;
   }
 
   async getMotoToPie(){
-    this.motoGroup$ = await this.http.get('http://localhost:4000/motocicleta/groupby').toPromise();
+    this.motoGroup$ = await this.http.get('http://152.74.17.95:4000/motocicleta/groupby').toPromise();
     return this.motoGroup$;
   }
 
   async getTipoToPie(){
-      this.tipoGroup$ = await this.http.get('http://localhost:4000/tipo/groupby').toPromise();
+      this.tipoGroup$ = await this.http.get('http://152.74.17.95:4000/tipo/groupby').toPromise();
     return  this.tipoGroup$;
   }
 
   async getCostoToFlow(){
-      this.costoProducto$ = await this.http.get('http://localhost:4000/avg-costo').toPromise();
+      this.costoProducto$ = await this.http.get('http://152.74.17.95:4000/avg-costo').toPromise();
     return  this.costoProducto$;
   }
 
   async getComunaToPie(){
-    this.comunaGroup$ = await this.http.get('http://localhost:4000/cliente/comuna/groupby').toPromise();
+    this.comunaGroup$ = await this.http.get('http://152.74.17.95:4000/cliente/comuna/groupby').toPromise();
     return  this.comunaGroup$;
   }
 
   async getDataChart3(){
-    this.MaxDemanda$ = await this.http.get('http://localhost:4000/max-demanda').toPromise();
+    this.MaxDemanda$ = await this.http.get('http://152.74.17.95:4000/max-demanda').toPromise();
     if(this.MaxDemanda$.data[0].mes == 1){
       this.MesMaxDemanda = 'Enero'
     }else if(this.MaxDemanda$.data[0].mes == 2){
@@ -134,7 +134,7 @@ export class ChartsComponent implements OnInit {
   }
 
   async getDataChartPrioridad(){
-    this.PrioridadChart4Group$ = await this.http.get('http://localhost:4000/prioridad/count').toPromise();
+    this.PrioridadChart4Group$ = await this.http.get('http://152.74.17.95:4000/prioridad/count').toPromise();
     return this.PrioridadChart4Group$;
   }
 
