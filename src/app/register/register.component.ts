@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
 				'question2': this.registerForm.get('question2').value,
 				'question3': this.registerForm.get('question3').value				
 			};
-			this.http.post('http://152.74.17.95:4000/user/add', this.newUser, {responseType: 'text'}).subscribe(
+			this.http.post('http://177.71.231.113:4000/user/add', this.newUser, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							icon: 'success',
   							title: 'Usuario Registrado existosamente!',

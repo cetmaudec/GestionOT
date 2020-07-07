@@ -4,7 +4,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-import Swal from'sweetalert2'
+import Swal from'sweetalert2';
 
 
 @Component({
@@ -21,6 +21,7 @@ export class OrdenTrabajoComponent implements OnInit {
   esPrioritario = false
   dejaMoto = false
   prioritario: any = 0;
+  motivo_prioridad: any;
   dejamoto: any = 0;
 
   cliente$: any = [];
@@ -68,7 +69,7 @@ export class OrdenTrabajoComponent implements OnInit {
       Motocicleta:['', Validators.required],
       Anio:['', Validators.required],
       Tipo:['',Validators.required],
-      Prioridad:['',],
+      Prioridad:["Sin Prioridad",],
       FechaLlegada:['',Validators.required],
       FechaEntrega:['',Validators.required]
     });
@@ -88,9 +89,9 @@ export class OrdenTrabajoComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.CleanDatos();
-    this.getClientes();
+    this.cliente$ = await this.getClientes();
     this.getTipos();
     this.getMotocicletas();
     this.getPrioridades();
@@ -109,7 +110,6 @@ export class OrdenTrabajoComponent implements OnInit {
       this.esPrioritario=false;
       this.prioritario = 0;
     }
-    console.log(this.esPrioritario);
   }
 
   DejaMoto(){
@@ -132,32 +132,31 @@ export class OrdenTrabajoComponent implements OnInit {
     this.dejamoto = 0;
   }
 
-  getClientes(){
-    this.http.get('http://152.74.17.95:4000/cliente').subscribe(resp =>
-      this.cliente$ = resp as []
-      );
+  async getClientes(){
+    this.cliente$ = await this.http.get('http://177.71.231.113:4000/cliente').toPromise();
+    return this.cliente$;
   }
 
   getTipos(){
-    this.http.get('http://152.74.17.95:4000/tipo').subscribe(resp =>
+    this.http.get('http://177.71.231.113:4000/tipo').subscribe(resp =>
       this.tipo$ = resp as []
       );
   }
 
   getMotocicletas(){
-    this.http.get('http://152.74.17.95:4000/motocicleta').subscribe(resp =>
+    this.http.get('http://177.71.231.113:4000/motocicleta').subscribe(resp =>
       this.motocicleta$ = resp as []
       );
   }
 
   getActividades(){
-    this.http.get('http://152.74.17.95:4000/actividad').subscribe(resp =>
+    this.http.get('http://177.71.231.113:4000/actividad').subscribe(resp =>
       this.actividade$ = resp as []
       );
   }
 
   getPrioridades(){
-    this.http.get('http://152.74.17.95:4000/prioridad').subscribe(resp =>
+    this.http.get('http://177.71.231.113:4000/prioridad').subscribe(resp =>
       this.prioridade$ = resp as []
       );
   }
@@ -170,7 +169,7 @@ export class OrdenTrabajoComponent implements OnInit {
           'id': act.idActividad,
           'nombre': act.nombre_actividad
       };
-      this.http.post('http://152.74.17.95:4000/act_OT/insert', datoAct, {responseType: 'text'}).subscribe(
+      this.http.post('http://177.71.231.113:4000/act_OT/insert', datoAct, {responseType: 'text'}).subscribe(
         (response) => {
           console.log('response from post data is ', response);
         },
@@ -182,10 +181,16 @@ export class OrdenTrabajoComponent implements OnInit {
   }
 
 
-  SubmitOTCliente(){
+  async SubmitOTCliente(){
+    if(this.esPrioritario==false){
+      this.motivo_prioridad = 'Sin prioridad declarada';
+    }else{
+      this.motivo_prioridad = this.OTform.get('Prioridad').value;
+    }
+
     if(this.estadoCliente == true){
       this.dataOT = {
-        'nombreCliente':this.cliente$.data[0].idCliente+1,
+        'nombreCliente':this.cliente$.data[0].idCliente,
         'idMotocicleta':this.motocicleta$.data[this.OTform.get('Motocicleta').value].idMoto,
         'marca': this.motocicleta$.data[this.OTform.get('Motocicleta').value].marca,
         'modelo': this.motocicleta$.data[this.OTform.get('Motocicleta').value].modelo,
@@ -193,7 +198,7 @@ export class OrdenTrabajoComponent implements OnInit {
         'fechaLlegada':this.OTform.get('FechaLlegada').value,
         'fechaEntrega':this.OTform.get('FechaEntrega').value,
         'esPrioridad': this.prioritario,
-        'prioridad':this.OTform.get('Prioridad').value,
+        'prioridad':this.motivo_prioridad,
         'dejaMoto': this.dejamoto,
         'estado': 'No iniciado'
       };
@@ -207,14 +212,14 @@ export class OrdenTrabajoComponent implements OnInit {
         'fechaLlegada':this.OTform.get('FechaLlegada').value,
         'fechaEntrega':this.OTform.get('FechaEntrega').value,
         'esPrioridad': this.prioritario,
-        'prioridad':this.OTform.get('Prioridad').value,
+        'prioridad':this.motivo_prioridad,
         'dejaMoto': this.dejamoto,
         'estado': 'No iniciado'
       };
     }
 
-    this.http.post('http://152.74.17.95:4000/orden-trabajo/insert', this.dataOT, {responseType: 'text'}).subscribe(
-      response =>  Swal.fire({
+    this.http.post('http://177.71.231.113:4000/orden-trabajo/insert', this.dataOT, {responseType: 'text'}).subscribe(
+       response =>  Swal.fire({
                 icon: 'success',
                 title: 'Nueva orden de trabajo!',
                 text: 'La OT ha sido creada exitosamente.',
@@ -230,11 +235,10 @@ export class OrdenTrabajoComponent implements OnInit {
               title: 'Oops!',
               text: 'Ha ocurrido un error, vuelva a intentarlo'
           })
-    );
-    this.CleanDatos();      
+    ); 
   }
 
-  SubmitCliente(){
+  async SubmitCliente(){
     this.clienteOT = {
       'nombre':this.Clienteform.get('nombre').value,
       'apellidoPat':this.Clienteform.get('apellidoPat').value,
@@ -251,15 +255,15 @@ export class OrdenTrabajoComponent implements OnInit {
     }
 
 
-    this.http.post('http://152.74.17.95:4000/cliente/insert', this.clienteOT, {responseType: 'text'}).subscribe(
+    this.http.post('http://177.71.231.113:4000/cliente/insert', this.clienteOT, {responseType: 'text'}).subscribe(
       (response) => {
-
-        console.log('response from post data is ', response);
+           console.log('response during post is ', response);
       },
       (error)=>{
         console.log('error during post is ', error);
       }
     );
+    this.cliente$ = await this.getClientes();
     this.SubmitOTCliente();
   }
 }

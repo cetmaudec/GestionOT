@@ -42,7 +42,7 @@ export class ChangepassComponent implements OnInit {
 				'confirm': this.changePassForm.get('confirm').value				
 			};
 
-			this.http.put('http://152.74.17.95:4000/user/update/pass', this.updateUser, {responseType: 'text'}).subscribe(
+			this.http.put('http://177.71.231.113:4000/user/update/pass', this.updateUser, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							icon: 'success',
   							title: 'Clave ha sido cambiada existosamente!',

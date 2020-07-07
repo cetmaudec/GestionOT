@@ -29,11 +29,9 @@ export class LoginComponent implements OnInit {
 		}
 
   	 ngOnInit() {
-      console.log("Login Enter");
   	}
 
     async	loginUser(){
-      console.log(this.loginForm.value.password);
       this.auth.login(this.loginForm.value.username, this.loginForm.value.password)
         .pipe(first())
         .subscribe( 

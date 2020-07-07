@@ -53,13 +53,13 @@ export class AddMotocicletaComponent implements OnInit {
   }
 
   getModelosMarca(){
-    this.http.get('http://152.74.17.95:4000/motocicleta').subscribe(resp => 
+    this.http.get('http://177.71.231.113:4000/motocicleta').subscribe(resp => 
       this.moto$ = resp as []
       );
   }
 
   getMarcas(){
-    this.http.get('http://152.74.17.95:4000/marca').subscribe(resp =>
+    this.http.get('http://177.71.231.113:4000/marca').subscribe(resp =>
       this.marca$ = resp as []
       );
   }
@@ -81,7 +81,7 @@ export class AddMotocicletaComponent implements OnInit {
     this.datos_marca = {
         'nombre_marca': marca
       };
-    this.bool = await this.http.post('http://152.74.17.95:4000/marca/insert', this.datos_marca, {responseType: 'text'}).toPromise();
+    this.bool = await this.http.post('http://177.71.231.113:4000/marca/insert', this.datos_marca, {responseType: 'text'}).toPromise();
     return true;
   }
 
@@ -101,7 +101,7 @@ export class AddMotocicletaComponent implements OnInit {
       };
     }
 
-    this.http.post('http://152.74.17.95:4000/motocicleta/insert', this.datos_modeloMarca, {responseType: 'text'}).subscribe(
+    this.http.post('http://177.71.231.113:4000/motocicleta/insert', this.datos_modeloMarca, {responseType: 'text'}).subscribe(
       response =>  Swal.fire({
                 icon: 'success',
                 title: 'Nuevo modelo ha sido agregado existosamente!',

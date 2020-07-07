@@ -52,7 +52,7 @@ export class ForgetpassComponent implements OnInit {
 
 
 	async getUsers(){
-		this.user$ = await this.http.get('http://152.74.17.95:4000/users').toPromise();
+		this.user$ = await this.http.get('http://177.71.231.113:4000/users').toPromise();
 		for(let us of this.user$.data){
 			this.users.push(us.usuario);
 		}
@@ -60,7 +60,7 @@ export class ForgetpassComponent implements OnInit {
 	}
 
 	async getTry(){
-		this.forgetpas$ = await this.http.get('http://152.74.17.95:4000/forgetpass/'+this.user).toPromise();
+		this.forgetpas$ = await this.http.get('http://177.71.231.113:4000/forgetpass/'+this.user).toPromise();
 		for(let us of this.forgetpas$.data){
 			if(us.fecha_cambio == this.anio+"-"+this.mes+"-"+this.dia){
 				return us.intentos;
@@ -89,13 +89,10 @@ export class ForgetpassComponent implements OnInit {
 	async forgetPassQuestion(){
 		var correctAnswer = await this.AnswerQuestion(this.questionPassForm.get('question1').value,this.questionPassForm.get('question2').value,this.questionPassForm.get('question3').value);
 		var intentos= await this.getTry();
-		console.log(correctAnswer);
-		console.log(intentos);
-		console.log("enter 1");
 			this.userUpdate = {
 				'user': this.user
 			}
-			this.http.put('http://152.74.17.95:4000/forgetpass/update', this.userUpdate, {responseType: 'text'}).subscribe(							
+			this.http.put('http://177.71.231.113:4000/forgetpass/update', this.userUpdate, {responseType: 'text'}).subscribe(							
 				(response) => {
 					console.log('response from post data is ', response);
 				},
@@ -111,7 +108,7 @@ export class ForgetpassComponent implements OnInit {
 			this.userUpdate = {
 				'user': this.user
 			}
-			this.http.put('http://152.74.17.95:4000/user/delete', this.userUpdate, {responseType: 'text'}).subscribe(							
+			this.http.put('http://177.71.231.113:4000/user/delete', this.userUpdate, {responseType: 'text'}).subscribe(							
 				response => Swal.fire({
   				icon: 'warning',
   				title: 'Ha superado los intentos por recuperar su contraseña!',

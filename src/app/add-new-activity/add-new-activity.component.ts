@@ -31,7 +31,7 @@ export class AddNewActivityComponent implements OnInit {
     }
 
     getActividades(){
-    	this.http.get('http://152.74.17.95:4000/actividad').subscribe(resp =>
+    	this.http.get('http://177.71.231.113:4000/actividad').subscribe(resp =>
     		this.actividade$ = resp as []
     		);
     }
@@ -47,7 +47,7 @@ export class AddNewActivityComponent implements OnInit {
     		this.datos = {
    			'nombre_actividad': this.Activityform.get('nombre_actividad').value
    		};
-   		this.http.post('http://152.74.17.95:4000/actividad/insert', this.datos, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
+   		this.http.post('http://177.71.231.113:4000/actividad/insert', this.datos, { headers: new HttpHeaders({ 'Content-Type': 'application/json'})}).subscribe(
    			response =>  Swal.fire({
                 icon: 'success',
                 title: 'Nueva actividad agregada existosamente!',

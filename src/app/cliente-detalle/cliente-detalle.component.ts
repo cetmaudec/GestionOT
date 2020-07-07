@@ -78,14 +78,13 @@ export class ClienteDetalleComponent implements OnInit {
 		this.updateTelefono = false;
 		this.updateCelular = false;
 		this.updateDireccion = false;
-   		console.log(this.cliente$)
 	}
 
 	async getData(){
-    	this.http.get('http://152.74.17.95:4000/cliente/'+this.id).subscribe(
+    	this.http.get('http://177.71.231.113:4000/cliente/'+this.id).subscribe(
       		resp => this.cliente$ = resp as []
     	);
-    	this.http.get('http://152.74.17.95:4000/orden-trabajo/select/'+this.id).subscribe(
+    	this.http.get('http://177.71.231.113:4000/orden-trabajo/select/'+this.id).subscribe(
       		resp => this.otRelacionadas$ = resp as []
     	);
     	return true;
@@ -94,18 +93,12 @@ export class ClienteDetalleComponent implements OnInit {
 	UpdateData(tipo:string){
 		if(tipo=="email"){
 			this.updateEmail = true;
-			console.log("email");
 		}else if(tipo=="telefono"){
 			this.updateTelefono = true;
-			console.log("telefono");
 		}else if(tipo=="celular"){
 			this.updateCelular = true;
-			console.log("celular");
 		}else if(tipo=="direccion"){
 			this.updateDireccion = true;
-			console.log("direccion");
-		}else{
-			console.log("nada");
 		}
 	}
 
@@ -119,8 +112,8 @@ export class ClienteDetalleComponent implements OnInit {
 				'email': this.cliente$[0].data.email
 			};
 		}
-		console.log(this.dato_email);
-		this.http.put('http://152.74.17.95:4000/cliente/email/update/'+this.id, this.dato_email, {responseType: 'text'}).subscribe(
+
+		this.http.put('http://177.71.231.113:4000/cliente/email/update/'+this.id, this.dato_email, {responseType: 'text'}).subscribe(
 			response =>  Swal.fire({
   						html: '<h3>Se ha actualizado el email exitosamente</h3>',
   						confirmButtonText: 'Ok!'
@@ -151,7 +144,7 @@ export class ClienteDetalleComponent implements OnInit {
 				'telefono': this.cliente$[0].data.telefono
 			};
 		}
-		this.http.put('http://152.74.17.95:4000/cliente/telefono/update/'+this.id, this.dato_telefono, {responseType: 'text'}).subscribe(
+		this.http.put('http://177.71.231.113:4000/cliente/telefono/update/'+this.id, this.dato_telefono, {responseType: 'text'}).subscribe(
 			response =>  Swal.fire({
   						html: '<h3>Se ha actualizado el número telefónico exitosamente</h3>',
   						confirmButtonText: 'Ok!'
@@ -181,7 +174,7 @@ export class ClienteDetalleComponent implements OnInit {
 				'celular': this.cliente$[0].data.celular
 			};
 		}
-		this.http.put('http://152.74.17.95:4000/cliente/email/update/'+this.id, this.dato_celular, {responseType: 'text'}).subscribe(
+		this.http.put('http://177.71.231.113:4000/cliente/email/update/'+this.id, this.dato_celular, {responseType: 'text'}).subscribe(
 			response =>  Swal.fire({
   						html: '<h3>Se ha actualizado el número celular exitosamente</h3>',
   						confirmButtonText: 'Ok!'
@@ -212,7 +205,7 @@ export class ClienteDetalleComponent implements OnInit {
 				'pais': this.DireccionEditform.get('Dir_pais').value
 			};
 
-			this.http.put('http://152.74.17.95:4000/cliente/direccion/update/'+this.id, this.dato_direccion, {responseType: 'text'}).subscribe(
+			this.http.put('http://177.71.231.113:4000/cliente/direccion/update/'+this.id, this.dato_direccion, {responseType: 'text'}).subscribe(
 				response =>  Swal.fire({
   							html: '<h3>Se ha actualizado la dirección exitosamente</h3>',
   							confirmButtonText: 'Ok!'
@@ -234,7 +227,7 @@ export class ClienteDetalleComponent implements OnInit {
 	}
 
   gotoDetailsOT(idOT: any) {
-    console.log(idOT);
+
     this.router.navigate(['/ficha-ind/', idOT]);
   }
 

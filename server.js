@@ -7,9 +7,9 @@ const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken');
 
 const con = mysql.createConnection({
-  host: "152.74.17.95",
+  host: "18.231.15.135",
   user: "root",
-  password: "2025cetma..",
+  password: "cetma2019",
   database: "rozto_gestion"
 });
 

@@ -79,7 +79,8 @@
             <div class="card-header py-3">
               <h6 class="m-0 font-weight-bold text-primary">Ordenes de trabajo:</h6>
             </div>
-            <div class="card-body" *ngFor="let ot of ordenTrabajoAct$.data; let i=index">
+            <div *ngFor="let ot of ordenTrabajoAct$.data; let i=index">
+            <div class="card-body"*ngIf="otPorc[i].porcentaje!=100" >
               <h4 class="small font-weight-bold">OT{{ot.ordenTrabajo}}: {{ot.nombre}} {{ot.apellido_p}} {{ot.apellido_m}}
                 <span class="float-right">{{otPorc[i].porcentaje}}%</span>
               </h4>
@@ -106,6 +107,7 @@
                 <div class="progress-bar" *ngIf="otPorc[i].porcentaje >95" role="progressbar" style="width:5%; background-color:#5ab75c;" aria-valuenow="20" aria-valuemin="0"  aria-valuemax="100"></div>
                 <div class="progress-bar" *ngIf="otPorc[i].porcentaje >98" role="progressbar" style="width:4%; background-color:#5ab75c;" aria-valuenow="20" aria-valuemin="0"  aria-valuemax="100"></div>
               </div>
+            </div>
             </div>
           </div>
         </div>
